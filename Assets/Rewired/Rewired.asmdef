@@ -1,0 +1,16 @@
+{
+    "name": "Rewired",
+    "rootNamespace": "",
+    "references": [
+        "Rewired_Windows_Functions"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
