@@ -1,5 +1,10 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
+
+#if UNITY_EDITOR
+using Sirenix.Utilities.Editor;
+#endif
 
 namespace ShootBalls.Movement
 {
@@ -38,6 +43,17 @@ namespace ShootBalls.Movement
 		{
 			public float Acceleration;
 			public float MaxSpeed;
+
+#if UNITY_EDITOR
+			[OnInspectorGUI]
+			private void DrawReachMaxSpeedDuration()
+			{
+				float duration = MaxSpeed / Acceleration;
+				int frames = Mathf.CeilToInt( duration / Time.fixedDeltaTime );
+				SirenixEditorGUI.IconMessageBox( $"{duration} seconds to reach max speed.\n" +
+					$"{frames} frames to reach max speed.", SdfIconType.Bicycle );
+			}
+#endif
 		}
 	}
 }
