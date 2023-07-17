@@ -1,6 +1,6 @@
 {
     "name": "Sandbox",
-    "rootNamespace": "Sandbox",
+    "rootNamespace": "ShootBalls",
     "references": [
         "Cinemachine",
         "Rewired",
