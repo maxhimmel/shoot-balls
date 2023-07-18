@@ -7,12 +7,25 @@ namespace ShootBalls.Installers
 	{
 		public override void InstallBindings()
 		{
+			SignalBusInstaller.Install( Container );
+
+			/* --- */
+
 			Container.Bind<InputResolver>()
 				.AsSingle();
 
 			Container.Bind<Rewired.Player>()
 				.FromResolveGetter<InputResolver>( resolver => resolver.GetInput( 0 ) )
 				.AsSingle();
+
+			/* --- */
+
+			Container.Bind<OnCollisionEnter2DBroadcaster>()
+				.FromNewComponentOnRoot()
+				.AsTransient();
+
+			/* --- */
+
 		}
 	}
 }
