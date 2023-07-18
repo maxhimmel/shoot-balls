@@ -6,7 +6,7 @@ using Zenject;
 using Sirenix.Utilities.Editor;
 #endif
 
-namespace ShootBalls.Movement
+namespace ShootBalls.Gameplay.Movement
 {
 	public class CharacterMotor : IFixedTickable
 	{
@@ -45,13 +45,40 @@ namespace ShootBalls.Movement
 			public float MaxSpeed;
 
 #if UNITY_EDITOR
+			[BoxGroup( "Info", ShowLabel = false )]
+
+			[PropertyOrder( 99 )]
+			[HorizontalGroup( "Info/Group", Width = 30 )]
+			[EnumToggleButtons, HideLabel]
+			[SerializeField] private Metric _metric;
+
+			[HorizontalGroup( "Info/Group" )]
 			[OnInspectorGUI]
 			private void DrawReachMaxSpeedDuration()
 			{
-				float duration = MaxSpeed / Acceleration;
-				int frames = Mathf.CeilToInt( duration / Time.fixedDeltaTime );
-				SirenixEditorGUI.IconMessageBox( $"{duration} seconds to reach max speed.\n" +
-					$"{frames} frames to reach max speed.", SdfIconType.Bicycle );
+				float duration = _metric == Metric.Frames
+					? GetFrames()
+					: GetSeconds();
+
+				SirenixEditorGUI.IconMessageBox( $"{duration} {_metric.ToString().ToLower()} to reach max speed.", SdfIconType.Bicycle );
+			}
+
+			private float GetFrames()
+			{
+				return Mathf.CeilToInt( GetSeconds() / Time.fixedDeltaTime );
+			}
+
+			private float GetSeconds()
+			{
+				return MaxSpeed / Acceleration;
+			}
+
+			private enum Metric
+			{
+				[LabelText( "s" )]
+				Seconds,
+				[LabelText( "f" )]
+				Frames
 			}
 #endif
 		}
