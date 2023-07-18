@@ -1,3 +1,4 @@
+using ShootBalls.Gameplay.Fx;
 using ShootBalls.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace ShootBalls.Gameplay.Weapons
 		public AmmoData AmmoData => _ammoHandler != null ? _ammoHandler.AmmoData : AmmoData.Full;
 
 		private readonly Settings _settings;
+		private readonly SignalBus _signalBus;
 		private readonly Projectile.Factory _factory;
 		private readonly ShotSpot _shotSpot;
 		private readonly IFireSpread _fireSpread;
@@ -30,6 +32,7 @@ namespace ShootBalls.Gameplay.Weapons
 		private bool _isEmptied;
 
 		public Gun( Settings settings,
+			SignalBus signalBus,
 			//DamageTrigger.Settings damage,
 			Projectile.Factory factory,
 			ShotSpot shotSpot,
@@ -44,6 +47,7 @@ namespace ShootBalls.Gameplay.Weapons
 			[InjectOptional] IGunTickable[] tickables )
 		{
 			_settings = settings;
+			_signalBus = signalBus;
 			_factory = factory;
 			_shotSpot = shotSpot;
 			_fireSpread = fireSpread;
@@ -137,11 +141,11 @@ namespace ShootBalls.Gameplay.Weapons
 				avgShotDirection += processedShotSpot.Rotation * Vector2.up;
 			}
 
-			//_signalBus.FireId( "Attacked", new FxSignal( 
-			//	position:	avgShotOrigin / spreadCount, 
-			//	direction:	avgShotDirection / spreadCount,
-			//	_shotSpot.Transform
-			//) );
+			_signalBus.FireId( "Attacked", new FxSignal() {
+				Position = avgShotOrigin / spreadCount,
+				Direction = avgShotDirection / spreadCount,
+				Parent = _shotSpot.Transform
+			} );
 		}
 
 		private IOrientation PreProcessShotSpot( IOrientation shotSpot )
