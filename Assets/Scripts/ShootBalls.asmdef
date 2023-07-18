@@ -5,7 +5,8 @@
         "Cinemachine",
         "Rewired",
         "Unity.TextMeshPro",
-        "Zenject"
+        "Zenject",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
