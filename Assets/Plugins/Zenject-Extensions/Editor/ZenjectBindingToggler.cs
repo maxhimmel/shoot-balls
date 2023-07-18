@@ -6,7 +6,11 @@ namespace ZenjectExtensions.Editor
 {
 	public static class ZenjectBindingToggler
 	{
-		private const string _menuPath = "Tools/Zenject/Toggle Zenject Bindings";
+#if ZENJECT_SKIP_SCENEBINDINGS
+		private const string _menuPath = "Tools/Zenject/Toggle Zenject Bindings (disabled)";
+#else
+		private const string _menuPath = "Tools/Zenject/Toggle Zenject Bindings (enabled)";
+#endif
 		private const string _zenjectBindingDisableSymbol = "ZENJECT_SKIP_SCENEBINDINGS";
 
 		[MenuItem( _menuPath, priority = -999 )]

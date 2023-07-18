@@ -1,5 +1,6 @@
 using ShootBalls.Gameplay;
 using ShootBalls.Gameplay.Weapons;
+using ShootBalls.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -41,7 +42,8 @@ namespace ShootBalls.Installers
 
 					subContainer.BindFactory<Projectile.Settings, Projectile, Projectile.Factory>()
 						.FromSubContainerResolve()
-						.ByNewPrefabInstaller<ProjectileInstaller>( _gun.ProjectilePrefab );
+						.ByNewPrefabInstaller<ProjectileInstaller>( _gun.ProjectilePrefab )
+						.UnderTransform( context => null );
 
 					/* --- */
 

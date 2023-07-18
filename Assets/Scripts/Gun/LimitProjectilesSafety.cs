@@ -22,13 +22,13 @@ namespace ShootBalls.Gameplay.Weapons
 
 		public void Notify( Projectile firedProjectile )
 		{
-			firedProjectile.Destroyed += OnProjectileDestroyed;
+			firedProjectile.Disposed += OnProjectileDestroyed;
 			_livingProjectiles.Add( firedProjectile );
 		}
 
 		private void OnProjectileDestroyed( Projectile projectile )
 		{
-			projectile.Destroyed -= OnProjectileDestroyed;
+			projectile.Disposed -= OnProjectileDestroyed;
 			if ( !_livingProjectiles.Remove( projectile ) )
 			{
 				throw new System.DataMisalignedException();

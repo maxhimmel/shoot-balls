@@ -44,5 +44,5 @@ namespace ShootBalls.Gameplay.Player
 				_gun.StopFiring();
 			}
 		}
-    }
+	}
 }

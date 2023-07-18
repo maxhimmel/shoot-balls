@@ -8,7 +8,7 @@ namespace ShootBalls.Gameplay
 {
 	public class Projectile : IOrientation
 	{
-		public event System.Action<Projectile> Destroyed;
+		public event System.Action<Projectile> Disposed;
 
 		public Vector2 Position {
 			get => _body.position;
@@ -46,8 +46,12 @@ namespace ShootBalls.Gameplay
 		private async UniTaskVoid HandleLifetime()
 		{
 			await TaskHelpers.DelaySeconds( _settings.Lifetime, _onDestroyedCancelToken );
+			Dispose();
+		}
 
-			Destroyed?.Invoke( this );
+		private void Dispose()
+		{
+			Disposed?.Invoke( this );
 			GameObject.Destroy( _body.gameObject );
 		}
 
