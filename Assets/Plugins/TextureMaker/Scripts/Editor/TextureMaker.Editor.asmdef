@@ -1,0 +1,17 @@
+{
+    "name": "TextureMaker.Editor",
+    "references": [
+        "GUID:e2db02663bd8d5c4da3a38293f6ef047"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
