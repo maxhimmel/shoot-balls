@@ -15,6 +15,15 @@ namespace ShootBalls.Installers
 			Container.Bind<Rigidbody2D>()
 				.FromComponentOnRoot()
 				.AsSingle();
+
+			Container.Bind<SpriteRenderer>()
+				.FromMethod( GetComponentInChildren<SpriteRenderer> )
+				.AsSingle();
+
+			Container.Bind<Transform>()
+				.WithId( "Renderer" )
+				.FromResolveGetter<SpriteRenderer>( renderer => renderer.transform )
+				.AsSingle();
 		}
 	}
 }

@@ -133,8 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 49827127}
   - component: {fileID: 49827128}
-  - component: {fileID: 49827129}
-  - component: {fileID: 49827130}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -211,38 +209,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &49827129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49827126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd9290a66678f964b8c6da6e0f922725, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _components:
-  - {fileID: 49827128}
-  _identifier: 
-  _bindType: 0
---- !u!114 &49827130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49827126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd9290a66678f964b8c6da6e0f922725, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _components:
-  - {fileID: 49827127}
-  _identifier: Renderer
-  _bindType: 0
 --- !u!43 &167719359
 Mesh:
   m_ObjectHideFlags: 0
@@ -827,8 +793,6 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 611554383}
   - {fileID: 955344031}
-  - {fileID: 49827129}
-  - {fileID: 49827130}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
