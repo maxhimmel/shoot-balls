@@ -15,6 +15,8 @@ namespace ShootBalls.Gameplay.Movement
 
 		private Vector2 _desiredVelocity;
 		private Vector2 _velocity;
+		private float _desiredRotationAngle;
+		private float _rotationAngle;
 
 		public CharacterMotor( Settings settings,
 			Rigidbody2D body )
@@ -28,7 +30,18 @@ namespace ShootBalls.Gameplay.Movement
 			_desiredVelocity = direction * _settings.MaxSpeed;
 		}
 
+		public void SetDesiredRotation( Vector2 direction )
+		{
+			_desiredRotationAngle = Vector2.SignedAngle( Vector2.up, direction );
+		}
+
 		public void FixedTick()
+		{
+			HandleMovement();
+			HandleRotation();
+		}
+
+		private void HandleMovement()
 		{
 			_velocity = _body.velocity;
 
@@ -38,20 +51,36 @@ namespace ShootBalls.Gameplay.Movement
 			_body.velocity = _velocity;
 		}
 
+		private void HandleRotation()
+		{
+			_rotationAngle = _body.rotation;
+
+			float rotationDelta = Time.fixedDeltaTime * _settings.AngleAcceleration;
+			_rotationAngle = Mathf.LerpAngle( _rotationAngle, _desiredRotationAngle, rotationDelta );
+
+			_body.MoveRotation( _rotationAngle );
+		}
+
 		[System.Serializable]
 		public class Settings
 		{
+			[TitleGroup( "Movement" )]
 			public float Acceleration;
+			[TitleGroup( "Movement" )]
 			public float MaxSpeed;
+
+			[TitleGroup( "Rotation" )]
+			public float AngleAcceleration;
 
 #if UNITY_EDITOR
 			[BoxGroup( "Info", ShowLabel = false )]
 
-			[PropertyOrder( 99 )]
+			[PropertyOrder( -1 )]
 			[HorizontalGroup( "Info/Group", Width = 30 )]
 			[EnumToggleButtons, HideLabel]
 			[SerializeField] private Metric _metric;
 
+			[PropertyOrder( -2 )]
 			[HorizontalGroup( "Info/Group" )]
 			[OnInspectorGUI]
 			private void DrawReachMaxSpeedDuration()

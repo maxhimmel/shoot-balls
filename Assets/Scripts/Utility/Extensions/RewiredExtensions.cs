@@ -1,4 +1,5 @@
 ﻿using Rewired;
+using UnityEngine;
 
 namespace ShootBalls.Utility
 {
@@ -51,6 +52,12 @@ namespace ShootBalls.Utility
 			ruleSet.enabled = isEnabled;
 
 			input.controllers.maps.mapEnabler.Apply();
+		}
+
+		public static Vector2 GetClampedAxis2D( this Player input, int xAxisActionId, int yAxisActionId, float maxLength = 1 )
+		{
+			var rawInput = input.GetAxis2D( xAxisActionId, yAxisActionId );
+			return Vector2.ClampMagnitude( rawInput, maxLength );
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Weapons;
+using ShootBalls.Utility;
 using UnityEngine;
 using Zenject;
 
@@ -22,15 +23,15 @@ namespace ShootBalls.Gameplay.Player
 
 		public void Tick()
 		{
-			_motor.SetDesiredVelocity( GetMoveInput() );
+			_motor.SetDesiredVelocity( _input.GetClampedAxis2D( ReConsts.Action.Horizontal, ReConsts.Action.Vertical ) );
+
+			var aimDirection = _input.GetClampedAxis2D( ReConsts.Action.AimHorizontal, ReConsts.Action.AimVertical );
+			if ( aimDirection != Vector2.zero )
+			{
+				_motor.SetDesiredRotation( aimDirection );
+			}
 
 			HandleGunFiring();
-		}
-
-		private Vector2 GetMoveInput()
-		{
-			var rawInput = _input.GetAxis2D( ReConsts.Action.Horizontal, ReConsts.Action.Vertical );
-			return Vector2.ClampMagnitude( rawInput, 1 );
 		}
 
 		private void HandleGunFiring()
