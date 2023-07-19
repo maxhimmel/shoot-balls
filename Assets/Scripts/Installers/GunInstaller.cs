@@ -26,41 +26,49 @@ namespace ShootBalls.Installers
 
 					//subContainer.BindInstance( _damage );
 
-					subContainer.Bind<ShotSpot>()
-						.FromSubContainerResolve()
-						.ByMethod( subContainer =>
-						{
-							subContainer.Bind<ShotSpot>()
-								.AsSingle();
+					BindProjectile( subContainer );
 
-							subContainer.BindInstance( _gun.ShotSpot );
-						} )
-						.AsSingle();
-
-					/* --- */
-
-					subContainer.BindFactory<Projectile.Settings, Projectile, Projectile.Factory>()
-						.FromPoolableMemoryPool( pool => pool
-							.FromSubContainerResolve()
-							.ByNewPrefabInstaller<ProjectileInstaller>( _gun.ProjectilePrefab )
-							.WithGameObjectName( _gun.ProjectilePrefab.name )
-							.UnderTransform( context => context.Container.ResolveId<Transform>( _gun.ProjectilePoolId ) )
-						);
-
-					/* --- */
-
-					subContainer.BindInterfacesTo( _gun.FireSpread.ModuleType )
-						.AsSingle()
-						.WithArguments( _gun.FireSpread );
-
-					foreach ( var settings in _gun.Modules )
-					{
-						subContainer.BindInterfacesAndSelfTo( settings.ModuleType )
-							.AsCached()
-							.WithArguments( settings );
-					}
+					BindModules( subContainer );
 				} )
 				.AsSingle();
+		}
+
+		private void BindProjectile( DiContainer subContainer )
+		{
+			subContainer.BindFactory<Projectile.Settings, Projectile, Projectile.Factory>()
+				.FromPoolableMemoryPool( pool => pool
+					.FromSubContainerResolve()
+					.ByNewContextPrefab( _gun.ProjectilePrefab )
+					.WithGameObjectName( _gun.ProjectilePrefab.name )
+					.UnderTransform( context => context.Container.ResolveId<Transform>( _gun.ProjectilePoolId ) )
+				);
+		}
+
+		private void BindModules( DiContainer subContainer )
+		{
+			subContainer.Bind<ShotSpot>()
+				.FromSubContainerResolve()
+				.ByMethod( subContainer =>
+				{
+					subContainer.Bind<ShotSpot>()
+						.AsSingle();
+
+					subContainer.BindInstance( _gun.ShotSpot );
+				} )
+				.AsSingle();
+
+			/* --- */
+
+			subContainer.BindInterfacesTo( _gun.FireSpread.ModuleType )
+				.AsSingle()
+				.WithArguments( _gun.FireSpread );
+
+			foreach ( var settings in _gun.Modules )
+			{
+				subContainer.BindInterfacesAndSelfTo( settings.ModuleType )
+					.AsCached()
+					.WithArguments( settings );
+			}
 		}
 	}
 }
