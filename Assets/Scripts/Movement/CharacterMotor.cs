@@ -1,6 +1,5 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Zenject;
 
 #if UNITY_EDITOR
 using Sirenix.Utilities.Editor;
@@ -8,7 +7,7 @@ using Sirenix.Utilities.Editor;
 
 namespace ShootBalls.Gameplay.Movement
 {
-	public class CharacterMotor : IFixedTickable
+	public class CharacterMotor
 	{
 		private readonly Settings _settings;
 		private readonly Rigidbody2D _body;
@@ -35,10 +34,19 @@ namespace ShootBalls.Gameplay.Movement
 			_desiredRotationAngle = Vector2.SignedAngle( Vector2.up, direction );
 		}
 
+		public void ToggleRotationUpdate( bool canUpdate )
+		{
+			_settings.UpdateRotation = canUpdate;
+		}
+
 		public void FixedTick()
 		{
 			HandleMovement();
-			HandleRotation();
+
+			if ( _settings.UpdateRotation )
+			{
+				HandleRotation();
+			}
 		}
 
 		private void HandleMovement()
@@ -70,6 +78,8 @@ namespace ShootBalls.Gameplay.Movement
 			public float MaxSpeed;
 
 			[TitleGroup( "Rotation" )]
+			public bool UpdateRotation = true;
+			[TitleGroup( "Rotation" ), EnableIf( "UpdateRotation" )]
 			public float AngleAcceleration;
 
 #if UNITY_EDITOR
