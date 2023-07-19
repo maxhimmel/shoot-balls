@@ -42,7 +42,7 @@ namespace ShootBalls.Gameplay
 		private Ball _ball;
 
 		public Projectile( Rigidbody2D body,
-			CharacterMotor _motor,
+			CharacterMotor motor,
 			Collider2D collider,
 			IProjectileDamageHandler[] damageHandlers,
 			OnCollisionEnter2DBroadcaster collisionEnter,
@@ -51,7 +51,7 @@ namespace ShootBalls.Gameplay
 			SignalBus signalBus )
 		{
 			_body = body;
-			this._motor = _motor;
+			_motor = motor;
 			_collider = collider;
 			_damageHandlers = damageHandlers;
 			_signalBus = signalBus;
