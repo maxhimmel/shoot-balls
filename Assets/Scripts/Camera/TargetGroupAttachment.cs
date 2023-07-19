@@ -29,15 +29,24 @@ namespace ShootBalls.Gameplay.Cameras
 			_targetGroup.AddMember( _settings.Focus, _settings.Weight, _settings.Radius );
 		}
 
+		[HideLabel]
         [System.Serializable]
 		public class Settings
 		{
+			[FoldoutGroup( "$_label" )]
 			public Transform Focus;
 
-			[HorizontalGroup, MinValue( 0 )]
+			[HorizontalGroup( "$_label/Group" ), MinValue( 0 )]
 			public float Weight;
-			[HorizontalGroup, MinValue( 0 )]
+			[HorizontalGroup( "$_label/Group" ), MinValue( 0 )]
 			public float Radius;
+
+			private readonly string _label;
+
+			public Settings( string label )
+			{
+				_label = label;
+			}
 		}
 	}
 }

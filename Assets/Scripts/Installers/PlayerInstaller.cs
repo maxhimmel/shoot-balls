@@ -13,9 +13,9 @@ namespace ShootBalls.Installers
 		[SerializeField] private CharacterMotor.Settings _motor;
 
 		[FoldoutGroup( "Camera" )]
-		[SerializeField] private TargetGroupAttachment.Settings _playerTarget;
+		[SerializeField] private TargetGroupAttachment.Settings _playerTarget = new TargetGroupAttachment.Settings( "Player" );
 		[FoldoutGroup( "Camera" )]
-		[SerializeField] private TargetGroupAttachment.Settings _aimTarget;
+		[SerializeField] private TargetGroupAttachment.Settings _aimTarget = new TargetGroupAttachment.Settings( "Aim Offset" );
 
 		public override void InstallBindings()
 		{

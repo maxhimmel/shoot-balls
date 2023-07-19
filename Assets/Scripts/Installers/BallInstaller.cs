@@ -15,7 +15,7 @@ namespace ShootBalls.Installers
 		[FoldoutGroup( "Movement" ), HideLabel]
 		[SerializeField] private CharacterMotor.Settings _motor;
 
-		[SerializeField] private TargetGroupAttachment.Settings _cameraTarget;
+		[SerializeField] private TargetGroupAttachment.Settings _cameraTarget = new TargetGroupAttachment.Settings( "Cam Target" );
 
 		public override void InstallBindings()
 		{
