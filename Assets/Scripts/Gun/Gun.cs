@@ -25,7 +25,6 @@ namespace ShootBalls.Gameplay.Weapons
 		private readonly IFireEndProcessor[] _fireEndProcessors;
 		private readonly IPreFireProcessor[] _preFireProcessors;
 		private readonly IGunTickable[] _tickables;
-		private readonly Projectile.Settings _projectileSettings;
 
 		private Transform _owner;
 		private bool _isFiringRequested;
@@ -63,12 +62,6 @@ namespace ShootBalls.Gameplay.Weapons
 			{
 				ammoHandler.Emptied += () => _isEmptied = true;
 			}
-
-			_projectileSettings = new Projectile.Settings()
-			{
-				Lifetime = settings.ProjectileLifetime,
-				//Damage = damage
-			};
 		}
 
 		public void SetOwner( Transform owner )
@@ -123,7 +116,7 @@ namespace ShootBalls.Gameplay.Weapons
 
 		private void HandleFiring()
 		{
-			_projectileSettings.Owner = _owner;
+			_settings.ProjectileSettings.Owner = _owner;
 
 			int spreadCount = 0;
 			Vector2 avgShotOrigin = Vector2.zero;
@@ -162,7 +155,7 @@ namespace ShootBalls.Gameplay.Weapons
 		{
 			Vector2 direction = orientation.Rotation * Vector2.up;
 
-			Projectile newProjectile = _factory.Create( _projectileSettings );
+			Projectile newProjectile = _factory.Create( _settings.ProjectileSettings );
 			newProjectile.Position = orientation.Position;
 			newProjectile.Rotation = direction.ToLookRotation();
 
@@ -223,8 +216,8 @@ namespace ShootBalls.Gameplay.Weapons
 			public string ProjectilePoolId;
 			[BoxGroup( "Gameplay/Projectile", ShowLabel = false )]
 			public GameObject ProjectilePrefab;
-			[BoxGroup( "Gameplay/Projectile", ShowLabel = false )]
-			public float ProjectileLifetime;
+			[BoxGroup( "Gameplay/Projectile", ShowLabel = false ), HideLabel]
+			public Projectile.Settings ProjectileSettings;
 			[BoxGroup( "Gameplay/Projectile", ShowLabel = false )]
 			public float ProjectileSpeed;
 
