@@ -9,6 +9,9 @@ namespace ShootBalls.Installers
 {
 	public class BallInstaller : MonoInstaller
     {
+		[HideLabel]
+		[SerializeField] private Ball.Settings _settings;
+
 		[FoldoutGroup( "Movement" ), HideLabel]
 		[SerializeField] private CharacterMotor.Settings _motor;
 
@@ -17,7 +20,8 @@ namespace ShootBalls.Installers
 		public override void InstallBindings()
 		{
 			Container.BindInterfacesAndSelfTo<Ball>()
-				.AsSingle();
+				.AsSingle()
+				.WithArguments( _settings );
 
 			Container.Bind<Rigidbody2D>()
 				.FromComponentOnRoot()
