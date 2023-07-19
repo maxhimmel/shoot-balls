@@ -1,6 +1,5 @@
 using ShootBalls.Gameplay;
 using ShootBalls.Gameplay.Weapons;
-using ShootBalls.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
