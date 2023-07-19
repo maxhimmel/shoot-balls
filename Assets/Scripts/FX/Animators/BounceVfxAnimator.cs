@@ -12,7 +12,7 @@ namespace ShootBalls.Gameplay.Fx
 		private readonly BounceScaler _bouncer;
 
 		public BounceVfxAnimator( Settings settings,
-			[InjectOptional( Id = "Renderer" )] Transform renderer )
+			[Inject( Id = "Renderer" )] Transform renderer )
 		{
 			_settings = settings;
 			_bouncer = new BounceScaler( renderer );
