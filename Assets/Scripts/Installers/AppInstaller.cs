@@ -9,6 +9,9 @@ namespace ShootBalls.Installers
 		{
 			SignalBusInstaller.Install( Container );
 
+			Container.Bind<TimeController>()
+				.AsSingle();
+
 			/* --- */
 
 			Container.Bind<InputResolver>()
