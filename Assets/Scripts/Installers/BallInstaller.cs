@@ -1,4 +1,7 @@
 using ShootBalls.Gameplay;
+using ShootBalls.Gameplay.Cameras;
+using ShootBalls.Gameplay.Movement;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -6,11 +9,15 @@ namespace ShootBalls.Installers
 {
 	public class BallInstaller : MonoInstaller
     {
+		[FoldoutGroup( "Movement" ), HideLabel]
+		[SerializeField] private CharacterMotor.Settings _motor;
+
+		[SerializeField] private TargetGroupAttachment.Settings _cameraTarget;
+
 		public override void InstallBindings()
 		{
-			Container.Bind<Ball>()
-				.AsSingle()
-				.NonLazy();
+			Container.BindInterfacesAndSelfTo<Ball>()
+				.AsSingle();
 
 			Container.Bind<Rigidbody2D>()
 				.FromComponentOnRoot()
@@ -24,6 +31,14 @@ namespace ShootBalls.Installers
 				.WithId( "Renderer" )
 				.FromResolveGetter<SpriteRenderer>( renderer => renderer.transform )
 				.AsSingle();
+
+			Container.Bind<CharacterMotor>()
+				.AsSingle()
+				.WithArguments( _motor );
+
+			Container.BindInterfacesAndSelfTo<TargetGroupAttachment>()
+				.AsCached()
+				.WithArguments( _cameraTarget );
 		}
 	}
 }
