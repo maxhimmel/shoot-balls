@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zenject;
 
 namespace ShootBalls.Utility
 {
@@ -20,6 +21,27 @@ namespace ShootBalls.Utility
 
 			component = body.GetComponent<TComponent>();
 			return component != null;
+		}
+
+		public static bool TryResolveFromBodyContext<TContract>( this Collider2D collider, out TContract result )
+			where TContract : class
+		{
+			var body = collider.attachedRigidbody;
+			if ( body == null )
+			{
+				result = null;
+				return false;
+			}
+
+			var context = body.GetComponent<GameObjectContext>();
+			if ( context == null )
+			{
+				result = null;
+				return false;
+			}
+
+			result = context.Container.TryResolve<TContract>();
+			return result != null;
 		}
 	}
 }
