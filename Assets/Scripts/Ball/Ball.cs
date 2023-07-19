@@ -130,16 +130,16 @@ namespace ShootBalls.Gameplay
 		[System.Serializable]
 		public class Settings
 		{
-			[BoxGroup( "Health" ), MinValue( 1 )]
+			[FoldoutGroup( "Health" ), MinValue( 1 )]
 			public int Health = 3;
-			[BoxGroup( "Health" ), MinValue( 0 )]
+			[FoldoutGroup( "Health" ), MinValue( 0 )]
 			public float HealDelay = 0.5f;
-			[BoxGroup( "Health" ), MinValue( 0 )]
+			[FoldoutGroup( "Health" ), MinValue( 0 )]
 			public float HealRatePerHP = 1f / 3f;
 
-			[BoxGroup( "Recovery" ), MinValue( 0 )]
+			[FoldoutGroup( "Recovery" ), MinValue( 0 )]
 			public float StunDuration = 3;
-			[BoxGroup( "Recovery" ), MinValue( 0 )]
+			[FoldoutGroup( "Recovery" ), MinValue( 0 )]
 			public float InvulnerableDuration = 5;
 		}
 	}
