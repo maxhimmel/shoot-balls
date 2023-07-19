@@ -11,7 +11,7 @@ namespace ShootBalls.Installers
 		//[FoldoutGroup( "Damage" ), HideLabel]
 		//[SerializeField] private DamageTrigger.Settings _damage;
 
-		[FoldoutGroup( "Gun" ), HideLabel]
+		[HideLabel]
 		[SerializeField] private Gun.Settings _gun = new Gun.Settings();
 
 		public override void InstallBindings()
@@ -40,9 +40,12 @@ namespace ShootBalls.Installers
 					/* --- */
 
 					subContainer.BindFactory<Projectile.Settings, Projectile, Projectile.Factory>()
-						.FromSubContainerResolve()
-						.ByNewPrefabInstaller<ProjectileInstaller>( _gun.ProjectilePrefab )
-						.UnderTransform( context => null );
+						.FromPoolableMemoryPool( pool => pool
+							.FromSubContainerResolve()
+							.ByNewPrefabInstaller<ProjectileInstaller>( _gun.ProjectilePrefab )
+							.WithGameObjectName( _gun.ProjectilePrefab.name )
+							.UnderTransform( context => context.Container.ResolveId<Transform>( _gun.ProjectilePoolId ) )
+						);
 
 					/* --- */
 

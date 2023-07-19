@@ -220,6 +220,8 @@ namespace ShootBalls.Gameplay.Weapons
 			public Transform ShotSpot;
 
 			[BoxGroup( "Gameplay/Projectile", ShowLabel = false )]
+			public string ProjectilePoolId;
+			[BoxGroup( "Gameplay/Projectile", ShowLabel = false )]
 			public GameObject ProjectilePrefab;
 			[BoxGroup( "Gameplay/Projectile", ShowLabel = false )]
 			public float ProjectileLifetime;

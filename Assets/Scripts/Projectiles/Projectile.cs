@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using ShootBalls.Utility;
@@ -6,7 +7,9 @@ using Zenject;
 
 namespace ShootBalls.Gameplay
 {
-	public class Projectile : IOrientation
+	public class Projectile : IOrientation,
+		IPoolable<Projectile.Settings, IMemoryPool>,
+		IDisposable
 	{
 		public event System.Action<Projectile> Disposed;
 
@@ -24,16 +27,24 @@ namespace ShootBalls.Gameplay
 		}
 
 		private readonly Rigidbody2D _body;
-		private readonly Settings _settings;
 		private readonly CancellationToken _onDestroyedCancelToken;
 
-		public Projectile( Rigidbody2D body,
-			Settings settings )
+		private Settings _settings;
+		private IMemoryPool _pool;
+
+		public Projectile( Rigidbody2D body )
 		{
 			_body = body;
-			_settings = settings;
 
 			_onDestroyedCancelToken = body.GetCancellationTokenOnDestroy();
+		}
+
+		public void OnSpawned( Settings settings, IMemoryPool pool )
+		{
+			_settings = settings;
+			_pool = pool;
+
+			_body.gameObject.SetActive( true );
 		}
 
 		public void Launch( Vector2 direction )
@@ -49,10 +60,17 @@ namespace ShootBalls.Gameplay
 			Dispose();
 		}
 
-		private void Dispose()
+		public void Dispose()
 		{
+			_pool.Despawn( this );
+		}
+
+		public void OnDespawned()
+		{
+			_pool = null;
 			Disposed?.Invoke( this );
-			GameObject.Destroy( _body.gameObject );
+
+			_body.gameObject.SetActive( false );
 		}
 
 		public class Factory : PlaceholderFactory<Settings, Projectile> { }
