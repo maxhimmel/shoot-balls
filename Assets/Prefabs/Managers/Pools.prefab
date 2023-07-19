@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ids:
   - Pool_Projectiles
+  - Pool_Fx

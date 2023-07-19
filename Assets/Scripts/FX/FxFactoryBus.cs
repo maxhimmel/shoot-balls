@@ -10,7 +10,7 @@ namespace ShootBalls.Gameplay.Fx
 		/// <summary>
 		/// This ID should match a <see cref="Transform"/> within the scene being bound using a <see cref="ZenjectBinding"/>.
 		/// </summary>
-		private const string _containerId = "FxPool";
+		private const string _containerId = "Pool_Fx";
 
 		private readonly DiContainer _container;
 		private readonly Dictionary<PoolableFx, IMemoryPool<IFxSignal, IMemoryPool, PoolableFx>> _pools;
