@@ -335,9 +335,18 @@ MonoBehaviour:
       _userAssignable: 1
       _categoryId: 0
     - _id: 2
-      _name: Fire
+      _name: PrimaryFire
       _type: 1
-      _descriptiveName: Fire
+      _descriptiveName: PrimaryFire
+      _positiveDescriptiveName: 
+      _negativeDescriptiveName: 
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 1
+    - _id: 5
+      _name: SecondaryFire
+      _type: 1
+      _descriptiveName: SecondaryFire
       _positiveDescriptiveName: 
       _negativeDescriptiveName: 
       _behaviorId: 0
@@ -377,7 +386,7 @@ MonoBehaviour:
       - categoryId: 0
         actionIds: 0000000001000000
       - categoryId: 1
-        actionIds: 020000000300000004000000
+        actionIds: 02000000050000000300000004000000
     inputBehaviors:
     - _id: 0
       _name: Default
@@ -845,10 +854,10 @@ MonoBehaviour:
         _modifierKey2: 0
         _modifierKey3: 0
       - _actionCategoryId: 0
-        _actionId: -1
+        _actionId: 5
         _elementType: 0
         _elementIdentifierId: 13
-        _axisRange: 0
+        _axisRange: 1
         _invert: 0
         _axisContribution: 0
         _keyboardKeyCode: 0
@@ -961,7 +970,7 @@ MonoBehaviour:
     controllerMapLayoutManagerRuleSets: []
     controllerMapEnablerRuleSets: []
     playerIdCounter: 2
-    actionIdCounter: 5
+    actionIdCounter: 6
     actionCategoryIdCounter: 2
     inputBehaviorIdCounter: 1
     mapCategoryIdCounter: 3
