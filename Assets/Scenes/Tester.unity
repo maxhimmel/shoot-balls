@@ -270,6 +270,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 8464669106553265081, guid: 5b5b0f0ff1bbe0d46abe23f5ced4d337, type: 3}
   _ballPrefab: {fileID: 607798524136374826, guid: f7e0b27d8471ec147b35e682c0dc6699, type: 3}
+  _screenColor:
+    DurationPerColor: 1
+    Range:
+      Hue: {x: 0, y: 1}
+      Saturation: {x: 0.8078183, y: 1}
+      Value: {x: 0.23237133, y: 0.41684023}
+      Alpha: {x: 1, y: 1}
 --- !u!4 &884606519
 Transform:
   m_ObjectHideFlags: 0

@@ -11,6 +11,9 @@ namespace ShootBalls.Installers
 		[SerializeField] private PlayerInstaller _playerPrefab;
 		[SerializeField] private BallInstaller _ballPrefab;
 
+		[Space]
+		[SerializeField] private ScreenColorShifter.Settings _screenColor;
+
 		public override void InstallBindings()
 		{
 			Container.Bind<GameModel>()
@@ -36,6 +39,10 @@ namespace ShootBalls.Installers
 
 			Container.BindInterfacesAndSelfTo<ScreenBlinkController>()
 				.AsSingle();
+
+			Container.BindInterfacesAndSelfTo<ScreenColorShifter>()
+				.AsSingle()
+				.WithArguments( _screenColor );
 		}
 	}
 }
