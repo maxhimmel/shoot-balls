@@ -308,6 +308,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10484b4aa0c1a0643a1dcc19cc79a8aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settings:
+    Health: 3
+    HealDelay: 0.5
+    HealRatePerHP: 0.33333334
+    StunDuration: 3
+    InvulnerableDuration: 5
   _motor:
     Acceleration: 20
     MaxSpeed: 20
