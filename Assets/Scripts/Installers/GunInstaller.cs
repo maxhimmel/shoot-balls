@@ -30,7 +30,7 @@ namespace ShootBalls.Installers
 
 					BindModules( subContainer );
 				} )
-				.AsSingle();
+				.AsCached();
 		}
 
 		private void BindProjectile( DiContainer subContainer )
