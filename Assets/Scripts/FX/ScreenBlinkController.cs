@@ -7,6 +7,8 @@ namespace ShootBalls.Gameplay.Fx
 {
     public class ScreenBlinkController : ITickable
 	{
+		public Color BaseColor => _baseColor;
+
 		private readonly Camera _camera;
 		private readonly List<BlinkData> _blinks;
 
