@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings:
-    Health: 3
+    Health: 6
     HealDelay: 0.5
     HealRatePerHP: 0.33333334
     StunDuration: 3
