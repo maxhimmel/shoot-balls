@@ -26,7 +26,7 @@ namespace ShootBalls.Gameplay.Weapons
 		private readonly IPreFireProcessor[] _preFireProcessors;
 		private readonly IGunTickable[] _tickables;
 
-		private Transform _owner;
+		private IPawn _owner;
 		private bool _isFiringRequested;
 		private bool _isEmptied;
 
@@ -64,7 +64,7 @@ namespace ShootBalls.Gameplay.Weapons
 			}
 		}
 
-		public void SetOwner( Transform owner )
+		public void SetOwner( IPawn owner )
 		{
 			_owner = owner;
 		}
@@ -156,8 +156,8 @@ namespace ShootBalls.Gameplay.Weapons
 			Vector2 direction = orientation.Rotation * Vector2.up;
 
 			Projectile newProjectile = _factory.Create( _settings.ProjectileSettings );
-			newProjectile.Position = orientation.Position;
-			newProjectile.Rotation = direction.ToLookRotation();
+			newProjectile.Body.position = orientation.Position;
+			newProjectile.Body.SetRotation( direction.ToLookRotation() );
 
 			Vector2 projectileImpulse = direction * _settings.ProjectileSpeed;
 			newProjectile.Launch( projectileImpulse );

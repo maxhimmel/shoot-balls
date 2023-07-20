@@ -5,30 +5,20 @@ using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Weapons;
 using ShootBalls.Utility;
+using Sirenix.Utilities;
 using UnityEngine;
 using Zenject;
 
 namespace ShootBalls.Gameplay
 {
-	public class Projectile : IOrientation,
+	public class Projectile : IPawn,
 		IFixedTickable,
 		IPoolable<Projectile.Settings, IMemoryPool>,
 		IDisposable
 	{
 		public event System.Action<Projectile> Disposed;
 
-		public Vector2 Position {
-			get => _body.position;
-			set => _body.position = value;
-		}
-		public Quaternion Rotation {
-			get => _body.rotation.To2DRotation();
-			set => _body.SetRotation( value );
-		}
-		public Transform Parent {
-			get => _settings.Owner;
-			set => _settings.Owner = value;
-		}
+		public Rigidbody2D Body => _body;
 		public Expiry Lifetimer { get; }
 
 		private readonly Rigidbody2D _body;
@@ -173,7 +163,7 @@ namespace ShootBalls.Gameplay
 		[System.Serializable]
 		public class Settings
 		{
-			public Transform Owner { get; set; }
+			public IPawn Owner { get; set; }
 
 			public float Lifetime;
 		}

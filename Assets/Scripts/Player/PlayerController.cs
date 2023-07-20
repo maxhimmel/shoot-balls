@@ -26,6 +26,11 @@ namespace ShootBalls.Gameplay.Player
 			_motor = motor;
 			_guns = guns;
 			_body = body;
+
+			foreach ( var gun in guns )
+			{
+				gun.SetOwner( this );
+			}
 		}
 
 		public void Tick()
