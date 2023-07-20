@@ -150,6 +150,8 @@ namespace ShootBalls.Gameplay
 			_pool = null;
 			Disposed?.Invoke( this );
 
+			_ball = null;
+
 			_body.gameObject.SetActive( false );
 		}
 
