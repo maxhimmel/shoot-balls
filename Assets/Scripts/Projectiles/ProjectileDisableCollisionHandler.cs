@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace ShootBalls.Gameplay.Weapons
+﻿namespace ShootBalls.Gameplay.Weapons
 {
 	public class ProjectileDisableCollisionHandler : IProjectileDamageHandler
 	{

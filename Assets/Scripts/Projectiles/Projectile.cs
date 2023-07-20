@@ -3,8 +3,10 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Movement;
+using ShootBalls.Gameplay.Pawn;
 using ShootBalls.Gameplay.Weapons;
 using ShootBalls.Utility;
+using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
 using Zenject;
@@ -24,7 +26,7 @@ namespace ShootBalls.Gameplay
 		private readonly Rigidbody2D _body;
 		private readonly CharacterMotor _motor;
 		private readonly Collider2D _collider;
-		private readonly IProjectileDamageHandler[] _damageHandlers;
+		private readonly IProjectileDamageHandler[] _collisionHandlers;
 		private readonly SignalBus _signalBus;
 		private Settings _settings;
 		private IMemoryPool _pool;
@@ -34,7 +36,7 @@ namespace ShootBalls.Gameplay
 		public Projectile( Rigidbody2D body,
 			CharacterMotor motor,
 			Collider2D collider,
-			IProjectileDamageHandler[] damageHandlers,
+			IProjectileDamageHandler[] collisionHandlers,
 			OnCollisionEnter2DBroadcaster collisionEnter,
 			OnTriggerEnter2DBroadcaster ballEnterDetector,
 			OnTriggerExit2DBroadcaster ballExitDetector,
@@ -43,7 +45,7 @@ namespace ShootBalls.Gameplay
 			_body = body;
 			_motor = motor;
 			_collider = collider;
-			_damageHandlers = damageHandlers;
+			_collisionHandlers = collisionHandlers;
 			_signalBus = signalBus;
 
 			Lifetimer = new Expiry( 0, this );
@@ -56,18 +58,30 @@ namespace ShootBalls.Gameplay
 		private void OnCollisionEnter( Collision2D collision )
 		{
 			var contact = collision.GetContact( 0 );
+
+			bool dealtDamage = false;
+			if ( collision.collider.TryResolveFromBodyContext<IDamageable>( out var damageable ) )
+			{
+				_settings.Damage.Instigator = _settings.Owner;
+				_settings.Damage.Causer = this;
+				_settings.Damage.HitPosition = contact.point;
+				_settings.Damage.HitNormal = contact.normal;
+
+				dealtDamage = damageable.TakeDamage( _settings.Damage );
+			}
+
 			var dmgSignal = new DamageDeliveredSignal() 
 			{ 
 				HitBody = collision.rigidbody,
 				HitDirection = contact.normal
 			};
 
-			foreach ( var dmgHandler in _damageHandlers )
+			foreach ( var handler in _collisionHandlers )
 			{
-				dmgHandler.Handle( this, dmgSignal );
+				handler.Handle( this, dmgSignal );
 			}
 
-			_signalBus.FireId( "Damaged", new FxSignal()
+			_signalBus.FireId( dealtDamage ? "Damaged" : "Deflected", new FxSignal()
 			{
 				Position = contact.point,
 				Direction = contact.normal,
@@ -139,7 +153,7 @@ namespace ShootBalls.Gameplay
 		{
 			_pool?.Despawn( this );
 
-			foreach ( var dmgHandler in _damageHandlers )
+			foreach ( var dmgHandler in _collisionHandlers )
 			{
 				dmgHandler.Dispose();
 			}
@@ -168,6 +182,17 @@ namespace ShootBalls.Gameplay
 			public IPawn Owner { get; set; }
 
 			public float Lifetime;
+
+			[BoxGroup( "Damage (right-click to change type)" )]
+			[HideReferenceObjectPicker, LabelText( "@GetDamageTypeName()" )]
+			[SerializeReference] public IDamageData Damage;
+
+			private string GetDamageTypeName()
+			{
+				return Damage == null
+					? "Invalid"
+					: Damage.HandlerType.GetNiceName().SplitPascalCase();
+			}
 		}
 	}
 }
