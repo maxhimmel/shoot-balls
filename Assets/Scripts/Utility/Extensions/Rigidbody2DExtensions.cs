@@ -25,5 +25,15 @@ namespace ShootBalls.Utility
 
 			self.AddForce( force, mode );
 		}
+
+		/// <summary>
+		/// Moves the rigidbody's transform as well as updates the physics orientation.
+		/// </summary>
+		public static void HolisticMove( this Rigidbody2D self, Vector2 position, Quaternion rotation )
+		{
+			self.transform.SetPositionAndRotation( position, rotation );
+			self.position = position;
+			self.SetRotation( rotation );
+		}
 	}
 }

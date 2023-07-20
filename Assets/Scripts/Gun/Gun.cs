@@ -32,7 +32,6 @@ namespace ShootBalls.Gameplay.Weapons
 
 		public Gun( Settings settings,
 			SignalBus signalBus,
-			//DamageTrigger.Settings damage,
 			Projectile.Factory factory,
 			ShotSpot shotSpot,
 			IFireSpread fireSpread,
@@ -156,8 +155,7 @@ namespace ShootBalls.Gameplay.Weapons
 			Vector2 direction = orientation.Rotation * Vector2.up;
 
 			Projectile newProjectile = _factory.Create( _settings.ProjectileSettings );
-			newProjectile.Body.position = orientation.Position;
-			newProjectile.Body.SetRotation( direction.ToLookRotation() );
+			newProjectile.Body.HolisticMove( orientation.Position, direction.ToLookRotation() );
 
 			Vector2 projectileImpulse = direction * _settings.ProjectileSpeed;
 			newProjectile.Launch( projectileImpulse );

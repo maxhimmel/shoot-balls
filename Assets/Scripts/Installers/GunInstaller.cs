@@ -8,9 +8,6 @@ namespace ShootBalls.Installers
 {
 	public class GunInstaller : MonoInstaller
 	{
-		//[FoldoutGroup( "Damage" ), HideLabel]
-		//[SerializeField] private DamageTrigger.Settings _damage;
-
 		[HideLabel]
 		[SerializeField] private Gun.Settings _gun = new Gun.Settings();
 
@@ -23,8 +20,6 @@ namespace ShootBalls.Installers
 					subContainer.Bind<Gun>()
 						.AsSingle()
 						.WithArguments( _gun );
-
-					//subContainer.BindInstance( _damage );
 
 					BindProjectile( subContainer );
 
