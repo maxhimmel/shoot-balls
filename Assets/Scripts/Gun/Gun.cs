@@ -1,4 +1,5 @@
 using ShootBalls.Gameplay.Fx;
+using ShootBalls.Gameplay.Pawn;
 using ShootBalls.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;

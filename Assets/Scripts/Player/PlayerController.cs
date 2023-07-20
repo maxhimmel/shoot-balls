@@ -1,4 +1,5 @@
 using ShootBalls.Gameplay.Movement;
+using ShootBalls.Gameplay.Pawn;
 using ShootBalls.Gameplay.Weapons;
 using ShootBalls.Utility;
 using UnityEngine;
