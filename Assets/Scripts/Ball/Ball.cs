@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Movement;
-using ShootBalls.Utility;
+using ShootBalls.Gameplay.Pawn;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -8,6 +10,8 @@ using Zenject;
 namespace ShootBalls.Gameplay
 {
 	public class Ball : IPawn,
+		IDamageable,
+		IStunnable,
 		IFixedTickable
 	{
 		public Rigidbody2D Body => _body;
@@ -15,6 +19,7 @@ namespace ShootBalls.Gameplay
 		private readonly Settings _settings;
 		private readonly Rigidbody2D _body;
 		private readonly CharacterMotor _motor;
+		private readonly Dictionary<System.Type, IDamageHandler> _damageHandlers;
 		private readonly SignalBus _signalBus;
 		private readonly GameModel _gameModel;
 
@@ -26,29 +31,42 @@ namespace ShootBalls.Gameplay
 		public Ball( Settings settings,
 			Rigidbody2D body,
 			CharacterMotor motor,
-			OnCollisionEnter2DBroadcaster collisionEnter,
+			IDamageHandler[] damageHandlers,
 			SignalBus signalBus,
 			GameModel gameModel )
 		{
 			_settings = settings;
 			_body = body;
 			_motor = motor;
+			_damageHandlers = damageHandlers.ToDictionary( handler => handler.GetType() );
 			_signalBus = signalBus;
 			_gameModel = gameModel;
-			collisionEnter.Entered += OnCollisionEnter;
 
 			_health = settings.Health;
 		}
 
-		private void OnCollisionEnter( Collision2D collision )
+		public bool TakeDamage( IDamageData data )
 		{
-			if ( collision.collider.TryResolveFromBodyContext<Projectile>( out _ ) )
+			bool wasDamaged = false;
+			if ( _damageHandlers.TryGetValue( data.HandlerType, out var handler ) )
 			{
-				TakeDamage( collision );
+				if ( handler.Handle( this, data ) )
+				{
+					wasDamaged = true;
+				}
 			}
+
+			_signalBus.FireId( wasDamaged ? "Damaged" : "Deflected", new FxSignal()
+			{
+				Position = data.HitPosition,
+				Direction = data.HitNormal,
+				Parent = _body.transform
+			} );
+
+			return wasDamaged;
 		}
 
-		private void TakeDamage( Collision2D collision )
+		public bool Hit()
 		{
 			if ( _health > 0 )
 			{
@@ -59,16 +77,11 @@ namespace ShootBalls.Gameplay
 				if ( _health <= 0 )
 				{
 					OnStunned();
+					return true;
 				}
 			}
 
-			var contact = collision.GetContact( 0 );
-			_signalBus.FireId( "Damaged", new FxSignal()
-			{
-				Position = contact.point,
-				Direction = contact.normal,
-				Parent = _body.transform
-			} );
+			return false;
 		}
 
 		private void OnStunned()
@@ -89,11 +102,11 @@ namespace ShootBalls.Gameplay
 
 		private bool HandleStunState()
 		{
-			if ( _stunEndTime <= Time.timeSinceLevelLoad )
+			if ( !IsStunned() )
 			{
 				if ( _health <= 0 )
 				{
-					OnRecovered();
+					Recover();
 				}
 				return false;
 			}
@@ -104,7 +117,12 @@ namespace ShootBalls.Gameplay
 			return true;
 		}
 
-		private void OnRecovered()
+		public bool IsStunned()
+		{
+			return _stunEndTime > Time.timeSinceLevelLoad;
+		}
+
+		public void Recover()
 		{
 			_health = _settings.Health;
 		}

@@ -1,6 +1,7 @@
 using ShootBalls.Gameplay;
 using ShootBalls.Gameplay.Cameras;
 using ShootBalls.Gameplay.Movement;
+using ShootBalls.Gameplay.Pawn;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -43,6 +44,12 @@ namespace ShootBalls.Installers
 			Container.BindInterfacesAndSelfTo<TargetGroupAttachment>()
 				.AsCached()
 				.WithArguments( _cameraTarget );
+
+			Container.BindInterfacesTo<KnockbackDamageHandler>()
+				.AsCached();
+
+			Container.BindInterfacesTo<StunDamageHandler>()
+				.AsCached();
 		}
 	}
 }
