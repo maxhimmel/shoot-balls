@@ -14,7 +14,7 @@ namespace ShootBalls.Gameplay.Pawn
 		Vector2 HitNormal { get; set; }
 	}
 
-	public abstract class DamageData<THandler> : IDamageData
+	public class DamageData<THandler> : IDamageData
 		where THandler : IDamageHandler
 	{
 		public virtual System.Type HandlerType => typeof( THandler );

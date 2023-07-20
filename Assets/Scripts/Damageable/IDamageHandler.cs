@@ -1,5 +1,3 @@
-using ShootBalls.Utility;
-
 namespace ShootBalls.Gameplay.Pawn
 {
 	public interface IDamageHandler
