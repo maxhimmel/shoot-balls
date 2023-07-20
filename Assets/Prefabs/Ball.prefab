@@ -315,7 +315,7 @@ MonoBehaviour:
     StunDuration: 3
     InvulnerableDuration: 5
   _motor:
-    Acceleration: 20
+    Acceleration: 50
     MaxSpeed: 20
     UpdateRotation: 0
     AngleAcceleration: 0
@@ -338,7 +338,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 10
   m_LinearDrag: 0
-  m_AngularDrag: 0.15
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 850a1abf96b00d54c82e6041bc52a7d0, type: 2}
   m_Interpolate: 0
