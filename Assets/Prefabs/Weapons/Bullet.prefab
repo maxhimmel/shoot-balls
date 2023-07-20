@@ -265,7 +265,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 97426
+  m_InstanceId: 77018
 --- !u!1 &4090080309041504020
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +477,7 @@ MonoBehaviour:
       type: {class: ScreenBlinkVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         Blink:
-          Color: {r: 0.051, g: 0.018508065, b: 0, a: 0}
+          Color: {r: 0.348, g: 0.13384616, b: 0, a: 0}
           Duration: 0.2
     - rid: 20644865568931846
       type: {class: SpriteBlinkVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
