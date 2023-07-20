@@ -1,5 +1,85 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4751619010553186578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3202091056019357302}
+  - component: {fileID: 6117676157122549018}
+  m_Layer: 0
+  m_Name: Gun_Secondary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3202091056019357302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751619010553186578}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8464669106553265079}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6117676157122549018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751619010553186578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4b15efeed8ccbc489954d18da067938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gun:
+    ShotSpot: {fileID: 3202091056019357302}
+    ProjectilePoolId: Pool_Projectiles
+    ProjectilePrefab: {fileID: 4090080309041504020, guid: f9d3dd10af314e14c8b1f619269cccb6, type: 3}
+    ProjectileSettings:
+      Lifetime: 5
+    ProjectileSpeed: 30
+    FireSpread:
+      rid: 20644856882528258
+    Modules:
+    - rid: 20644856882528259
+    - rid: 20644856882528261
+    - rid: 20644882241814529
+  references:
+    version: 2
+    RefIds:
+    - rid: 20644856882528258
+      type: {class: FireSpread/Settings, ns: ShootBalls.Gameplay.Weapons, asm: Sandbox}
+      data:
+        Spread: 1
+        Angle: 0
+        OffsetAngle: 0
+    - rid: 20644856882528259
+      type: {class: FireRateSafety/Settings, ns: ShootBalls.Gameplay.Weapons, asm: Sandbox}
+      data:
+        FireRate: 0.15
+    - rid: 20644856882528261
+      type: {class: AngleDirectionAdjuster/Settings, ns: ShootBalls.Gameplay.Weapons, asm: Sandbox}
+      data:
+        AngleRange: {x: 0, y: 5}
+    - rid: 20644882241814529
+      type: {class: AmmoClipProcessor/Settings, ns: ShootBalls.Gameplay.Weapons, asm: Sandbox}
+      data:
+        AutoReload: 1
+        ReloadDuration: 1
+        ClipSize: 1
 --- !u!1 &8464669104956662747
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +276,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 135110
+  m_InstanceId: 77582
 --- !u!1 &8464669105146387395
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +376,7 @@ MonoBehaviour:
       type: {class: ScreenBlinkVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         Blink:
-          Color: {r: 0.042772006, g: 0.9716981, b: 0, a: 0}
+          Color: {r: 0.018045438, g: 0.397, b: 0, a: 0}
           Duration: 0.1
 --- !u!1 &8464669105744465988
 GameObject:
@@ -309,7 +389,7 @@ GameObject:
   - component: {fileID: 8464669105744465989}
   - component: {fileID: 8464669105744465990}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: Gun_Primary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -406,6 +486,7 @@ Transform:
   - {fileID: 8464669106806249084}
   - {fileID: 8464669106929438733}
   - {fileID: 8464669105744465989}
+  - {fileID: 3202091056019357302}
   - {fileID: 8464669106859007277}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -426,6 +507,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 8464669106553265081}
   - {fileID: 8464669105744465990}
+  - {fileID: 6117676157122549018}
   - {fileID: 8464669106859007278}
   _installerPrefabs: []
   _autoRun: 1
@@ -556,7 +638,7 @@ Transform:
   m_Children:
   - {fileID: 8464669105146387396}
   m_Father: {fileID: 8464669106553265079}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8464669106859007278
 MonoBehaviour:

@@ -14,17 +14,17 @@ namespace ShootBalls.Gameplay.Player
 
 		private readonly Rewired.Player _input;
 		private readonly CharacterMotor _motor;
-		private readonly Gun _gun;
+		private readonly Gun[] _guns;
 		private readonly Rigidbody2D _body;
 
 		public PlayerController( Rewired.Player input,
 			CharacterMotor motor,
-			Gun gun,
+			Gun[] guns,
 			Rigidbody2D body )
 		{
 			_input = input;
 			_motor = motor;
-			_gun = gun;
+			_guns = guns;
 			_body = body;
 		}
 
@@ -43,13 +43,22 @@ namespace ShootBalls.Gameplay.Player
 
 		private void HandleGunFiring()
 		{
-			if ( _input.GetButtonDown( ReConsts.Action.Fire ) )
+			if ( _input.GetButtonDown( ReConsts.Action.PrimaryFire ) )
 			{
-				_gun.StartFiring();
+				_guns[0].StartFiring();
 			}
-			else if ( _input.GetButtonUp( ReConsts.Action.Fire ) )
+			else if ( _input.GetButtonUp( ReConsts.Action.PrimaryFire ) )
 			{
-				_gun.StopFiring();
+				_guns[0].StopFiring();
+			}
+
+			if ( _input.GetButtonDown( ReConsts.Action.SecondaryFire ) )
+			{
+				_guns[1].StartFiring();
+			}
+			else if ( _input.GetButtonUp( ReConsts.Action.SecondaryFire ) )
+			{
+				_guns[1].StopFiring();
 			}
 		}
 
