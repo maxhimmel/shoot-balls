@@ -15,5 +15,15 @@ namespace ShootBalls.Utility
             self.a *= alpha;
             return self;
         }
+
+        public static Color Divide( this Color self, Color other )
+		{
+            self.r /= other.r;
+            self.g /= other.g;
+            self.b /= other.b;
+            self.a /= other.a;
+
+            return self;
+        }
     }
 }
