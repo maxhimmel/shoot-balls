@@ -106,7 +106,7 @@ namespace ShootBalls.Gameplay
 			{
 				if ( _health <= 0 )
 				{
-					Recover();
+					OnRecovered();
 				}
 				return false;
 			}
@@ -122,7 +122,7 @@ namespace ShootBalls.Gameplay
 			return _stunEndTime > Time.timeSinceLevelLoad;
 		}
 
-		public void Recover()
+		public void OnRecovered()
 		{
 			_health = _settings.Health;
 		}
