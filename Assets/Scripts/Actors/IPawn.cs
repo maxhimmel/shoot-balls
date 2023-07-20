@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ShootBalls.Utility
+namespace ShootBalls.Gameplay.Pawn
 {
 	public interface IPawn
 	{
