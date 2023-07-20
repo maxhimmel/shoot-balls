@@ -58,7 +58,7 @@ namespace ShootBalls.Gameplay
 
 				if ( _health <= 0 )
 				{
-					_stunEndTime = Time.timeSinceLevelLoad + _settings.StunDuration;
+					OnStunned();
 				}
 			}
 
@@ -69,6 +69,11 @@ namespace ShootBalls.Gameplay
 				Direction = contact.normal,
 				Parent = _body.transform
 			} );
+		}
+
+		private void OnStunned()
+		{
+			_stunEndTime = Time.timeSinceLevelLoad + _settings.StunDuration;
 		}
 
 		public void FixedTick()
@@ -88,7 +93,7 @@ namespace ShootBalls.Gameplay
 			{
 				if ( _health <= 0 )
 				{
-					_health = _settings.Health;
+					OnRecovered();
 				}
 				return false;
 			}
@@ -97,6 +102,11 @@ namespace ShootBalls.Gameplay
 			_motor.FixedTick();
 
 			return true;
+		}
+
+		private void OnRecovered()
+		{
+			_health = _settings.Health;
 		}
 
 		private void TryHeal()
