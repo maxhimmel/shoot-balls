@@ -138,8 +138,11 @@ namespace ShootBalls.Gameplay
 				_motor.SetDesiredRotation( moveDirection );
 			}
 
-			_motor.SetDesiredVelocity( moveDirection );
-			_motor.FixedTick();
+			if ( _collider.enabled )
+			{
+				_motor.SetDesiredVelocity( moveDirection );
+				_motor.FixedTick();
+			}
 		}
 
 		public void Dispose()
