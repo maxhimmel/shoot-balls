@@ -50,6 +50,8 @@ MonoBehaviour:
     ProjectilePrefab: {fileID: 4090080309041504020, guid: f9d3dd10af314e14c8b1f619269cccb6, type: 3}
     ProjectileSettings:
       Lifetime: 5
+      Damage:
+        rid: 20644888319361027
     ProjectileSpeed: 30
     FireSpread:
       rid: 20644856882528258
@@ -80,6 +82,10 @@ MonoBehaviour:
         AutoReload: 1
         ReloadDuration: 1
         ClipSize: 1
+    - rid: 20644888319361027
+      type: {class: KnockbackDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+      data:
+        Knockback: 700
 --- !u!1 &8464669104956662747
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +97,7 @@ GameObject:
   - component: {fileID: 8464669104956662748}
   - component: {fileID: 8464669104956662750}
   m_Layer: 0
-  m_Name: Sprite_Head
+  m_Name: Sprite_Direction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,7 +282,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 77582
+  m_InstanceId: 46416
 --- !u!1 &8464669105146387395
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +434,8 @@ MonoBehaviour:
     ProjectilePrefab: {fileID: 4090080309041504020, guid: 3336b4b4c7145d54dab9cc064f22164c, type: 3}
     ProjectileSettings:
       Lifetime: 5
+      Damage:
+        rid: 20644888319361029
     ProjectileSpeed: 20
     FireSpread:
       rid: 20644856882528258
@@ -451,6 +459,10 @@ MonoBehaviour:
       type: {class: AngleDirectionAdjuster/Settings, ns: ShootBalls.Gameplay.Weapons, asm: Sandbox}
       data:
         AngleRange: {x: 0, y: 5}
+    - rid: 20644888319361029
+      type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+      data:
+        Knockback: 35
 --- !u!1 &8464669106553265078
 GameObject:
   m_ObjectHideFlags: 0
