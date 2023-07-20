@@ -1,8 +1,9 @@
-﻿using Sirenix.OdinInspector;
+﻿using ShootBalls.Gameplay.Pawn;
+using Sirenix.OdinInspector;
 
 namespace ShootBalls.Gameplay.Weapons
 {
-	public class ProjectileLifetimeAdjustHandler : IProjectileDamageHandler
+	public class ProjectileLifetimeAdjustHandler : ProjectileCollisionHandler
 	{
 		private readonly Settings _settings;
 
@@ -11,21 +12,24 @@ namespace ShootBalls.Gameplay.Weapons
 			_settings = settings;
 		}
 
-		public void Handle( Projectile projectile, DamageDeliveredSignal signal )
+		protected override bool Handle( Projectile owner, IDamageData data )
 		{
-			if ( projectile.Lifetimer.Countdown > _settings.AdjustedLifetime )
+			if ( owner.Lifetimer.Countdown > _settings.AdjustedLifetime )
 			{
-				projectile.Lifetimer.SetLifetime( _settings.AdjustedLifetime );
+				owner.Lifetimer.SetLifetime( _settings.AdjustedLifetime );
+				return true;
 			}
+
+			return false;
 		}
 
-		public void Dispose()
+		public override void Dispose()
 		{
 			// ...
 		}
 
 		[System.Serializable]
-		public class Settings : IProjectileDamageHandler.Settings<ProjectileLifetimeAdjustHandler>
+		public class Settings : ProjectileDamageData<ProjectileLifetimeAdjustHandler>
 		{
 			[MinValue( 0 )]
 			public float AdjustedLifetime;

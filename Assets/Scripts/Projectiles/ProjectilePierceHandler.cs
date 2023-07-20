@@ -1,8 +1,9 @@
-﻿using Sirenix.OdinInspector;
+﻿using ShootBalls.Gameplay.Pawn;
+using Sirenix.OdinInspector;
 
 namespace ShootBalls.Gameplay.Weapons
 {
-	public class ProjectilePierceHandler : IProjectileDamageHandler
+	public class ProjectilePierceHandler : ProjectileCollisionHandler
 	{
 		private readonly Settings _settings;
 
@@ -13,26 +14,28 @@ namespace ShootBalls.Gameplay.Weapons
 			_settings = settings;
 		}
 
-		public void Handle( Projectile projectile, DamageDeliveredSignal signal )
+		protected override bool Handle( Projectile owner, IDamageData data )
 		{
 			if ( _settings.IsUnlimited )
 			{
-				return;
+				return false;
 			}
 
 			if ( _pierceCount++ >= _settings.Depth )
 			{
-				projectile.Dispose();
+				owner.Dispose();
 			}
+
+			return true;
 		}
 
-		public void Dispose()
+		public override void Dispose()
 		{
 			_pierceCount = 0;
 		}
 
 		[System.Serializable]
-		public class Settings : IProjectileDamageHandler.Settings<ProjectilePierceHandler>
+		public class Settings : ProjectileDamageData<ProjectilePierceHandler>
 		{
 			[HorizontalGroup]
 			public bool IsUnlimited;

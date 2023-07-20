@@ -26,7 +26,7 @@ namespace ShootBalls.Gameplay
 		private readonly Rigidbody2D _body;
 		private readonly CharacterMotor _motor;
 		private readonly Collider2D _collider;
-		private readonly IProjectileDamageHandler[] _collisionHandlers;
+		private readonly ProjectileCollisionHandler[] _collisionHandlers;
 		private readonly SignalBus _signalBus;
 		private Settings _settings;
 		private IMemoryPool _pool;
@@ -36,7 +36,7 @@ namespace ShootBalls.Gameplay
 		public Projectile( Rigidbody2D body,
 			CharacterMotor motor,
 			Collider2D collider,
-			IProjectileDamageHandler[] collisionHandlers,
+			ProjectileCollisionHandler[] collisionHandlers,
 			OnCollisionEnter2DBroadcaster collisionEnter,
 			OnTriggerEnter2DBroadcaster ballEnterDetector,
 			OnTriggerExit2DBroadcaster ballExitDetector,
@@ -70,15 +70,9 @@ namespace ShootBalls.Gameplay
 				dealtDamage = damageable.TakeDamage( _settings.Damage );
 			}
 
-			var dmgSignal = new DamageDeliveredSignal() 
-			{ 
-				HitBody = collision.rigidbody,
-				HitDirection = contact.normal
-			};
-
-			foreach ( var handler in _collisionHandlers )
+			foreach ( var myCollision in _collisionHandlers )
 			{
-				handler.Handle( this, dmgSignal );
+				myCollision.Handle( this, _settings.Damage );
 			}
 
 			_signalBus.FireId( dealtDamage ? "Damaged" : "Deflected", new FxSignal()

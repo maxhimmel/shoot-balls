@@ -406,7 +406,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 90560
+  m_InstanceId: 91316
 --- !u!1 &4090080309041504020
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,15 +484,15 @@ MonoBehaviour:
     UpdateRotation: 1
     AngleAcceleration: 30
     _metric: 0
-  _damageHandlers:
-  - rid: 20644865568931844
-  - rid: 20644865568931845
+  _collisionReactions:
+  - rid: 20644901002936322
+  - rid: 20644901002936323
   references:
     version: 2
     RefIds:
-    - rid: 20644865568931844
+    - rid: 20644901002936322
       type: {class: ProjectileDisableCollisionHandler/Settings, ns: ShootBalls.Gameplay.Weapons, asm: Sandbox}
-    - rid: 20644865568931845
+    - rid: 20644901002936323
       type: {class: ProjectileLifetimeAdjustHandler/Settings, ns: ShootBalls.Gameplay.Weapons, asm: Sandbox}
       data:
         AdjustedLifetime: 0.25

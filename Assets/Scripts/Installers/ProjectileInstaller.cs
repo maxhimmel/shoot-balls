@@ -17,7 +17,7 @@ namespace ShootBalls.Installers
 		[FoldoutGroup( "Ball Detection/Movement" ), HideLabel]
 		[SerializeField] private CharacterMotor.Settings _movement;
 
-		[SerializeReference] private IProjectileDamageHandler.ISettings[] _damageHandlers;
+		[SerializeReference] private IProjectileDamageData[] _collisionReactions = new IProjectileDamageData[0];
 
 		public override void InstallBindings()
 		{
@@ -41,9 +41,10 @@ namespace ShootBalls.Installers
 				.FromResolveGetter<SpriteRenderer>( renderer => renderer.transform )
 				.AsSingle();
 
-			foreach ( var settings in _damageHandlers )
+			foreach ( var settings in _collisionReactions )
 			{
-				Container.BindInterfacesAndSelfTo( settings.HandlerType )
+				Container.Bind<ProjectileCollisionHandler>()
+					.To( settings.HandlerType )
 					.AsCached()
 					.WithArguments( settings );
 			}
