@@ -813,7 +813,7 @@ MonoBehaviour:
       type: {class: BounceVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         BounceSettings:
-          Scale: -1
+          Scale: -1.25
           Duration: 0.5
           ResetScale: 1
           Curve:
