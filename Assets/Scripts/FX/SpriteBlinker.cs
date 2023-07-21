@@ -38,7 +38,7 @@ namespace ShootBalls.Gameplay.Fx
 				while ( CanBlink() && stepTimer < stepDuration )
 				{
 					stepTimer += Time.deltaTime;
-					await UniTask.Yield( PlayerLoopTiming.FixedUpdate );
+					await UniTask.Yield( PlayerLoopTiming.Update );
 				}
 
 				if ( _renderer == null )
