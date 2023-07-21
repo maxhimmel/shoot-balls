@@ -45,9 +45,6 @@ namespace ShootBalls.Installers
 				.AsCached()
 				.WithArguments( _cameraTarget );
 
-			Container.BindInterfacesTo<KnockbackDamageHandler>()
-				.AsCached();
-
 			Container.BindInterfacesTo<StunDamageHandler>()
 				.AsCached();
 		}

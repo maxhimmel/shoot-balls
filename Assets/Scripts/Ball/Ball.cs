@@ -25,11 +25,12 @@ namespace ShootBalls.Gameplay
 		private readonly SignalBus _signalBus;
 		private readonly GameModel _gameModel;
 
-		private int _health;
+		private float _health;
 		private float _healDelayEndTime;
 		private float _healTimer;
 		private float _stunEndTime;
 		private bool _isStunLaunched;
+		private IDamageData _recentDamage;
 
 		public Ball( Settings settings,
 			Rigidbody2D body,
@@ -58,15 +59,11 @@ namespace ShootBalls.Gameplay
 			bool wasDamaged = false;
 			if ( _damageHandlers.TryGetValue( data.HandlerType, out var handler ) )
 			{
-				bool wasStunned = IsStunned();
+				_recentDamage = data;
 
 				if ( handler.Handle( this, data ) )
 				{
 					wasDamaged = true;
-					if ( wasStunned )
-					{
-						OnStunLaunched( data );
-					}
 				}
 			}
 
@@ -80,22 +77,19 @@ namespace ShootBalls.Gameplay
 			return wasDamaged;
 		}
 
-		public bool Hit()
+		void IStunnable.OnStunHit( float damage )
 		{
 			if ( _health > 0 )
 			{
-				--_health;
+				_health -= damage;
 				_healTimer = 0;
 				_healDelayEndTime = Time.timeSinceLevelLoad + _settings.HealDelay;
 
 				if ( _health <= 0 )
 				{
 					OnStunned();
-					return true;
 				}
 			}
-
-			return false;
 		}
 
 		private void OnStunned()
@@ -110,14 +104,14 @@ namespace ShootBalls.Gameplay
 			} );
 		}
 
-		private void OnStunLaunched( IDamageData data )
+		void IStunnable.OnDirectHit( float damage )
 		{
 			_isStunLaunched = true;
 
 			_signalBus.FireId( "Launched", new FxSignal()
 			{
-				Position = data.HitPosition,
-				Direction = -data.HitNormal,
+				Position = _recentDamage.HitPosition,
+				Direction = -_recentDamage.HitNormal,
 				Parent = _body.transform
 			} );
 		}
@@ -218,7 +212,7 @@ namespace ShootBalls.Gameplay
 		public class Settings
 		{
 			[FoldoutGroup( "Health" ), MinValue( 1 )]
-			public int Health = 3;
+			public float Health = 3;
 			[FoldoutGroup( "Health" ), MinValue( 0 )]
 			public float HealDelay = 0.5f;
 			[FoldoutGroup( "Health" ), MinValue( 0 )]

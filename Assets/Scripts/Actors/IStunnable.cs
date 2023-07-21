@@ -4,7 +4,7 @@
 	{
 		bool IsStunned();
 
-		/// <returns>True if the <see cref="IStunnable"/> became stunned on this hit.</returns>
-		bool Hit();
+		void OnStunHit( float damage );
+		void OnDirectHit( float damage );
 	}
 }

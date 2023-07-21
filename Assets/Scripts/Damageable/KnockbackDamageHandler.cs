@@ -1,5 +1,4 @@
-﻿using ShootBalls.Utility;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ShootBalls.Gameplay.Pawn
 {
@@ -7,11 +6,6 @@ namespace ShootBalls.Gameplay.Pawn
 	{
 		protected override bool Handle( IPawn owner, Settings data )
 		{
-			if ( owner is IStunnable stunnable && !stunnable.IsStunned() )
-			{
-				return false;
-			}
-
 			owner.Body.AddForceAtPosition( -data.HitNormal * data.Knockback, data.HitPosition, ForceMode2D.Impulse );
 			return true;
 		}

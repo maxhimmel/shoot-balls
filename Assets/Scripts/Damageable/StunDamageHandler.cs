@@ -1,5 +1,5 @@
 ﻿using System;
-using ShootBalls.Utility;
+using UnityEngine.Assertions;
 
 namespace ShootBalls.Gameplay.Pawn
 {
@@ -14,21 +14,39 @@ namespace ShootBalls.Gameplay.Pawn
 
 		protected override bool Handle( IPawn owner, Settings data )
 		{
-			_knockbackHandler.Handle( owner, data );
+			var stunnable = owner as IStunnable;
+			Assert.IsNotNull( stunnable, $"The {owner} must implement {nameof( IStunnable )}." );
 
-			if ( owner is IStunnable stunnable && !stunnable.IsStunned() )
+			bool wasHit = false;
+
+			if ( stunnable.IsStunned() )
 			{
-				stunnable.Hit();
-				return true;
+				if ( data.DirectDamage != 0 )
+				{
+					wasHit = true;
+					_knockbackHandler.Handle( owner, data );
+					stunnable.OnDirectHit( data.DirectDamage );
+				}
+			}
+			else
+			{
+				if ( data.StunDamage != 0 )
+				{
+					wasHit = true;
+					stunnable.OnStunHit( data.StunDamage );
+				}
 			}
 
-			return false;
+			return wasHit;
 		}
 
 		[System.Serializable]
 		public class Settings : KnockbackDamageHandler.Settings
 		{
 			public override Type HandlerType => typeof( StunDamageHandler );
+
+			public float StunDamage;
+			public float DirectDamage;
 		}
 	}
 }
