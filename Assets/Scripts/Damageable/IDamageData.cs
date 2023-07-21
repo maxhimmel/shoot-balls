@@ -25,4 +25,15 @@ namespace ShootBalls.Gameplay.Pawn
 		public Vector2 HitPosition { get; set; }
 		public Vector2 HitNormal { get; set; }
 	}
+
+	public class UnhandledDamageData : IDamageData
+	{
+		public System.Type HandlerType => null;
+
+		public IPawn Instigator { get; set; }
+		public IPawn Causer { get; set; }
+
+		public Vector2 HitPosition { get; set; }
+		public Vector2 HitNormal { get; set; }
+	}
 }
