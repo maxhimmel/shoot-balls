@@ -1,4 +1,5 @@
 ﻿using ShootBalls.Gameplay;
+using ShootBalls.Gameplay.Attacking;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Weapons;
 using ShootBalls.Utility;
@@ -54,6 +55,9 @@ namespace ShootBalls.Installers
 			Container.Bind<CharacterMotor>()
 				.AsSingle()
 				.WithArguments( _movement );
+
+			Container.Bind<AttackController>()
+				.AsSingle();
 		}
 	}
 }

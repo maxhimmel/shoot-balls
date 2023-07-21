@@ -1,13 +1,12 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using ShootBalls.Gameplay.Fx;
+using ShootBalls.Gameplay.Attacking;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Pawn;
 using ShootBalls.Gameplay.Weapons;
 using ShootBalls.Utility;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
 using Zenject;
 
@@ -26,8 +25,10 @@ namespace ShootBalls.Gameplay
 		private readonly Rigidbody2D _body;
 		private readonly CharacterMotor _motor;
 		private readonly Collider2D _collider;
+		private readonly AttackController _attackController;
 		private readonly ProjectileCollisionHandler[] _collisionHandlers;
-		private readonly SignalBus _signalBus;
+		private readonly IDamageData _collisionData;
+
 		private Settings _settings;
 		private IMemoryPool _pool;
 		private CancellationTokenSource _cancelSource;
@@ -36,19 +37,20 @@ namespace ShootBalls.Gameplay
 		public Projectile( Rigidbody2D body,
 			CharacterMotor motor,
 			Collider2D collider,
+			AttackController attackController,
 			ProjectileCollisionHandler[] collisionHandlers,
 			OnCollisionEnter2DBroadcaster collisionEnter,
 			OnTriggerEnter2DBroadcaster ballEnterDetector,
-			OnTriggerExit2DBroadcaster ballExitDetector,
-			SignalBus signalBus )
+			OnTriggerExit2DBroadcaster ballExitDetector )
 		{
 			_body = body;
 			_motor = motor;
 			_collider = collider;
+			_attackController = attackController;
 			_collisionHandlers = collisionHandlers;
-			_signalBus = signalBus;
 
 			Lifetimer = new Expiry( 0, this );
+			_collisionData = new UnhandledDamageData() { Causer = this };
 
 			collisionEnter.Entered += OnCollisionEnter;
 			ballEnterDetector.Entered += OnBallFound;
@@ -57,30 +59,22 @@ namespace ShootBalls.Gameplay
 
 		private void OnCollisionEnter( Collision2D collision )
 		{
-			var contact = collision.GetContact( 0 );
-
-			bool dealtDamage = false;
-			if ( collision.collider.TryResolveFromBodyContext<IDamageable>( out var damageable ) )
+			_attackController.DealDamage( new AttackController.Request()
 			{
-				_settings.Damage.Instigator = _settings.Owner;
-				_settings.Damage.Causer = this;
-				_settings.Damage.HitPosition = contact.point;
-				_settings.Damage.HitNormal = contact.normal;
+				Collision = collision,
+				Instigator = this,
+				Causer = this,
+				Settings = _settings.AttackSettings
+			} );
 
-				dealtDamage = damageable.TakeDamage( _settings.Damage );
-			}
-
+			var contact = collision.GetContact( 0 );
+			_collisionData.Instigator = _settings.Owner;
+			_collisionData.HitPosition = contact.point;
+			_collisionData.HitNormal = contact.normal;
 			foreach ( var myCollision in _collisionHandlers )
 			{
-				myCollision.Handle( this, _settings.Damage );
+				myCollision.Handle( this, _collisionData );
 			}
-
-			_signalBus.FireId( dealtDamage ? "Damaged" : "Deflected", new FxSignal()
-			{
-				Position = contact.point,
-				Direction = contact.normal,
-				Parent = _body.transform
-			} );
 		}
 
 		private void OnBallFound( Collider2D collision )
@@ -177,16 +171,8 @@ namespace ShootBalls.Gameplay
 
 			public float Lifetime;
 
-			[BoxGroup( "Damage (right-click to change type)" )]
-			[HideReferenceObjectPicker, LabelText( "@GetDamageTypeName()" )]
-			[SerializeReference] public IDamageData Damage;
-
-			private string GetDamageTypeName()
-			{
-				return Damage == null
-					? "Invalid"
-					: Damage.HandlerType.GetNiceName().SplitPascalCase();
-			}
+			[FoldoutGroup( "Attack" ), HideLabel]
+			public AttackController.Settings AttackSettings;
 		}
 	}
 }
