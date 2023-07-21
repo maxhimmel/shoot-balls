@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using ShootBalls.Gameplay.Attacking;
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Pawn;
 using ShootBalls.Utility;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
 using Zenject;
 
@@ -21,6 +21,7 @@ namespace ShootBalls.Gameplay
 		private readonly Settings _settings;
 		private readonly Rigidbody2D _body;
 		private readonly CharacterMotor _motor;
+		private readonly AttackController _attackController;
 		private readonly Dictionary<System.Type, IDamageHandler> _damageHandlers;
 		private readonly SignalBus _signalBus;
 		private readonly GameModel _gameModel;
@@ -35,6 +36,7 @@ namespace ShootBalls.Gameplay
 		public Ball( Settings settings,
 			Rigidbody2D body,
 			CharacterMotor motor,
+			AttackController attackController,
 			IDamageHandler[] damageHandlers,
 			SignalBus signalBus,
 			GameModel gameModel,
@@ -43,13 +45,12 @@ namespace ShootBalls.Gameplay
 			_settings = settings;
 			_body = body;
 			_motor = motor;
+			_attackController = attackController;
 			_damageHandlers = damageHandlers.ToDictionary( handler => handler.GetType() );
 			_signalBus = signalBus;
 			_gameModel = gameModel;
 
 			_health = settings.Health;
-			_settings.LaunchAttack.Instigator = this;
-			_settings.LaunchAttack.Causer = this;
 
 			collisionEnter.Entered += OnCollisionEnter;
 		}
@@ -190,19 +191,15 @@ namespace ShootBalls.Gameplay
 
 		private void OnCollisionEnter( Collision2D collision )
 		{
-			if ( !_isStunLaunched )
+			if ( _isStunLaunched )
 			{
-				return;
-			}
-
-			if ( collision.collider.TryResolveFromBodyContext<IDamageable>( out var damageable ) )
-			{
-				var contact = collision.GetContact( 0 );
-				
-				_settings.LaunchAttack.HitPosition = contact.point;
-				_settings.LaunchAttack.HitNormal = contact.normal;
-
-				damageable.TakeDamage( _settings.LaunchAttack );
+				_attackController.DealDamage( new AttackController.Request()
+				{
+					Collision = collision,
+					Instigator = this,
+					Causer = this,
+					Settings = _settings.LaunchAttack
+				} );
 			}
 		}
 
@@ -223,16 +220,8 @@ namespace ShootBalls.Gameplay
 			[FoldoutGroup( "Recovery" ), MinValue( 0 )]
 			public float InvulnerableDuration = 5;
 
-			[BoxGroup( "Attacks (right-click to change type)" )]
-			[HideReferenceObjectPicker, LabelText( "@\"Launched Attack [\" + GetDamageTypeName(LaunchAttack) + \"]\"" )]
-			[SerializeReference] public IDamageData LaunchAttack;
-
-			private string GetDamageTypeName( IDamageData data )
-			{
-				return data == null
-					? "Invalid"
-					: data.HandlerType.GetNiceName().SplitPascalCase();
-			}
+			[FoldoutGroup( "Launch Attack" ), HideLabel]
+			public AttackController.Settings LaunchAttack;
 		}
 	}
 }

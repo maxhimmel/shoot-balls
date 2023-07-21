@@ -1,4 +1,5 @@
 using ShootBalls.Gameplay;
+using ShootBalls.Gameplay.Attacking;
 using ShootBalls.Gameplay.Cameras;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Pawn;
@@ -47,6 +48,9 @@ namespace ShootBalls.Installers
 
 			Container.BindInterfacesTo<StunDamageHandler>()
 				.AsCached();
+
+			Container.Bind<AttackController>()
+				.AsSingle();
 		}
 	}
 }
