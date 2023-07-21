@@ -87,6 +87,13 @@ namespace ShootBalls.Gameplay
 		private void OnStunned()
 		{
 			_stunEndTime = Time.timeSinceLevelLoad + _settings.StunDuration;
+
+			_signalBus.FireId( "Stunned", new FxSignal()
+			{
+				Position = _body.position,
+				Direction = _body.transform.up,
+				Parent = _body.transform
+			} );
 		}
 
 		public void FixedTick()
@@ -125,6 +132,13 @@ namespace ShootBalls.Gameplay
 		public void OnRecovered()
 		{
 			_health = _settings.Health;
+
+			_signalBus.FireId( "Recovered", new FxSignal()
+			{
+				Position = _body.position,
+				Direction = _body.transform.up,
+				Parent = _body.transform
+			} );
 		}
 
 		private void TryHeal()
