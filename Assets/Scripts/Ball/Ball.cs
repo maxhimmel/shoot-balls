@@ -65,7 +65,7 @@ namespace ShootBalls.Gameplay
 					wasDamaged = true;
 					if ( wasStunned )
 					{
-						OnStunLaunched();
+						OnStunLaunched( data );
 					}
 				}
 			}
@@ -110,9 +110,16 @@ namespace ShootBalls.Gameplay
 			} );
 		}
 
-		private void OnStunLaunched()
+		private void OnStunLaunched( IDamageData data )
 		{
 			_isStunLaunched = true;
+
+			_signalBus.FireId( "Launched", new FxSignal()
+			{
+				Position = data.HitPosition,
+				Direction = -data.HitNormal,
+				Parent = _body.transform
+			} );
 		}
 
 		public void FixedTick()
