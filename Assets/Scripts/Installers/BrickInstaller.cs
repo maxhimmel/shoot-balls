@@ -25,7 +25,7 @@ namespace ShootBalls.Installers
 				.FromResolveGetter<SpriteRenderer>( renderer => renderer.transform )
 				.AsSingle();
 
-			Container.BindInterfacesTo<KnockbackDamageHandler>()
+			Container.BindInterfacesTo<StunDamageHandler>()
 				.AsSingle();
 		}
 	}

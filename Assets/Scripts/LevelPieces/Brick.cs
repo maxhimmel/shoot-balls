@@ -8,7 +8,8 @@ using Zenject;
 namespace ShootBalls.Gameplay.LevelPieces
 {
 	public class Brick : IPawn,
-		IDamageable
+		IDamageable,
+		IStunnable
     {
 		public Rigidbody2D Body => _body;
 
@@ -29,7 +30,7 @@ namespace ShootBalls.Gameplay.LevelPieces
 		{
 			bool wasDamaged = false;
 
-			if ( data.Causer is not Projectile )
+			//if ( data.Causer is not Projectile )
 			{
 				if ( _damageHandlers.TryGetValue( data.HandlerType, out var handler ) )
 				{
@@ -45,6 +46,21 @@ namespace ShootBalls.Gameplay.LevelPieces
 			} );
 
 			return false;
+		}
+
+		public bool IsStunned()
+		{
+			return false;
+		}
+
+		void IStunnable.OnStunHit( float damage )
+		{
+			Debug.Log( "Stun" );
+		}
+
+		void IStunnable.OnDirectHit( float damage )
+		{
+			Debug.Log( "Direct" );
 		}
 	}
 }
