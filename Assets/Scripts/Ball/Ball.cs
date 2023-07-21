@@ -3,7 +3,9 @@ using System.Linq;
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Pawn;
+using ShootBalls.Utility;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 using Zenject;
 
@@ -27,13 +29,15 @@ namespace ShootBalls.Gameplay
 		private float _healDelayEndTime;
 		private float _healTimer;
 		private float _stunEndTime;
+		private bool _isStunLaunched;
 
 		public Ball( Settings settings,
 			Rigidbody2D body,
 			CharacterMotor motor,
 			IDamageHandler[] damageHandlers,
 			SignalBus signalBus,
-			GameModel gameModel )
+			GameModel gameModel,
+			OnCollisionEnter2DBroadcaster collisionEnter )
 		{
 			_settings = settings;
 			_body = body;
@@ -43,6 +47,10 @@ namespace ShootBalls.Gameplay
 			_gameModel = gameModel;
 
 			_health = settings.Health;
+			_settings.LaunchAttack.Instigator = this;
+			_settings.LaunchAttack.Causer = this;
+
+			collisionEnter.Entered += OnCollisionEnter;
 		}
 
 		public bool TakeDamage( IDamageData data )
@@ -50,9 +58,15 @@ namespace ShootBalls.Gameplay
 			bool wasDamaged = false;
 			if ( _damageHandlers.TryGetValue( data.HandlerType, out var handler ) )
 			{
+				bool wasStunned = IsStunned();
+
 				if ( handler.Handle( this, data ) )
 				{
 					wasDamaged = true;
+					if ( wasStunned )
+					{
+						OnStunLaunched();
+					}
 				}
 			}
 
@@ -96,6 +110,11 @@ namespace ShootBalls.Gameplay
 			} );
 		}
 
+		private void OnStunLaunched()
+		{
+			_isStunLaunched = true;
+		}
+
 		public void FixedTick()
 		{
 			if ( HandleStunState() )
@@ -132,6 +151,7 @@ namespace ShootBalls.Gameplay
 		public void OnRecovered()
 		{
 			_health = _settings.Health;
+			_isStunLaunched = false;
 
 			_signalBus.FireId( "Recovered", new FxSignal()
 			{
@@ -167,6 +187,24 @@ namespace ShootBalls.Gameplay
 			}
 		}
 
+		private void OnCollisionEnter( Collision2D collision )
+		{
+			if ( !_isStunLaunched )
+			{
+				return;
+			}
+
+			if ( collision.collider.TryResolveFromBodyContext<IDamageable>( out var damageable ) )
+			{
+				var contact = collision.GetContact( 0 );
+				
+				_settings.LaunchAttack.HitPosition = contact.point;
+				_settings.LaunchAttack.HitNormal = contact.normal;
+
+				damageable.TakeDamage( _settings.LaunchAttack );
+			}
+		}
+
 		public class Factory : PlaceholderFactory<Ball> { }
 
 		[System.Serializable]
@@ -183,6 +221,17 @@ namespace ShootBalls.Gameplay
 			public float StunDuration = 3;
 			[FoldoutGroup( "Recovery" ), MinValue( 0 )]
 			public float InvulnerableDuration = 5;
+
+			[BoxGroup( "Attacks (right-click to change type)" )]
+			[HideReferenceObjectPicker, LabelText( "@\"Launched Attack [\" + GetDamageTypeName(LaunchAttack) + \"]\"" )]
+			[SerializeReference] public IDamageData LaunchAttack;
+
+			private string GetDamageTypeName( IDamageData data )
+			{
+				return data == null
+					? "Invalid"
+					: data.HandlerType.GetNiceName().SplitPascalCase();
+			}
 		}
 	}
 }

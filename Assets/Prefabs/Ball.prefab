@@ -317,6 +317,8 @@ MonoBehaviour:
     HealRatePerHP: 0.33333334
     StunDuration: 2
     InvulnerableDuration: 5
+    LaunchAttack:
+      rid: 20644919840079874
   _motor:
     Acceleration: 50
     MaxSpeed: 20
@@ -327,6 +329,13 @@ MonoBehaviour:
     Focus: {fileID: 607798524136374827}
     Weight: 20
     Radius: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 20644919840079874
+      type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+      data:
+        Knockback: 0
 --- !u!50 &607798524136374830
 Rigidbody2D:
   serializedVersion: 4
