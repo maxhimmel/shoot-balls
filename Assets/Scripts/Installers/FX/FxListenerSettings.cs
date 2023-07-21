@@ -39,5 +39,21 @@ namespace ShootBalls.Installers
 				} )
 				.AsCached();
 		}
+
+		[EnableIf( "@UnityEngine.Application.isPlaying" )]
+		[BoxGroup, Button( ButtonSizes.Gigantic, Style = ButtonStyle.FoldoutButton, DirtyOnClick = false, Expanded = true )]
+		private void Test( Vector2 localPos, Vector2 worldDir )
+		{
+			var signalBus = Container.TryResolve<SignalBus>();
+			if ( signalBus != null )
+			{
+				signalBus.FireId( _fxId, new FxSignal()
+				{
+					Position = transform.TransformPoint( localPos ),
+					Direction = worldDir,
+					Parent = transform
+				} );
+			}
+		}
 	}
 }
