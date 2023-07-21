@@ -51,7 +51,7 @@ namespace ShootBalls.Gameplay.Attacking
 				_signalBus.FireId( request.Settings.SuccessFxId, new FxSignal()
 				{
 					Position = contact.point,
-					Direction = contact.normal,
+					Direction = -contact.normal,
 					Parent = request.Causer.Body.transform
 				} );
 			}
@@ -60,7 +60,7 @@ namespace ShootBalls.Gameplay.Attacking
 				_signalBus.FireId( request.Settings.FailureFxId, new FxSignal()
 				{
 					Position = contact.point,
-					Direction = contact.normal,
+					Direction = -contact.normal,
 					Parent = request.Causer.Body.transform
 				} );
 			}

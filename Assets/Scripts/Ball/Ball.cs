@@ -71,7 +71,7 @@ namespace ShootBalls.Gameplay
 			_signalBus.FireId( wasDamaged ? "Damaged" : "Deflected", new FxSignal()
 			{
 				Position = data.HitPosition,
-				Direction = data.HitNormal,
+				Direction = -data.HitNormal,
 				Parent = _body.transform
 			} );
 
