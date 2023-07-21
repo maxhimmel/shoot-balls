@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using ShootBalls.Utility;
+using Sirenix.OdinInspector;
 
 namespace ShootBalls.Gameplay.Fx
 {
@@ -18,7 +19,7 @@ namespace ShootBalls.Gameplay.Fx
 
 		public void Play( IFxSignal signal )
 		{
-			_timeController.PauseForSeconds( _settings.Duration )
+			_timeController.AdjustForSeconds( _settings.Duration, _settings.TimeScale )
 				.Forget();
 		}
 
@@ -27,7 +28,10 @@ namespace ShootBalls.Gameplay.Fx
 		{
 			public Type AnimatorType => typeof( HitStopVfxAnimator );
 
+			[HorizontalGroup]
 			public float Duration;
+			[HorizontalGroup, MinValue( 0 )]
+			public float TimeScale;
 		}
 	}
 }

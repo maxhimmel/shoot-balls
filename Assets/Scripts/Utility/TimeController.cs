@@ -15,14 +15,15 @@ namespace ShootBalls.Utility
             _fixedDeltaTime = Time.fixedDeltaTime;
 		}
 
-        public async UniTask PauseForSeconds( float seconds )
+        public async UniTask AdjustForSeconds( float seconds, float tempTimeScale )
 		{
             if ( seconds <= 0 )
 			{
                 return;
 			}
 
-            SetTimeScale( 0 );
+            float prevScale = Time.timeScale;
+            SetTimeScale( tempTimeScale );
 
             await UniTask.Delay(
                 TimeSpan.FromSeconds( seconds ),
@@ -31,7 +32,7 @@ namespace ShootBalls.Utility
                 //AppHelper.AppQuittingToken
             );
 
-            SetTimeScale( 1 );
+            SetTimeScale( prevScale );
 		}
 
         public void SetTimeScale( float scale )
