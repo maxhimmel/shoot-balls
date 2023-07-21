@@ -41,7 +41,7 @@ namespace ShootBalls.Gameplay.Fx
 					await UniTask.Yield( PlayerLoopTiming.Update );
 				}
 
-				if ( _renderer == null )
+				if ( _renderer == null || !_renderer.enabled )
 				{
 					_isPlaying = false;
 					return;
