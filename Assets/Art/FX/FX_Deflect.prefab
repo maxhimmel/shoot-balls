@@ -9850,7 +9850,7 @@ GameObject:
   - component: {fileID: 7455542192304211818}
   - component: {fileID: 7641523818938490003}
   m_Layer: 0
-  m_Name: FX_BallDeflect
+  m_Name: FX_Deflect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
