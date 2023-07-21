@@ -315,7 +315,7 @@ MonoBehaviour:
     Health: 6
     HealDelay: 0.5
     HealRatePerHP: 0.33333334
-    StunDuration: 3
+    StunDuration: 2
     InvulnerableDuration: 5
   _motor:
     Acceleration: 50
@@ -946,7 +946,7 @@ MonoBehaviour:
         BlinkSettings:
           Color: {r: 0.06943529, g: 0.1869412, b: 0.22700001, a: 1}
           Blinks: 60
-          Duration: 3
+          Duration: 2
 --- !u!1 &9046313347921760209
 GameObject:
   m_ObjectHideFlags: 0
