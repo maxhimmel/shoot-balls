@@ -806,6 +806,7 @@ MonoBehaviour:
   _fxId: Recovered
   _fxSettings:
   - rid: 20644905994944518
+  - rid: 20644905994944519
   references:
     version: 2
     RefIds:
@@ -885,6 +886,10 @@ MonoBehaviour:
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
+    - rid: 20644905994944519
+      type: {class: PoolableFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        Prefab: {fileID: 7641523818938490003, guid: b2fc82e924deabb498f990b2d60336b2, type: 3}
 --- !u!1 &7763968536195485283
 GameObject:
   m_ObjectHideFlags: 0
