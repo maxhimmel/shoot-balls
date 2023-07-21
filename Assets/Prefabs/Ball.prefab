@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607798523874604696}
   - component: {fileID: 607798523874604699}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607798523905398274}
   - component: {fileID: 607798523905398285}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite_Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607798523943269061}
   - component: {fileID: 607798523943269114}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 607798524136374824}
   - component: {fileID: 607798524136374826}
   - component: {fileID: 607798524136374830}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,10 +319,19 @@ MonoBehaviour:
     StunDuration: 2
     InvulnerableDuration: 5
     LaunchAttack:
-      rid: 20644919840079876
+      UseSuccessFx: 0
+      SuccessFxId: Damaged
+      UseFailureFx: 0
+      FailureFxId: Deflected
+      DamageLayers:
+      - HitLayer:
+          serializedVersion: 2
+          m_Bits: 128
+        Damage:
+          rid: 20644923908816913
   _motor:
     Acceleration: 50
-    MaxSpeed: 20
+    MaxSpeed: 0
     UpdateRotation: 0
     AngleAcceleration: 0
     _metric: 0
@@ -333,10 +342,12 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 20644919840079876
-      type: {class: KnockbackDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+    - rid: 20644923908816913
+      type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
       data:
         Knockback: 0
+        StunDamage: 1
+        DirectDamage: 10
 --- !u!50 &607798524136374830
 Rigidbody2D:
   serializedVersion: 4
@@ -368,7 +379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607798524424062451}
   - component: {fileID: 607798524424062450}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_Damaged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,7 +488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607798524452813880}
   - component: {fileID: 607798524452813883}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite_Direction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607798524581256018}
   - component: {fileID: 607798524581256029}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607798525127510361}
   - component: {fileID: 607798525127510360}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -696,7 +707,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607798525873973034}
   - component: {fileID: 607798525873973045}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite_Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -780,7 +791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6104523952067676217}
   - component: {fileID: 7495905719647888263}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_Launched
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -835,7 +846,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2448934461515468422}
   - component: {fileID: 677759279183590229}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_Recovered
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -966,7 +977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6792989831550239557}
   - component: {fileID: 4794283730078218050}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_Stunned
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1023,7 +1034,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9181022945930520719}
   - component: {fileID: 5509732834433560650}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_Deflected
   m_TagString: Untagged
   m_Icon: {fileID: 0}

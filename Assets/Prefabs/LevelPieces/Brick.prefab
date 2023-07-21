@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5732287240472940435}
   - component: {fileID: 7367061711555563983}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX_Damaged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2448808653003057398}
   - component: {fileID: 5684367419707773809}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX_Deflected
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8143964292728326662}
   - component: {fileID: 8006186018778239153}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite_Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7808108305731305781}
   - component: {fileID: 7808108305731305782}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 7808108306499074699}
   - component: {fileID: 7808108306499074700}
   - component: {fileID: 7808108306499074701}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 47020
+  m_InstanceId: 46172
 --- !u!1 &7808108306673341601
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 7808108306673341603}
   - component: {fileID: 3016172196764993469}
   - component: {fileID: 7808108306673341602}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Brick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8925714168163051260}
   - component: {fileID: 4221250624850638373}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3202091056019357302}
   - component: {fileID: 6117676157122549018}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gun_Secondary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,8 +50,31 @@ MonoBehaviour:
     ProjectilePrefab: {fileID: 4090080309041504020, guid: f9d3dd10af314e14c8b1f619269cccb6, type: 3}
     ProjectileSettings:
       Lifetime: 5
-      Damage:
-        rid: 20644923908816896
+      AttackSettings:
+        SuccessFxId: Damaged
+        FailureFxId: Deflected
+        DamageLayers:
+        - HitLayer:
+            serializedVersion: 2
+            m_Bits: 64
+          Damage:
+            rid: 20644923908816911
+        - HitLayer:
+            serializedVersion: 2
+            m_Bits: 128
+          Damage:
+            rid: 20644923908816912
+      DamageLayers:
+      - HitLayer:
+          serializedVersion: 2
+          m_Bits: 64
+        Damage:
+          rid: 20644923908816899
+      - HitLayer:
+          serializedVersion: 2
+          m_Bits: 128
+        Damage:
+          rid: 20644923908816900
     ProjectileSpeed: 30
     FireSpread:
       rid: 20644856882528258
@@ -82,12 +105,30 @@ MonoBehaviour:
         AutoReload: 1
         ReloadDuration: 1
         ClipSize: 1
-    - rid: 20644923908816896
+    - rid: 20644923908816899
       type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
       data:
         Knockback: 700
         StunDamage: 0
         DirectDamage: 1
+    - rid: 20644923908816900
+      type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+      data:
+        Knockback: 0
+        StunDamage: 0
+        DirectDamage: 0
+    - rid: 20644923908816911
+      type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+      data:
+        Knockback: 700
+        StunDamage: 0
+        DirectDamage: 1
+    - rid: 20644923908816912
+      type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+      data:
+        Knockback: 0
+        StunDamage: 0
+        DirectDamage: 0
 --- !u!1 &8464669104956662747
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,7 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8464669104956662748}
   - component: {fileID: 8464669104956662750}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite_Direction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +224,7 @@ GameObject:
   - component: {fileID: 8464669105049840744}
   - component: {fileID: 8464669105049840745}
   - component: {fileID: 8464669105049840746}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,7 +325,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 31198
+  m_InstanceId: 53882
 --- !u!1 &8464669105146387395
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8464669105146387396}
   - component: {fileID: 8464669105146387397}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FX_Attacked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8464669105744465989}
   - component: {fileID: 8464669105744465990}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gun_Primary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,8 +478,31 @@ MonoBehaviour:
     ProjectilePrefab: {fileID: 4090080309041504020, guid: 3336b4b4c7145d54dab9cc064f22164c, type: 3}
     ProjectileSettings:
       Lifetime: 5
-      Damage:
-        rid: 20644888319361029
+      AttackSettings:
+        SuccessFxId: Damaged
+        FailureFxId: Deflected
+        DamageLayers:
+        - HitLayer:
+            serializedVersion: 2
+            m_Bits: 64
+          Damage:
+            rid: 20644923908816903
+        - HitLayer:
+            serializedVersion: 2
+            m_Bits: 128
+          Damage:
+            rid: 20644923908816904
+      DamageLayers:
+      - HitLayer:
+          serializedVersion: 2
+          m_Bits: 64
+        Damage:
+          rid: 20644923908816897
+      - HitLayer:
+          serializedVersion: 2
+          m_Bits: 128
+        Damage:
+          rid: 20644923908816898
     ProjectileSpeed: 20
     FireSpread:
       rid: 20644856882528258
@@ -462,12 +526,30 @@ MonoBehaviour:
       type: {class: AngleDirectionAdjuster/Settings, ns: ShootBalls.Gameplay.Weapons, asm: Sandbox}
       data:
         AngleRange: {x: 0, y: 5}
-    - rid: 20644888319361029
+    - rid: 20644923908816897
       type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
       data:
         Knockback: 35
         StunDamage: 1
         DirectDamage: 0
+    - rid: 20644923908816898
+      type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+      data:
+        Knockback: 35
+        StunDamage: 0
+        DirectDamage: 1
+    - rid: 20644923908816903
+      type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+      data:
+        Knockback: 35
+        StunDamage: 1
+        DirectDamage: 0
+    - rid: 20644923908816904
+      type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+      data:
+        Knockback: 35
+        StunDamage: 0
+        DirectDamage: 1
 --- !u!1 &8464669106553265078
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,7 +562,7 @@ GameObject:
   - component: {fileID: 8464669106553265082}
   - component: {fileID: 8464669106553265081}
   - component: {fileID: 8464669106553265083}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8464669106806249084}
   - component: {fileID: 8464669106806249085}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +716,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8464669106859007277}
   - component: {fileID: 8464669106859007278}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -678,7 +760,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8464669106929438733}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AimLookAhead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
