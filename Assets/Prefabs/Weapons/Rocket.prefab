@@ -406,7 +406,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 91316
+  m_InstanceId: 31154
 --- !u!1 &4090080309041504020
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,6 +566,7 @@ MonoBehaviour:
   - rid: 20644856882528265
   - rid: 20644865568931846
   - rid: 20644865568931847
+  - rid: 20644919840079873
   references:
     version: 2
     RefIds:
@@ -614,6 +615,12 @@ MonoBehaviour:
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
+    - rid: 20644919840079873
+      type: {class: TrailVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        Trail: {fileID: 1811690556568487998}
+        IsEmitting: 0
+        Duration: 0.25
 --- !u!1 &8231226829092912014
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,6 +717,7 @@ MonoBehaviour:
   - rid: 20644865568931846
   - rid: 20644865568931847
   - rid: 20644888319361030
+  - rid: 20644919840079872
   references:
     version: 2
     RefIds:
@@ -802,3 +810,9 @@ MonoBehaviour:
           m_DissipationDistance: 20
           m_PropagationSpeed: 343
         Force: 1.75
+    - rid: 20644919840079872
+      type: {class: TrailVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        Trail: {fileID: 1811690556568487998}
+        IsEmitting: 0
+        Duration: 0.25
