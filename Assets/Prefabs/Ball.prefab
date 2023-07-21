@@ -824,7 +824,7 @@ MonoBehaviour:
       type: {class: HitStopVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         Duration: 0.5
-        TimeScale: 0.2
+        TimeScale: 0.15
 --- !u!1 &5122787258753076798
 GameObject:
   m_ObjectHideFlags: 0
