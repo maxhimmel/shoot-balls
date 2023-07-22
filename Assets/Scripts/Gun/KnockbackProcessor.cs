@@ -17,7 +17,7 @@ namespace ShootBalls.Gameplay.Weapons
 
 		public void FireEnding()
 		{
-			var pushableFacingDir = _pushable.Orientation.Rotation * Vector2.up;
+			var pushableFacingDir = _pushable.Body.transform.up;
 			_pushable.Push( -pushableFacingDir * _settings.Impulse );
 		}
 

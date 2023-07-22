@@ -13,7 +13,8 @@ namespace ShootBalls.Gameplay.Player
 	public class PlayerController : IPawn,
 		IInitializable,
 		ITickable,
-		IFixedTickable
+		IFixedTickable,
+		IPushable
 	{
 		public Rigidbody2D Body => _body;
 
@@ -84,6 +85,11 @@ namespace ShootBalls.Gameplay.Player
 		public void FixedTick()
 		{
 			_motor.FixedTick();
+		}
+
+		void IPushable.Push( Vector2 velocity )
+		{
+			_body.AddForce( velocity, ForceMode2D.Impulse );
 		}
 
 		public class Factory : PlaceholderFactory<PlayerController> { }

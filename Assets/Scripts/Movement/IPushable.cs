@@ -1,12 +1,10 @@
-﻿using ShootBalls.Utility;
+﻿using ShootBalls.Gameplay.Pawn;
 using UnityEngine;
 
 namespace ShootBalls.Gameplay
 {
-	public interface IPushable
+	public interface IPushable : IPawn
 	{
-		IOrientation Orientation { get; }
-
 		void Push( Vector2 velocity );
 	}
 }
