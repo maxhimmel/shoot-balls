@@ -1,5 +1,6 @@
 using ShootBalls.Gameplay;
 using ShootBalls.Gameplay.Fx;
+using ShootBalls.Gameplay.LevelPieces;
 using ShootBalls.Gameplay.Player;
 using UnityEngine;
 using Zenject;
@@ -10,6 +11,7 @@ namespace ShootBalls.Installers
     {
 		[SerializeField] private PlayerInstaller _playerPrefab;
 		[SerializeField] private BallInstaller _ballPrefab;
+		[SerializeField] private BrickInstaller _brickPrefab;
 
 		[Space]
 		[SerializeField] private ScreenColorShifter.Settings _screenColor;
@@ -34,6 +36,19 @@ namespace ShootBalls.Installers
 				.WithGameObjectName( _ballPrefab.name )
 				.UnderTransform( context => null );
 
+			Container.BindFactory<Brick, Brick.Factory>()
+				.FromPoolableMemoryPool( pool => pool
+					.FromSubContainerResolve()
+					.ByNewContextPrefab( _brickPrefab )
+					.WithGameObjectName( _brickPrefab.name )
+					.UnderTransform( context => context.Container.ResolveId<Transform>( "Pool_Bricks" ) )
+				);
+
+			BindFx();
+		}
+
+		private void BindFx()
+		{
 			Container.Bind<FxFactoryBus>()
 				.AsSingle();
 

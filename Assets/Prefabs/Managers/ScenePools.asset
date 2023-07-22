@@ -15,3 +15,4 @@ MonoBehaviour:
   _poolIds:
   - Pool_Projectiles
   - Pool_Fx
+  - Pool_Bricks

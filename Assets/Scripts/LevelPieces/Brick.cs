@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ShootBalls.Gameplay.Fx;
@@ -11,7 +12,9 @@ namespace ShootBalls.Gameplay.LevelPieces
 	public class Brick : IPawn,
 		IDamageable,
 		IStunnable,
-		ITickable
+		ITickable,
+		IPoolable<IMemoryPool>,
+		IDisposable
     {
 		public Rigidbody2D Body => _body;
 
@@ -23,6 +26,7 @@ namespace ShootBalls.Gameplay.LevelPieces
 
 		private float _health;
 		private IDamageData _recentDamage;
+		private IMemoryPool _pool;
 
 		public Brick( Settings settings,
 			Rigidbody2D body,
@@ -119,6 +123,27 @@ namespace ShootBalls.Gameplay.LevelPieces
 		{
 			_stunController.Tick();
 		}
+
+		public void OnSpawned( IMemoryPool pool )
+		{
+			_pool = pool;
+
+			_body.gameObject.SetActive( true );
+		}
+
+		public void Dispose()
+		{
+			_pool?.Despawn( this );
+		}
+
+		public void OnDespawned()
+		{
+			_pool = null;
+
+			_body.gameObject.SetActive( false );
+		}
+
+		public class Factory : PlaceholderFactory<Brick> { }
 
 		[System.Serializable]
 		public class Settings
