@@ -41,9 +41,6 @@ namespace ShootBalls.Gameplay.LevelPieces
 			_damageHandlers = damageHandlers.ToDictionary( handler => handler.GetType() );
 
 			_health = settings.Health;
-
-			stunController.Stunned += OnStunned;
-			stunController.Recovered += OnRecovered;
 		}
 
 		public bool TakeDamage( IDamageData data )
@@ -74,26 +71,6 @@ namespace ShootBalls.Gameplay.LevelPieces
 		void IStunnable.OnStunHit( float damage )
 		{
 			_stunController.Hit( damage );
-		}
-
-		private void OnStunned()
-		{
-			_signalBus.FireId( "Stunned", new FxSignal()
-			{
-				Position = _recentDamage.HitPosition,
-				Direction = -_recentDamage.HitNormal,
-				Parent = _body.transform
-			} );
-		}
-
-		private void OnRecovered()
-		{
-			_signalBus.FireId( "Recovered", new FxSignal()
-			{
-				Position = _body.position,
-				Direction = _body.transform.up,
-				Parent = _body.transform
-			} );
 		}
 
 		void IStunnable.OnDirectHit( float damage )

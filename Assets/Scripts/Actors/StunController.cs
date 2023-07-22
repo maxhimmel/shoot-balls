@@ -1,5 +1,7 @@
-﻿using Sirenix.OdinInspector;
+﻿using ShootBalls.Gameplay.Fx;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace ShootBalls.Gameplay.Pawn
 {
@@ -12,14 +14,19 @@ namespace ShootBalls.Gameplay.Pawn
 		public bool IsDamaged => _stunPoints != _settings.StunPoints;
 
 		private readonly Settings _settings;
+		private readonly Rigidbody2D _body;
+		private readonly SignalBus _signalBus;
 
 		private float _stunPoints;
 		private float _stunTimer;
 
-		public StunController( Settings settings )
+		public StunController( Settings settings,
+			Rigidbody2D body,
+			SignalBus signalBus )
 		{
 			_settings = settings;
-
+			_body = body;
+			_signalBus = signalBus;
 			_stunPoints = settings.StunPoints;
 		}
 
@@ -49,6 +56,13 @@ namespace ShootBalls.Gameplay.Pawn
 			_stunPoints = 0;
 			_stunTimer = _settings.StunDuration;
 
+			_signalBus.FireId( "Stunned", new FxSignal()
+			{
+				Position = _body.position,
+				Direction = _body.transform.up,
+				Parent = _body.transform
+			} );
+
 			Stunned?.Invoke();
 		}
 
@@ -72,6 +86,13 @@ namespace ShootBalls.Gameplay.Pawn
 		{
 			_stunTimer = 0;
 			_stunPoints = _settings.StunPoints;
+
+			_signalBus.FireId( "Recovered", new FxSignal()
+			{
+				Position = _body.position,
+				Direction = _body.transform.up,
+				Parent = _body.transform
+			} );
 
 			Recovered?.Invoke();
 		}

@@ -53,7 +53,6 @@ namespace ShootBalls.Gameplay
 
 			collisionEnter.Entered += OnCollisionEnter;
 
-			stunController.Stunned += OnStunned;
 			stunController.Recovered += OnRecovered;
 		}
 
@@ -84,16 +83,6 @@ namespace ShootBalls.Gameplay
 				_healTimer = 0;
 				_healDelayEndTime = Time.timeSinceLevelLoad + _settings.HealDelay;
 			}
-		}
-
-		private void OnStunned()
-		{
-			_signalBus.FireId( "Stunned", new FxSignal()
-			{
-				Position = _body.position,
-				Direction = _body.transform.up,
-				Parent = _body.transform
-			} );
 		}
 
 		void IStunnable.OnDirectHit( float damage )
@@ -140,13 +129,6 @@ namespace ShootBalls.Gameplay
 		private void OnRecovered()
 		{
 			_isStunLaunched = false;
-
-			_signalBus.FireId( "Recovered", new FxSignal()
-			{
-				Position = _body.position,
-				Direction = _body.transform.up,
-				Parent = _body.transform
-			} );
 		}
 
 		private void TryHeal()
