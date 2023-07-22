@@ -46,65 +46,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fxId: Damaged
   _fxSettings:
-  - rid: 20644901002936325
   - rid: 20644901002936326
-  - rid: 20644901002936327
   - rid: 20644943132622848
   references:
     version: 2
     RefIds:
-    - rid: 20644901002936325
-      type: {class: BounceVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
-      data:
-        BounceSettings:
-          Scale: 0.5
-          Duration: 0.25
-          ResetScale: 1
-          Curve:
-            serializedVersion: 2
-            m_Curve:
-            - serializedVersion: 3
-              time: 0
-              value: 0
-              inSlope: 0
-              outSlope: 0
-              tangentMode: 0
-              weightedMode: 0
-              inWeight: 0.33333334
-              outWeight: 0.33333334
-            - serializedVersion: 3
-              time: 0.5
-              value: 1
-              inSlope: 0
-              outSlope: 0
-              tangentMode: 0
-              weightedMode: 0
-              inWeight: 0.33333334
-              outWeight: 0.33333334
-            - serializedVersion: 3
-              time: 1
-              value: 0
-              inSlope: 0
-              outSlope: 0
-              tangentMode: 0
-              weightedMode: 0
-              inWeight: 0.33333334
-              outWeight: 0.33333334
-            m_PreInfinity: 2
-            m_PostInfinity: 2
-            m_RotationOrder: 4
     - rid: 20644901002936326
       type: {class: RotationVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         AngleRange: {x: -10, y: 10}
-        Duration: 0.25
-    - rid: 20644901002936327
-      type: {class: SpriteBlinkVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
-      data:
-        BlinkSettings:
-          Color: {r: 1, g: 0.28556418, b: 0.1462264, a: 1}
-          Blinks: 6
-          Duration: 0.25
+        Duration: 0.1
     - rid: 20644943132622848
       type: {class: PoolableFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
@@ -155,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fxId: Stunned
   _fxSettings:
+  - rid: 20644949673377793
   - rid: 20644905994944516
   references:
     version: 2
@@ -163,9 +115,81 @@ MonoBehaviour:
       type: {class: SpriteBlinkVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         BlinkSettings:
-          Color: {r: 0.08694229, g: 0.41099998, b: 0.09879805, a: 1}
+          Color: {r: 1, g: 0.28627452, b: 0.14509805, a: 1}
           Blinks: 90
           Duration: 3
+    - rid: 20644949673377793
+      type: {class: BounceVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        BounceSettings:
+          Scale: 0.5
+          Duration: 0.25
+          ResetScale: 1
+          Curve:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0.33333334
+              outWeight: 0.33333334
+            - serializedVersion: 3
+              time: 0.5
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0.33333334
+              outWeight: 0.33333334
+            - serializedVersion: 3
+              time: 1
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0.33333334
+              outWeight: 0.33333334
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+--- !u!1 &779647968799729674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4793465214932437496}
+  m_Layer: 7
+  m_Name: Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4793465214932437496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779647968799729674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7808108306499074699}
+  m_Father: {fileID: 7808108306673341604}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4290479718963629247
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,17 +339,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fxId: Dead
   _fxSettings:
-  - rid: 20644923908816914
+  - rid: 20644943132622849
+  - rid: 20644943132622851
   references:
     version: 2
     RefIds:
-    - rid: 20644923908816914
-      type: {class: SpriteBlinkVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+    - rid: 20644943132622849
+      type: {class: PoolableFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
-        BlinkSettings:
-          Color: {r: 1, g: 0, b: 0, a: 1}
-          Blinks: 60
-          Duration: 60
+        Prefab: {fileID: 7641523818938490003, guid: a7c843f01ac9a854fa49bc0f336d19f7, type: 3}
+    - rid: 20644943132622851
+      type: {class: BounceVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        BounceSettings:
+          Scale: -1
+          Duration: 0.375
+          ResetScale: 1
+          Curve:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: -3.8423991
+              outSlope: -3.8423991
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0.038309645
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
 --- !u!1 &7198131276245092760
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,7 +650,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &7808108306499074698
 GameObject:
@@ -624,13 +677,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7808108306499074698}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8143964292728326662}
-  m_Father: {fileID: 7808108306673341604}
+  m_Father: {fileID: 4793465214932437496}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7808108306499074700
@@ -711,7 +764,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 67304
+  m_InstanceId: 52716
 --- !u!1 &7808108306673341601
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,10 +793,10 @@ Transform:
   m_GameObject: {fileID: 7808108306673341601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.5, y: 2.5, z: 0}
-  m_LocalScale: {x: 3, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7808108306499074699}
+  - {fileID: 4793465214932437496}
   - {fileID: 7808108305731305781}
   - {fileID: 8925714168163051260}
   m_Father: {fileID: 0}
@@ -785,6 +838,7 @@ MonoBehaviour:
       StunPoints: 1
       StunDuration: 3
     Health: 15
+    DeathDuration: 0.375
 --- !u!50 &7808108306673341602
 Rigidbody2D:
   serializedVersion: 4

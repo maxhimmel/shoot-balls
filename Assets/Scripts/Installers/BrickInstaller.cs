@@ -27,7 +27,7 @@ namespace ShootBalls.Installers
 
 			Container.Bind<Transform>()
 				.WithId( "Renderer" )
-				.FromResolveGetter<SpriteRenderer>( renderer => renderer.transform )
+				.FromResolveGetter<SpriteRenderer>( renderer => renderer.transform.parent )
 				.AsSingle();
 
 			Container.BindInterfacesTo<StunDamageHandler>()

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Pawn;
 using Sirenix.OdinInspector;
@@ -17,11 +19,14 @@ namespace ShootBalls.Gameplay.LevelPieces
 		IDisposable
     {
 		public Rigidbody2D Body => _body;
+		private bool IsDead => _health <= 0;
 
+		private readonly Settings _settings;
 		private readonly Rigidbody2D _body;
 		private readonly StunController _stunController;
 		private readonly SignalBus _signalBus;
 		private readonly Dictionary<System.Type, IDamageHandler> _damageHandlers;
+		private readonly CancellationToken _onDestroyedCancelToken;
 
 		private float _health;
 		private IDamageData _recentDamage;
@@ -33,12 +38,31 @@ namespace ShootBalls.Gameplay.LevelPieces
 			IDamageHandler[] damageHandlers,
 			SignalBus signalBus )
 		{
+			_settings = settings;
 			_body = body;
 			_stunController = stunController;
 			_signalBus = signalBus;
 			_damageHandlers = damageHandlers.ToDictionary( handler => handler.GetType() );
+			_onDestroyedCancelToken = _body.GetCancellationTokenOnDestroy();
 
 			_health = settings.Health;
+		}
+
+		public void OnSpawned( IMemoryPool pool )
+		{
+			_pool = pool;
+
+			_body.gameObject.SetActive( true );
+		}
+
+		public void Tick()
+		{
+			if ( IsDead )
+			{
+				return;
+			}
+
+			_stunController.Tick();
 		}
 
 		public bool TakeDamage( IDamageData data )
@@ -73,11 +97,11 @@ namespace ShootBalls.Gameplay.LevelPieces
 
 		void IStunnable.OnDirectHit( float damage )
 		{
-			if ( _health > 0 )
+			if ( !IsDead )
 			{
 				_health -= damage;
 
-				if ( _health <= 0 )
+				if ( IsDead )
 				{
 					OnDead();
 				}
@@ -86,29 +110,40 @@ namespace ShootBalls.Gameplay.LevelPieces
 
 		private void OnDead()
 		{
+			//Dispose();
+			DelayedDispose().Forget();
+
 			_signalBus.FireId( "Dead", new FxSignal()
 			{
-				Position = _recentDamage.HitPosition,
+				Position = _body.position,
 				Direction = -_recentDamage.HitNormal,
 				Parent = _body.transform
 			} );
 		}
 
-		public void Tick()
+		private async UniTaskVoid DelayedDispose()
 		{
-			_stunController.Tick();
-		}
+			float timer = 0;
+			while ( timer < _settings.DeathDuration )
+			{
+				timer += Time.deltaTime;
+				await UniTask.Yield( PlayerLoopTiming.Update, _onDestroyedCancelToken );
+			}
 
-		public void OnSpawned( IMemoryPool pool )
-		{
-			_pool = pool;
-
-			_body.gameObject.SetActive( true );
+			Dispose();
 		}
 
 		public void Dispose()
 		{
-			_pool?.Despawn( this );
+			if ( _pool != null )
+			{
+				_pool.Despawn( this );
+			}
+			else
+			{
+				// TODO: Remove this 'else' - it only exists because these bricks have been manually placed in the scene.
+				OnDespawned();
+			}
 		}
 
 		public void OnDespawned()
@@ -127,6 +162,8 @@ namespace ShootBalls.Gameplay.LevelPieces
 			public StunController.Settings Stun;
 			[MinValue( 0 )]
 			public float Health;
+			[MinValue( 0 )]
+			public float DeathDuration;
 		}
 	}
 }
