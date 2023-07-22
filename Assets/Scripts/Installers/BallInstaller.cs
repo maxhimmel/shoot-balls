@@ -51,6 +51,10 @@ namespace ShootBalls.Installers
 
 			Container.Bind<AttackController>()
 				.AsSingle();
+
+			Container.Bind<StunController>()
+				.AsSingle()
+				.WithArguments( _settings.Stun );
 		}
 	}
 }

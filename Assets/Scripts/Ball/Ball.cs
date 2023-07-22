@@ -21,21 +21,21 @@ namespace ShootBalls.Gameplay
 		private readonly Settings _settings;
 		private readonly Rigidbody2D _body;
 		private readonly CharacterMotor _motor;
+		private readonly StunController _stunController;
 		private readonly AttackController _attackController;
 		private readonly Dictionary<System.Type, IDamageHandler> _damageHandlers;
 		private readonly SignalBus _signalBus;
 		private readonly GameModel _gameModel;
 
-		private float _health;
 		private float _healDelayEndTime;
 		private float _healTimer;
-		private float _stunEndTime;
 		private bool _isStunLaunched;
 		private IDamageData _recentDamage;
 
 		public Ball( Settings settings,
 			Rigidbody2D body,
 			CharacterMotor motor,
+			StunController stunController,
 			AttackController attackController,
 			IDamageHandler[] damageHandlers,
 			SignalBus signalBus,
@@ -45,27 +45,26 @@ namespace ShootBalls.Gameplay
 			_settings = settings;
 			_body = body;
 			_motor = motor;
+			_stunController = stunController;
 			_attackController = attackController;
 			_damageHandlers = damageHandlers.ToDictionary( handler => handler.GetType() );
 			_signalBus = signalBus;
 			_gameModel = gameModel;
 
-			_health = settings.Health;
-
 			collisionEnter.Entered += OnCollisionEnter;
+
+			stunController.Stunned += OnStunned;
+			stunController.Recovered += OnRecovered;
 		}
 
 		public bool TakeDamage( IDamageData data )
 		{
 			bool wasDamaged = false;
+
 			if ( _damageHandlers.TryGetValue( data.HandlerType, out var handler ) )
 			{
 				_recentDamage = data;
-
-				if ( handler.Handle( this, data ) )
-				{
-					wasDamaged = true;
-				}
+				wasDamaged = handler.Handle( this, data );
 			}
 
 			_signalBus.FireId( wasDamaged ? "Damaged" : "Deflected", new FxSignal()
@@ -80,23 +79,15 @@ namespace ShootBalls.Gameplay
 
 		void IStunnable.OnStunHit( float damage )
 		{
-			if ( _health > 0 )
+			if ( !_stunController.Hit( damage ) )
 			{
-				_health -= damage;
 				_healTimer = 0;
 				_healDelayEndTime = Time.timeSinceLevelLoad + _settings.HealDelay;
-
-				if ( _health <= 0 )
-				{
-					OnStunned();
-				}
 			}
 		}
 
 		private void OnStunned()
 		{
-			_stunEndTime = Time.timeSinceLevelLoad + _settings.StunDuration;
-
 			_signalBus.FireId( "Stunned", new FxSignal()
 			{
 				Position = _body.position,
@@ -130,12 +121,8 @@ namespace ShootBalls.Gameplay
 
 		private bool HandleStunState()
 		{
-			if ( !IsStunned() )
+			if ( !_stunController.Tick() )
 			{
-				if ( _health <= 0 )
-				{
-					OnRecovered();
-				}
 				return false;
 			}
 
@@ -147,12 +134,11 @@ namespace ShootBalls.Gameplay
 
 		public bool IsStunned()
 		{
-			return _stunEndTime > Time.timeSinceLevelLoad;
+			return _stunController.IsStunned;
 		}
 
-		public void OnRecovered()
+		private void OnRecovered()
 		{
-			_health = _settings.Health;
 			_isStunLaunched = false;
 
 			_signalBus.FireId( "Recovered", new FxSignal()
@@ -165,7 +151,7 @@ namespace ShootBalls.Gameplay
 
 		private void TryHeal()
 		{
-			if ( _health >= _settings.Health || _healDelayEndTime > Time.timeSinceLevelLoad )
+			if ( !_stunController.IsDamaged || _healDelayEndTime > Time.timeSinceLevelLoad )
 			{
 				return;
 			}
@@ -173,7 +159,7 @@ namespace ShootBalls.Gameplay
 			_healTimer += Time.deltaTime;
 			if ( _healTimer >= _settings.HealRatePerHP )
 			{
-				++_health;
+				_stunController.AddStunPoints( 1 );
 				_healTimer = 0;
 			}
 		}
@@ -208,15 +194,13 @@ namespace ShootBalls.Gameplay
 		[System.Serializable]
 		public class Settings
 		{
-			[FoldoutGroup( "Health" ), MinValue( 1 )]
-			public float Health = 3;
-			[FoldoutGroup( "Health" ), MinValue( 0 )]
-			public float HealDelay = 0.5f;
-			[FoldoutGroup( "Health" ), MinValue( 0 )]
-			public float HealRatePerHP = 1f / 3f;
+			[FoldoutGroup( "Health" ), HideLabel]
+			public StunController.Settings Stun;
 
 			[FoldoutGroup( "Recovery" ), MinValue( 0 )]
-			public float StunDuration = 3;
+			public float HealDelay = 0.5f;
+			[FoldoutGroup( "Recovery" ), MinValue( 0 )]
+			public float HealRatePerHP = 1f / 3f;
 			[FoldoutGroup( "Recovery" ), MinValue( 0 )]
 			public float InvulnerableDuration = 5;
 
