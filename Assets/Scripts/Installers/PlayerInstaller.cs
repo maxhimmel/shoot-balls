@@ -1,6 +1,7 @@
 using ShootBalls.Gameplay.Cameras;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Player;
+using ShootBalls.Gameplay.Weapons;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -9,18 +10,14 @@ namespace ShootBalls.Installers
 {
 	public class PlayerInstaller : MonoInstaller
 	{
-		[FoldoutGroup( "Motor" ), HideLabel]
-		[SerializeField] private CharacterMotor.Settings _motor;
-
-		[FoldoutGroup( "Camera" )]
-		[SerializeField] private TargetGroupAttachment.Settings _playerTarget = new TargetGroupAttachment.Settings( "Player" );
-		[FoldoutGroup( "Camera" )]
-		[SerializeField] private TargetGroupAttachment.Settings _aimTarget = new TargetGroupAttachment.Settings( "Aim Offset" );
+		[HideLabel]
+		[SerializeField] private PlayerController.Settings _settings;
 
 		public override void InstallBindings()
 		{
 			Container.BindInterfacesAndSelfTo<PlayerController>()
-				.AsSingle();
+				.AsSingle()
+				.WithArguments( _settings );
 
 			/* --- */
 
@@ -32,15 +29,20 @@ namespace ShootBalls.Installers
 
 			Container.Bind<CharacterMotor>()
 				.AsSingle()
-				.WithArguments( _motor );
+				.WithArguments( _settings.Motor );
 
 			Container.BindInterfacesAndSelfTo<TargetGroupAttachment>()
 				.AsCached()
-				.WithArguments( _playerTarget );
+				.WithArguments( _settings.PlayerTarget );
 
 			Container.BindInterfacesAndSelfTo<TargetGroupAttachment>()
 				.AsCached()
-				.WithArguments( _aimTarget );
+				.WithArguments( _settings.AimTarget );
+
+			/* --- */
+
+			Container.BindFactory<GunInstaller, Gun, Gun.Factory>()
+				.FromFactory<Gun.CustomFactory>();
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Pawn;
+using ShootBalls.Installers;
 using ShootBalls.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -203,6 +204,25 @@ namespace ShootBalls.Gameplay.Weapons
 		public void Reload()
 		{
 			_ammoHandler?.Reload();
+		}
+
+		public class Factory : PlaceholderFactory<GunInstaller, Gun> { }
+		public class CustomFactory : IFactory<GunInstaller, Gun>
+		{
+			private readonly DiContainer _container;
+
+			public CustomFactory( DiContainer container )
+			{
+				_container = container;
+			}
+
+			public Gun Create( GunInstaller prefab )
+			{
+				var newContext = _container.InstantiatePrefabForComponent<GameObjectContext>( prefab );
+				newContext.name = prefab.name;
+
+				return newContext.Container.Resolve<Gun>();
+			}
 		}
 
 		[System.Serializable]

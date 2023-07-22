@@ -1,37 +1,50 @@
+using ShootBalls.Gameplay.Cameras;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Pawn;
 using ShootBalls.Gameplay.Weapons;
+using ShootBalls.Installers;
 using ShootBalls.Utility;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
 namespace ShootBalls.Gameplay.Player
 {
 	public class PlayerController : IPawn,
+		IInitializable,
 		ITickable,
 		IFixedTickable
 	{
 		public Rigidbody2D Body => _body;
 
+		private readonly Settings _settings;
 		private readonly Rewired.Player _input;
 		private readonly CharacterMotor _motor;
-		private readonly Gun[] _guns;
+		private readonly Gun.Factory _gunFactory;
 		private readonly Rigidbody2D _body;
 
-		public PlayerController( Rewired.Player input,
+		private Gun _primaryGun, _secondaryGun;
+
+		public PlayerController( Settings settings,
+			Rewired.Player input,
 			CharacterMotor motor,
-			Gun[] guns,
+			Gun.Factory gunFactory,
 			Rigidbody2D body )
 		{
+			_settings = settings;
 			_input = input;
 			_motor = motor;
-			_guns = guns;
+			_gunFactory = gunFactory;
 			_body = body;
+		}
 
-			foreach ( var gun in guns )
-			{
-				gun.SetOwner( this );
-			}
+		public void Initialize()
+		{
+			_primaryGun = _gunFactory.Create( _settings.PrimaryWeaponPrefab );
+			_secondaryGun = _gunFactory.Create( _settings.SecondaryWeaponPrefab );
+
+			_primaryGun.SetOwner( this );
+			_secondaryGun.SetOwner( this );
 		}
 
 		public void Tick()
@@ -51,20 +64,20 @@ namespace ShootBalls.Gameplay.Player
 		{
 			if ( _input.GetButtonDown( ReConsts.Action.PrimaryFire ) )
 			{
-				_guns[0].StartFiring();
+				_primaryGun.StartFiring();
 			}
 			else if ( _input.GetButtonUp( ReConsts.Action.PrimaryFire ) )
 			{
-				_guns[0].StopFiring();
+				_primaryGun.StopFiring();
 			}
 
 			if ( _input.GetButtonDown( ReConsts.Action.SecondaryFire ) )
 			{
-				_guns[1].StartFiring();
+				_secondaryGun.StartFiring();
 			}
 			else if ( _input.GetButtonUp( ReConsts.Action.SecondaryFire ) )
 			{
-				_guns[1].StopFiring();
+				_secondaryGun.StopFiring();
 			}
 		}
 
@@ -74,5 +87,22 @@ namespace ShootBalls.Gameplay.Player
 		}
 
 		public class Factory : PlaceholderFactory<PlayerController> { }
+
+		[System.Serializable]
+		public class Settings
+		{
+			[FoldoutGroup( "Motor" ), HideLabel]
+			public CharacterMotor.Settings Motor;
+
+			[FoldoutGroup( "Weapons" )]
+			public GunInstaller PrimaryWeaponPrefab;
+			[FoldoutGroup( "Weapons" )]
+			public GunInstaller SecondaryWeaponPrefab;
+
+			[FoldoutGroup( "Camera" )]
+			public TargetGroupAttachment.Settings PlayerTarget = new TargetGroupAttachment.Settings( "Player" );
+			[FoldoutGroup( "Camera" )]
+			public TargetGroupAttachment.Settings AimTarget = new TargetGroupAttachment.Settings( "Aim Offset" );
+		}
 	}
 }
