@@ -104,6 +104,63 @@ MonoBehaviour:
           Color: {r: 1, g: 0.28556418, b: 0.1462264, a: 1}
           Blinks: 6
           Duration: 0.25
+--- !u!1 &592416643256672823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6602980195750139429}
+  - component: {fileID: 5704899034461690618}
+  m_Layer: 6
+  m_Name: FX_Stunned
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6602980195750139429
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592416643256672823}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: -7.5, z: 0}
+  m_LocalScale: {x: 0.33333334, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8925714168163051260}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5704899034461690618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592416643256672823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781720031daeac842bcb0c0293e0b470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fxId: Stunned
+  _fxSettings:
+  - rid: 20644905994944516
+  references:
+    version: 2
+    RefIds:
+    - rid: 20644905994944516
+      type: {class: SpriteBlinkVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        BlinkSettings:
+          Color: {r: 0.08694229, g: 0.41099998, b: 0.09879805, a: 1}
+          Blinks: 90
+          Duration: 3
 --- !u!1 &4290479718963629247
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +264,63 @@ MonoBehaviour:
       type: {class: PoolableFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         Prefab: {fileID: 7641523818938490003, guid: ab8d1b973459f054e912015d90fb4179, type: 3}
+--- !u!1 &7124408647142520536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7922527221415636820}
+  - component: {fileID: 5063118481819545865}
+  m_Layer: 6
+  m_Name: FX_Dead
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7922527221415636820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7124408647142520536}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: -7.5, z: 0}
+  m_LocalScale: {x: 0.33333334, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8925714168163051260}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5063118481819545865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7124408647142520536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781720031daeac842bcb0c0293e0b470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fxId: Dead
+  _fxSettings:
+  - rid: 20644923908816914
+  references:
+    version: 2
+    RefIds:
+    - rid: 20644923908816914
+      type: {class: SpriteBlinkVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        BlinkSettings:
+          Color: {r: 1, g: 0, b: 0, a: 1}
+          Blinks: 60
+          Duration: 60
 --- !u!1 &7198131276245092760
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +575,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46172
+  m_InstanceId: 58914
 --- !u!1 &7808108306673341601
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +644,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97135d9bea1ec534c8a7f57ee48d6d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settings:
+    Stun:
+      StunPoints: 1
+      StunDuration: 3
+    Health: 50
 --- !u!50 &7808108306673341602
 Rigidbody2D:
   serializedVersion: 4
@@ -582,6 +701,8 @@ Transform:
   m_Children:
   - {fileID: 5732287240472940435}
   - {fileID: 2448808653003057398}
+  - {fileID: 6602980195750139429}
+  - {fileID: 7922527221415636820}
   m_Father: {fileID: 7808108306673341604}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
