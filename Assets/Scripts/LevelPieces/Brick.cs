@@ -39,6 +39,7 @@ namespace ShootBalls.Gameplay.LevelPieces
 			_health = settings.Health;
 
 			stunController.Stunned += OnStunned;
+			stunController.Recovered += OnRecovered;
 		}
 
 		public bool TakeDamage( IDamageData data )
@@ -77,6 +78,16 @@ namespace ShootBalls.Gameplay.LevelPieces
 			{
 				Position = _recentDamage.HitPosition,
 				Direction = -_recentDamage.HitNormal,
+				Parent = _body.transform
+			} );
+		}
+
+		private void OnRecovered()
+		{
+			_signalBus.FireId( "Recovered", new FxSignal()
+			{
+				Position = _body.position,
+				Direction = _body.transform.up,
 				Parent = _body.transform
 			} );
 		}
