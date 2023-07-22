@@ -18,7 +18,6 @@ namespace ShootBalls.Gameplay.LevelPieces
     {
 		public Rigidbody2D Body => _body;
 
-		private readonly Settings _settings;
 		private readonly Rigidbody2D _body;
 		private readonly StunController _stunController;
 		private readonly SignalBus _signalBus;
@@ -34,7 +33,6 @@ namespace ShootBalls.Gameplay.LevelPieces
 			IDamageHandler[] damageHandlers,
 			SignalBus signalBus )
 		{
-			_settings = settings;
 			_body = body;
 			_stunController = stunController;
 			_signalBus = signalBus;
