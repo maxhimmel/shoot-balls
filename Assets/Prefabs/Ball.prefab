@@ -316,10 +316,8 @@ MonoBehaviour:
     Stun:
       StunPoints: 6
       StunDuration: 2
-    Health: 6
     HealDelay: 0.5
     HealRatePerHP: 0.33333334
-    StunDuration: 2
     InvulnerableDuration: 5
     LaunchAttack:
       UseSuccessFx: 0
@@ -334,7 +332,7 @@ MonoBehaviour:
           rid: 20644923908816913
   _motor:
     Acceleration: 50
-    MaxSpeed: 0
+    MaxSpeed: 20
     UpdateRotation: 0
     AngleAcceleration: 0
     _metric: 0
