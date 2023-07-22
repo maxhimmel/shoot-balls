@@ -6,7 +6,8 @@ namespace ShootBalls.Gameplay.Pawn
 	{
 		protected override bool Handle( IPawn owner, Settings data )
 		{
-			owner.Body.AddForceAtPosition( -data.HitNormal * data.Knockback, data.HitPosition, ForceMode2D.Impulse );
+			owner.Body.AddForce( -data.HitNormal * data.Knockback, ForceMode2D.Impulse );
+			//owner.Body.AddForceAtPosition( -data.HitNormal * data.Knockback, data.HitPosition, ForceMode2D.Impulse );
 			return true;
 		}
 
