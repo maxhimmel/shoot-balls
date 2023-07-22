@@ -49,6 +49,7 @@ MonoBehaviour:
   - rid: 20644901002936325
   - rid: 20644901002936326
   - rid: 20644901002936327
+  - rid: 20644943132622848
   references:
     version: 2
     RefIds:
@@ -104,6 +105,10 @@ MonoBehaviour:
           Color: {r: 1, g: 0.28556418, b: 0.1462264, a: 1}
           Blinks: 6
           Duration: 0.25
+    - rid: 20644943132622848
+      type: {class: PoolableFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        Prefab: {fileID: 7641523818938490003, guid: f3280f762677f254cbaa4e36c6a219f1, type: 3}
 --- !u!1 &592416643256672823
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +711,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 71536
+  m_InstanceId: 67304
 --- !u!1 &7808108306673341601
 GameObject:
   m_ObjectHideFlags: 0
