@@ -332,7 +332,7 @@ MonoBehaviour:
           rid: 20644923908816913
   _motor:
     Acceleration: 50
-    MaxSpeed: 20
+    MaxSpeed: 25
     UpdateRotation: 0
     AngleAcceleration: 0
     _metric: 0

@@ -837,8 +837,13 @@ MonoBehaviour:
     Stun:
       StunPoints: 1
       StunDuration: 3
-    Health: 15
-    DeathDuration: 0.375
+    Health: 10
+    DeathAnimDuration: 0.375
+    ExplosionLayer:
+      serializedVersion: 2
+      m_Bits: 72
+    ExplosionRadius: 10
+    ExplosionForce: 40
 --- !u!50 &7808108306673341602
 Rigidbody2D:
   serializedVersion: 4
