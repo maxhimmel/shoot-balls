@@ -6,7 +6,8 @@
         "Rewired",
         "Unity.TextMeshPro",
         "Zenject",
-        "UniTask"
+        "UniTask",
+        "Unity.RenderPipelines.Universal.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
