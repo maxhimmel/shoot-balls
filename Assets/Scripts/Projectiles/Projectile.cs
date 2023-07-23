@@ -62,7 +62,7 @@ namespace ShootBalls.Gameplay
 			_attackController.DealDamage( new AttackController.Request()
 			{
 				Collision = collision,
-				Instigator = this,
+				Instigator = _settings.Owner,
 				Causer = this,
 				Settings = _settings.AttackSettings
 			} );
