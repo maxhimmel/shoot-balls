@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6120167980078393624}
   - component: {fileID: 767187996397482964}
   - component: {fileID: 8633020344452490773}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TargetDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4090080308136234532}
   - component: {fileID: 4090080308136234535}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 4090080308239926191}
   - component: {fileID: 4090080308239926190}
   - component: {fileID: 1989432631364339547}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 1628368739340564364}
   - component: {fileID: 4052524873708817142}
   - component: {fileID: 4090080309041504023}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,7 +386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4845453759777060567}
   - component: {fileID: 292347722159868080}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -432,7 +432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 164217552224358075}
   - component: {fileID: 5547675689192061710}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_Deflected
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +529,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1629765729310485599}
   - component: {fileID: 7384475681048837310}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_Damaged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
