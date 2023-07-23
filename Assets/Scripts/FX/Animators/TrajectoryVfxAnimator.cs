@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 using ShootBalls.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,12 +10,15 @@ namespace ShootBalls.Gameplay.Fx
 	{
 		private readonly Settings _settings;
 		private readonly FxFactoryBus _fxFactory;
+		private readonly CancellationToken _onDestroyCancelToken;
 
 		public TrajectoryVfxAnimator( Settings settings,
-			FxFactoryBus fxFactory )
+			FxFactoryBus fxFactory,
+			CancellationToken onDestroyCancelToken )
 		{
 			_settings = settings;
 			_fxFactory = fxFactory;
+			_onDestroyCancelToken = onDestroyCancelToken;
 		}
 
 		public void Play( IFxSignal signal )
@@ -57,7 +61,7 @@ namespace ShootBalls.Gameplay.Fx
 
 				if ( distance > 0 )
 				{
-					await TaskHelpers.DelaySeconds( _settings.SegmentStepDelay, ignoreTimeScale: true );
+					await TaskHelpers.DelaySeconds( _settings.SegmentStepDelay, _onDestroyCancelToken, ignoreTimeScale: true );
 				}
 			}
 		}

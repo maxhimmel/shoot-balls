@@ -1,4 +1,6 @@
-﻿using ShootBalls.Gameplay.Fx;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using ShootBalls.Gameplay.Fx;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -36,6 +38,10 @@ namespace ShootBalls.Installers
 							.AsCached()
 							.WithArguments( settings );
 					}
+
+					subContainer.Bind<CancellationToken>()
+						.FromMethod( this.GetCancellationTokenOnDestroy )
+						.AsSingle();
 				} )
 				.AsCached();
 		}
