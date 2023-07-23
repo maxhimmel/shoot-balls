@@ -12,6 +12,8 @@ namespace ShootBalls.Gameplay.Fx
 		private readonly FxFactoryBus _fxFactory;
 		private readonly CancellationToken _onDestroyCancelToken;
 
+		private static readonly RaycastHit2D[] _trajectoryBuffer = new RaycastHit2D[50];
+
 		public TrajectoryVfxAnimator( Settings settings,
 			FxFactoryBus fxFactory,
 			CancellationToken onDestroyCancelToken )
@@ -28,14 +30,21 @@ namespace ShootBalls.Gameplay.Fx
 
 		private async UniTaskVoid FireTrajectory( IFxSignal signal )
 		{
+			var contactFilter = new ContactFilter2D()
+			{
+				useLayerMask = true,
+				layerMask = _settings.Mask,
+				useTriggers = _settings.QueryTriggers
+			};
+
 			float distance = _settings.TravelDistance;
 			while( distance > 0 )
 			{
-				var hitResult = Physics2D.CircleCast(
-					signal.Position, _settings.CastRadius, signal.Direction, distance, _settings.Mask
+				int hitCount = Physics2D.CircleCast(
+					signal.Position, _settings.CastRadius, signal.Direction, contactFilter, _trajectoryBuffer, distance
 				);
 
-				if ( !hitResult.IsHit() )
+				if ( hitCount <= 0 )
 				{
 					_fxFactory.Create( _settings.LineFxPrefab, new FxSignal()
 					{
@@ -44,8 +53,10 @@ namespace ShootBalls.Gameplay.Fx
 						Parent = signal.Parent
 					} );
 
-					break;
+					return;
 				}
+
+				var hitResult = _trajectoryBuffer[0];
 
 				_fxFactory.Create( _settings.LineFxPrefab, new FxSignal()
 				{
@@ -77,6 +88,7 @@ namespace ShootBalls.Gameplay.Fx
 			public float CastRadius = 0.5f;
 			[MinValue( 0 )]
 			public float SegmentStepDelay = 0.375f;
+			public bool QueryTriggers;
 		}
 	}
 }
