@@ -330,6 +330,17 @@ MonoBehaviour:
           m_Bits: 128
         Damage:
           rid: 20644923908816913
+    SeekAttack:
+      UseSuccessFx: 0
+      SuccessFxId: Damaged
+      UseFailureFx: 0
+      FailureFxId: Deflected
+      DamageLayers:
+      - HitLayer:
+          serializedVersion: 2
+          m_Bits: 8
+        Damage:
+          rid: 20644949673377805
   _motor:
     Acceleration: 50
     MaxSpeed: 25
@@ -349,6 +360,12 @@ MonoBehaviour:
         Knockback: 0
         StunDamage: 1
         DirectDamage: 10
+    - rid: 20644949673377805
+      type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+      data:
+        Knockback: 10
+        StunDamage: 0
+        DirectDamage: 1
 --- !u!50 &607798524136374830
 Rigidbody2D:
   serializedVersion: 4

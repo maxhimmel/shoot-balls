@@ -229,6 +229,7 @@ MonoBehaviour:
     ShotSpot: {fileID: 1963725599502902237}
     ProjectilePoolId: Pool_Projectiles
     ProjectilePrefab: {fileID: 4090080309041504020, guid: f9d3dd10af314e14c8b1f619269cccb6, type: 3}
+    ProjectileSpeed: 30
     ProjectileSettings:
       Lifetime: 5
       AttackSettings:
@@ -247,7 +248,11 @@ MonoBehaviour:
             m_Bits: 128
           Damage:
             rid: 20644923908816912
-    ProjectileSpeed: 30
+        - HitLayer:
+            serializedVersion: 2
+            m_Bits: 8
+          Damage:
+            rid: 20644949673377807
     FireSpread:
       rid: 20644856882528258
     Modules:
@@ -294,6 +299,12 @@ MonoBehaviour:
       type: {class: KnockbackProcessor/Settings, ns: ShootBalls.Gameplay.Weapons, asm: Sandbox}
       data:
         Impulse: 20
+    - rid: 20644949673377807
+      type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
+      data:
+        Knockback: 5
+        StunDamage: 0
+        DirectDamage: 1
 --- !u!114 &3464213378763023954
 MonoBehaviour:
   m_ObjectHideFlags: 0

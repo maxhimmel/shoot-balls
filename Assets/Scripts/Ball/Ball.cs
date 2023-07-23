@@ -159,16 +159,15 @@ namespace ShootBalls.Gameplay
 
 		private void OnCollisionEnter( Collision2D collision )
 		{
-			if ( _isStunLaunched )
+			_attackController.DealDamage( new AttackController.Request()
 			{
-				_attackController.DealDamage( new AttackController.Request()
-				{
-					Collision = collision,
-					Instigator = this,
-					Causer = this,
-					Settings = _settings.LaunchAttack
-				} );
-			}
+				Collision = collision,
+				Instigator = this,
+				Causer = this,
+				Settings = _isStunLaunched 
+					? _settings.LaunchAttack 
+					: _settings.SeekAttack
+			} );
 		}
 
 		public class Factory : PlaceholderFactory<Ball> { }
@@ -188,6 +187,8 @@ namespace ShootBalls.Gameplay
 
 			[FoldoutGroup( "Launch Attack" ), HideLabel]
 			public AttackController.Settings LaunchAttack;
+			[FoldoutGroup( "Seek Attack" ), HideLabel]
+			public AttackController.Settings SeekAttack;
 		}
 	}
 }

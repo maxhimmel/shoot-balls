@@ -235,10 +235,10 @@ namespace ShootBalls.Gameplay.Weapons
 			public string ProjectilePoolId;
 			[BoxGroup( "Gameplay/Projectile", ShowLabel = false )]
 			public GameObject ProjectilePrefab;
-			[BoxGroup( "Gameplay/Projectile", ShowLabel = false ), HideLabel]
-			public Projectile.Settings ProjectileSettings;
 			[BoxGroup( "Gameplay/Projectile", ShowLabel = false )]
 			public float ProjectileSpeed;
+			[BoxGroup( "Gameplay/Projectile", ShowLabel = false ), HideLabel]
+			public Projectile.Settings ProjectileSettings;
 
 			[BoxGroup( "Gameplay/Required" )]
 			[HideReferenceObjectPicker]

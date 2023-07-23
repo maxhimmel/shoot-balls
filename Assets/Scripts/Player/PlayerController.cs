@@ -14,7 +14,8 @@ namespace ShootBalls.Gameplay.Player
 		IInitializable,
 		ITickable,
 		IFixedTickable,
-		IPushable
+		IPushable,
+		IDamageable
 	{
 		public Rigidbody2D Body => _body;
 
@@ -90,6 +91,14 @@ namespace ShootBalls.Gameplay.Player
 		void IPushable.Push( Vector2 velocity )
 		{
 			_body.AddForce( velocity, ForceMode2D.Impulse );
+		}
+
+		public bool TakeDamage( IDamageData data )
+		{
+			Debug.Log( $"Player damaged!\n" +
+				$"<b>Instigator:</b> {data.Instigator.Body.name} | <b>Causer:</b> {data.Causer.Body.name}" );
+
+			return false;
 		}
 
 		public class Factory : PlaceholderFactory<PlayerController> { }
