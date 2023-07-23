@@ -18,7 +18,7 @@ namespace ShootBalls.Gameplay.Fx
 			_fx.Play( withChildren: true );
 		}
 
-		protected override bool IsPlaying()
+		protected override bool Tick()
 		{
 			return _fx.IsAlive( withChildren: true );
 		}

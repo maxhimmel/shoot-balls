@@ -4,9 +4,9 @@ namespace ShootBalls.Gameplay.Fx
 {
 	public interface IFxSignal
 	{
-		Vector2 Position { get; }
-		Vector2 Direction { get; }
-		Transform Parent { get; }
+		Vector2 Position { get; set; }
+		Vector2 Direction { get; set; }
+		Transform Parent { get; set; }
 	}
 
 	public class FxSignal : IFxSignal

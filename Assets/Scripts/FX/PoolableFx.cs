@@ -39,14 +39,16 @@ namespace ShootBalls.Gameplay.Fx
 		{
 			if ( _hasPlayed )
 			{
-				if ( !IsPlaying() )
+				if ( !Tick() )
 				{
 					Dispose();
 				}
 			}
 		}
 
-		protected abstract bool IsPlaying();
+
+		/// <returns>True while the FX are playing.</returns>
+		protected abstract bool Tick();
 
 		protected virtual void Dispose()
 		{
