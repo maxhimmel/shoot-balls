@@ -8,7 +8,7 @@ namespace ShootBalls.Installers
 {
 	public class BrickInstaller : MonoInstaller
     {
-		[BoxGroup( "Brick" ), HideLabel]
+		[HideLabel]
 		[SerializeField] private Brick.Settings _settings;
 
 		public override void InstallBindings()

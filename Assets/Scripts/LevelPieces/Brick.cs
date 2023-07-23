@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Pawn;
+using ShootBalls.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -31,6 +32,8 @@ namespace ShootBalls.Gameplay.LevelPieces
 		private float _health;
 		private IDamageData _recentDamage;
 		private IMemoryPool _pool;
+
+		private static readonly Collider2D[] _explosionBuffer = new Collider2D[50];
 
 		public Brick( Settings settings,
 			Rigidbody2D body,
@@ -110,7 +113,8 @@ namespace ShootBalls.Gameplay.LevelPieces
 
 		private void OnDead()
 		{
-			//Dispose();
+			FireDeathExplosion();
+
 			DelayedDispose().Forget();
 
 			_signalBus.FireId( "Dead", new FxSignal()
@@ -121,10 +125,33 @@ namespace ShootBalls.Gameplay.LevelPieces
 			} );
 		}
 
+		private void FireDeathExplosion()
+		{
+			int overlapCount = Physics2D.OverlapCircleNonAlloc(
+				_body.position, _settings.ExplosionRadius, _explosionBuffer, _settings.ExplosionLayer
+			);
+
+			for ( int idx = 0; idx < overlapCount; ++idx )
+			{
+				var explosion = _explosionBuffer[idx];
+				if ( explosion.attachedRigidbody == null )
+				{
+					continue;
+				}
+
+				explosion.attachedRigidbody.AddExplosionForce(
+					_settings.ExplosionForce,
+					_body.position,
+					_settings.ExplosionRadius,
+					ForceMode2D.Impulse
+				);
+			}
+		}
+
 		private async UniTaskVoid DelayedDispose()
 		{
 			float timer = 0;
-			while ( timer < _settings.DeathDuration )
+			while ( timer < _settings.DeathAnimDuration )
 			{
 				timer += Time.deltaTime;
 				await UniTask.Yield( PlayerLoopTiming.Update, _onDestroyedCancelToken );
@@ -158,12 +185,21 @@ namespace ShootBalls.Gameplay.LevelPieces
 		[System.Serializable]
 		public class Settings
 		{
-			[HideLabel]
+			[FoldoutGroup( "Health" ), HideLabel]
 			public StunController.Settings Stun;
-			[MinValue( 0 )]
+			[FoldoutGroup( "Health" ), MinValue( 0 )]
 			public float Health;
-			[MinValue( 0 )]
-			public float DeathDuration;
+
+			[FoldoutGroup( "Death" ), MinValue( 0 )]
+			public float DeathAnimDuration = 0.375f;
+
+			[Space]
+			[FoldoutGroup( "Death" )]
+			public LayerMask ExplosionLayer;
+			[FoldoutGroup( "Death" )]
+			public float ExplosionRadius;
+			[FoldoutGroup( "Death" )]
+			public float ExplosionForce;
 		}
 	}
 }
