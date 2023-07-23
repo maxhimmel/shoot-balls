@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using ShootBalls.Gameplay.Attacking;
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Movement;
@@ -30,7 +31,6 @@ namespace ShootBalls.Gameplay
 		private float _healDelayEndTime;
 		private float _healTimer;
 		private bool _isStunLaunched;
-		private IDamageData _recentDamage;
 
 		public Ball( Settings settings,
 			Rigidbody2D body,
@@ -52,7 +52,6 @@ namespace ShootBalls.Gameplay
 			_gameModel = gameModel;
 
 			collisionEnter.Entered += OnCollisionEnter;
-
 			stunController.Recovered += OnRecovered;
 		}
 
@@ -62,7 +61,6 @@ namespace ShootBalls.Gameplay
 
 			if ( _damageHandlers.TryGetValue( data.HandlerType, out var handler ) )
 			{
-				_recentDamage = data;
 				wasDamaged = handler.Handle( this, data );
 			}
 
@@ -91,8 +89,8 @@ namespace ShootBalls.Gameplay
 
 			_signalBus.FireId( "Launched", new FxSignal()
 			{
-				Position = _recentDamage.HitPosition,
-				Direction = -_recentDamage.HitNormal,
+				Position = _body.position,
+				Direction = _body.velocity.normalized,
 				Parent = _body.transform
 			} );
 		}

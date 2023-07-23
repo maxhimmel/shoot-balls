@@ -846,6 +846,7 @@ MonoBehaviour:
   _fxId: Launched
   _fxSettings:
   - rid: 20644919840079875
+  - rid: 20644972858703872
   references:
     version: 2
     RefIds:
@@ -854,6 +855,16 @@ MonoBehaviour:
       data:
         Duration: 0.5
         TimeScale: 0.15
+    - rid: 20644972858703872
+      type: {class: TrajectoryVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        LineFxPrefab: {fileID: 4985361285953390168, guid: 1cbe794a93fed4045903a9a66025eee5, type: 3}
+        Mask:
+          serializedVersion: 2
+          m_Bits: 129
+        TravelDistance: 15
+        CastRadius: 0.5
+        SegmentStepDelay: 0.1
 --- !u!1 &5122787258753076798
 GameObject:
   m_ObjectHideFlags: 0
