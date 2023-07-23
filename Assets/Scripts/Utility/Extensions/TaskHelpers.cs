@@ -9,7 +9,9 @@ namespace ShootBalls.Utility
     {
 		public delegate void ProgressUpdated( float normalizedProgress );
 
-        public static async UniTask DelaySeconds( float seconds, CancellationToken cancellationToken = default )
+        public static async UniTask DelaySeconds( float seconds, 
+			CancellationToken cancellationToken = default, 
+			bool ignoreTimeScale = false )
 		{
             if ( seconds <= 0 )
 			{
@@ -22,10 +24,10 @@ namespace ShootBalls.Utility
 			}
 
 			await UniTask.Delay( 
-				TimeSpan.FromSeconds( seconds ), 
-				DelayType.DeltaTime, 
-				PlayerLoopTiming.FixedUpdate, 
-				cancellationToken 
+				TimeSpan.FromSeconds( seconds ),
+				ignoreTimeScale: ignoreTimeScale,
+				PlayerLoopTiming.Update, 
+				cancellationToken
 			);
 		}
 
