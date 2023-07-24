@@ -16,6 +16,9 @@ namespace ShootBalls.Gameplay.Movement
 		private readonly Rigidbody2D _body;
 		private readonly SignalBus _signalBus;
 
+		private static readonly int[] _colliderLayers = new int[10];
+		private static readonly Collider2D[] _colliders = new Collider2D[10];
+
 		private bool _isDodging;
 		private Vector2 _direction;
 
@@ -64,6 +67,14 @@ namespace ShootBalls.Gameplay.Movement
 			_isDodging = true;
 			_direction = direction;
 
+			int colliderCount = _body.GetAttachedColliders( _colliders );
+			int dodgeLayer = LayerMask.NameToLayer( _settings.DodgeLayerId );
+			for ( int idx = 0; idx < colliderCount; ++idx )
+			{
+				_colliderLayers[idx] = _colliders[idx].gameObject.layer;
+				_colliders[idx].gameObject.layer = dodgeLayer;
+			}
+
 			float timer = 0;
 			float travelDistance = hitResult.IsHit()
 				? hitResult.distance
@@ -91,6 +102,10 @@ namespace ShootBalls.Gameplay.Movement
 
 			_body.velocity = direction * _settings.Speed;
 			_body.position = destination;
+			for ( int idx = 0; idx < colliderCount; ++idx )
+			{
+				_colliders[idx].gameObject.layer = _colliderLayers[idx];
+			}
 
 			_isDodging = false;
 		}
@@ -109,6 +124,7 @@ namespace ShootBalls.Gameplay.Movement
 			public LayerMask CollisionLayer;
 			[MinValue( 0 )]
 			public float CastRadius = 0.65f;
+			public string DodgeLayerId = "Dodge";
 
 			private string GetDodgeDuration()
 			{
