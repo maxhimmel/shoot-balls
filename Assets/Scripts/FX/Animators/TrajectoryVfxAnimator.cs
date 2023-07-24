@@ -65,6 +65,11 @@ namespace ShootBalls.Gameplay.Fx
 					Parent = signal.Parent
 				} );
 
+				if ( !_settings.CanBounce )
+				{
+					return;
+				}
+
 				distance -= hitResult.distance;
 
 				signal.Position = hitResult.point;
@@ -88,6 +93,7 @@ namespace ShootBalls.Gameplay.Fx
 			public float CastRadius = 0.5f;
 			[MinValue( 0 )]
 			public float SegmentStepDelay = 0.375f;
+			public bool CanBounce = true;
 			public bool QueryTriggers;
 		}
 	}
