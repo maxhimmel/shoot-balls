@@ -31,13 +31,13 @@ namespace ShootBalls.Gameplay.Movement
 			_prevVelocity = velocity;
 			if ( velocity != Vector2.zero )
 			{
-				_nonZeroVelocity = velocity;
+				_nonZeroVelocity = velocity.normalized;
 			}
 
 			float acceleration = Vector2.Dot( velocityDelta, velocity );
 
 			float tiltAcceleration = acceleration * Time.deltaTime * settings.TiltInfluence;
-			_tilt += tiltAcceleration;
+			_tilt = Mathf.Clamp( _tilt + tiltAcceleration, -settings.MaxTilt, settings.MaxTilt );
 
 			float decelerationDelta = settings.TiltDeceleration * Time.deltaTime;
 			_tilt = Mathf.MoveTowards( _tilt, 0, decelerationDelta );
@@ -51,6 +51,7 @@ namespace ShootBalls.Gameplay.Movement
 		[System.Serializable]
 		public new class Settings : RotationMotor.Settings
 		{
+			public float MaxTilt;
 			public float TiltInfluence;
 			public float TiltDeceleration;
 		}

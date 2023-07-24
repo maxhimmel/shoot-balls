@@ -273,6 +273,7 @@ MonoBehaviour:
       _metric: 0
     Rotation:
       AccelerationAngle: 900
+      MaxTilt: 45
       TiltInfluence: 30
       TiltDeceleration: 50
     PrimaryWeaponPrefab: {fileID: 7047002080602353988, guid: 98f654ad9d519fd43956879ee1ad85ee, type: 3}
