@@ -1,0 +1,119 @@
+﻿using Cysharp.Threading.Tasks;
+using ShootBalls.Gameplay.Fx;
+using ShootBalls.Utility;
+using Sirenix.OdinInspector;
+using UnityEngine;
+using Zenject;
+
+namespace ShootBalls.Gameplay.Movement
+{
+	public class DodgeController
+	{
+		public bool IsDodging => _isDodging;
+		public Vector2 Direction => _direction;
+
+		private readonly Settings _settings;
+		private readonly Rigidbody2D _body;
+		private readonly SignalBus _signalBus;
+
+		private bool _isDodging;
+		private Vector2 _direction;
+
+		public DodgeController( Settings settings,
+			Rigidbody2D body,
+			SignalBus signalBus )
+		{
+			_settings = settings;
+			_body = body;
+			_signalBus = signalBus;
+		}
+
+		public void Dodge( Vector2 direction )
+		{
+			if ( _isDodging || _settings.MaxDistance == 0 )
+			{
+				return;
+			}
+
+			_signalBus.FireId( "Dodge", new FxSignal()
+			{
+				Position = _body.position,
+				Direction = direction,
+				Parent = _body.transform.parent
+			} );
+
+			UpdateDodge( direction ).Forget();
+		}
+
+		private async UniTaskVoid UpdateDodge( Vector2 direction )
+		{
+			var hitResult = Physics2D.CircleCast(
+				_body.position, _settings.CastRadius, direction.normalized, _settings.MaxDistance, _settings.CollisionLayer
+			);
+
+			Vector2 destination = hitResult.IsHit()
+				? hitResult.point
+				: _body.position + direction * _settings.MaxDistance;
+
+			if ( _settings.Speed <= 0 )
+			{
+				_body.position = destination;
+				return;
+			}
+
+			_isDodging = true;
+			_direction = direction;
+
+			float timer = 0;
+			float travelDistance = hitResult.IsHit()
+				? hitResult.distance
+				: _settings.MaxDistance;
+			float duration = travelDistance / _settings.Speed;
+			Vector2 startPos = _body.position;
+
+			while ( timer < duration )
+			{
+				timer = Mathf.Min( timer + Time.fixedDeltaTime, duration );
+
+				float progress = _settings.TravelCurve.Evaluate( timer / duration );
+				Vector2 newPos = Vector2.LerpUnclamped( startPos, destination, progress );
+				_body.position = newPos;
+
+				if ( timer < duration )
+				{
+					await UniTask.Yield( PlayerLoopTiming.FixedUpdate );
+					if ( _body == null )
+					{
+						return;
+					}
+				}
+			}
+
+			_body.velocity = direction * _settings.Speed;
+			_body.position = destination;
+
+			_isDodging = false;
+		}
+
+		[System.Serializable]
+		public class Settings
+		{
+			[OnInspectorGUI]
+			[InfoBox( "@GetDodgeDuration()", SdfIconType.ClockHistory )]
+
+			public float MaxDistance;
+			[MinValue( 0 )]
+			public float Speed;
+			public AnimationCurve TravelCurve = AnimationCurve.EaseInOut( 0, 0, 1, 1 );
+
+			public LayerMask CollisionLayer;
+			[MinValue( 0 )]
+			public float CastRadius = 0.65f;
+
+			private string GetDodgeDuration()
+			{
+				return $"Dodge duration: {MaxDistance / Speed} seconds.";
+			}
+		}
+	}
+}

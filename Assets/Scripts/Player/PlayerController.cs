@@ -23,6 +23,7 @@ namespace ShootBalls.Gameplay.Player
 		private readonly Rewired.Player _input;
 		private readonly CharacterMotor _motor;
 		private readonly IRotationMotor _rotation;
+		private readonly DodgeController _dodgeController;
 		private readonly Gun.Factory _gunFactory;
 		private readonly Rigidbody2D _body;
 
@@ -32,6 +33,7 @@ namespace ShootBalls.Gameplay.Player
 			Rewired.Player input,
 			CharacterMotor motor,
 			IRotationMotor rotation,
+			DodgeController dodgeController,
 			Gun.Factory gunFactory,
 			Rigidbody2D body )
 		{
@@ -39,6 +41,7 @@ namespace ShootBalls.Gameplay.Player
 			_input = input;
 			_motor = motor;
 			_rotation = rotation;
+			_dodgeController = dodgeController;
 			_gunFactory = gunFactory;
 			_body = body;
 		}
@@ -54,16 +57,42 @@ namespace ShootBalls.Gameplay.Player
 
 		public void Tick()
 		{
-			var moveInput = _input.GetClampedAxis2D( ReConsts.Action.Horizontal, ReConsts.Action.Vertical );
-			_motor.SetDesiredVelocity( moveInput );
+			HandleMovement();
+			HandleRotating();
 
+			HandleGunFiring();
+		}
+
+		private void HandleMovement()
+		{
+			var moveInput = _input.GetClampedAxis2D( ReConsts.Action.Horizontal, ReConsts.Action.Vertical );
+
+			if ( _input.GetButtonDown( ReConsts.Action.Dodge ) )
+			{
+				Vector3 dodgeDirection = moveInput != Vector2.zero
+					? moveInput.normalized
+					: _body.transform.up;
+
+				_dodgeController.Dodge( dodgeDirection );
+			}
+
+			if ( _dodgeController.IsDodging )
+			{
+				_motor.SetDesiredVelocity( _dodgeController.Direction );
+			}
+			else
+			{
+				_motor.SetDesiredVelocity( moveInput );
+			}
+		}
+
+		private void HandleRotating()
+		{
 			var aimInput = _input.GetClampedAxis2D( ReConsts.Action.AimHorizontal, ReConsts.Action.AimVertical );
 			if ( aimInput != Vector2.zero )
 			{
 				_rotation.SetDesiredRotation( aimInput );
 			}
-
-			HandleGunFiring();
 		}
 
 		private void HandleGunFiring()
@@ -113,8 +142,10 @@ namespace ShootBalls.Gameplay.Player
 		{
 			[FoldoutGroup( "Motor" ), HideLabel]
 			public CharacterMotor.Settings Motor;
-			[FoldoutGroup( "Motor" ), HideLabel]
+			[TitleGroup( "Rotation", GroupID = "Motor/Rotation" ), HideLabel]
 			public TiltRotationMotor.Settings Rotation;
+			[TitleGroup( "Dodging", GroupID = "Motor/Dodging" ), HideLabel]
+			public DodgeController.Settings Dodge;
 
 			[FoldoutGroup( "Weapons" )]
 			public GunInstaller PrimaryWeaponPrefab;

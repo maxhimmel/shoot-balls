@@ -44,6 +44,10 @@ namespace ShootBalls.Installers
 				.AsSingle()
 				.WithArguments( _settings.Rotation );
 
+			Container.Bind<DodgeController>()
+				.AsSingle()
+				.WithArguments( _settings.Dodge );
+
 			/* --- */
 
 			Container.BindInterfacesAndSelfTo<TargetGroupAttachment>()
