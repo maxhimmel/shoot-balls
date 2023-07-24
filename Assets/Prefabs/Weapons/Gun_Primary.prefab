@@ -187,8 +187,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7047002080602353991}
-  - component: {fileID: 7047002080602353988}
   - component: {fileID: 6101521438463353061}
+  - component: {fileID: 7047002080602353988}
   m_Layer: 3
   m_Name: Gun_Primary
   m_TagString: Untagged
@@ -213,6 +213,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6101521438463353061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047002080602353990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 7047002080602353988}
+  - {fileID: 3420366511897575197}
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
 --- !u!114 &7047002080602353988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,22 +317,3 @@ MonoBehaviour:
         Knockback: 5
         StunDamage: 0
         DirectDamage: 1
---- !u!114 &6101521438463353061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7047002080602353990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 7047002080602353988}
-  - {fileID: 3420366511897575197}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
