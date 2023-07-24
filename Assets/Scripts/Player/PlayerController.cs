@@ -54,12 +54,13 @@ namespace ShootBalls.Gameplay.Player
 
 		public void Tick()
 		{
-			_motor.SetDesiredVelocity( _input.GetClampedAxis2D( ReConsts.Action.Horizontal, ReConsts.Action.Vertical ) );
+			var moveInput = _input.GetClampedAxis2D( ReConsts.Action.Horizontal, ReConsts.Action.Vertical );
+			_motor.SetDesiredVelocity( moveInput );
 
-			var aimDirection = _input.GetClampedAxis2D( ReConsts.Action.AimHorizontal, ReConsts.Action.AimVertical );
-			if ( aimDirection != Vector2.zero )
+			var aimInput = _input.GetClampedAxis2D( ReConsts.Action.AimHorizontal, ReConsts.Action.AimVertical );
+			if ( aimInput != Vector2.zero )
 			{
-				_rotation.SetDesiredRotation( aimDirection );
+				_rotation.SetDesiredRotation( aimInput );
 			}
 
 			HandleGunFiring();
