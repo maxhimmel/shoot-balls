@@ -38,12 +38,10 @@ namespace ShootBalls.Gameplay.Audio
 			// Init event lookup ...
 			foreach ( var bank in _banks )
 			{
-				Debug.Log( bank.name );
 				foreach ( var data in bank.Events )
 				{
 					string key = bank.ExportKey( data );
 					_events.Add( key, data );
-					Debug.Log( data.Clip.name );
 				}
 			}
 
