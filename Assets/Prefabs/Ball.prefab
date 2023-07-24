@@ -344,8 +344,6 @@ MonoBehaviour:
   _motor:
     Acceleration: 50
     MaxSpeed: 25
-    UpdateRotation: 0
-    AngleAcceleration: 0
     _metric: 0
   _cameraTarget:
     Focus: {fileID: 607798524136374827}
@@ -865,6 +863,7 @@ MonoBehaviour:
         TravelDistance: 15
         CastRadius: 0.5
         SegmentStepDelay: 0.1
+        QueryTriggers: 0
 --- !u!1 &5122787258753076798
 GameObject:
   m_ObjectHideFlags: 0
