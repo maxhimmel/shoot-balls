@@ -863,6 +863,7 @@ MonoBehaviour:
         TravelDistance: 15
         CastRadius: 0.5
         SegmentStepDelay: 0.1
+        CanBounce: 1
         QueryTriggers: 0
 --- !u!1 &5122787258753076798
 GameObject:
