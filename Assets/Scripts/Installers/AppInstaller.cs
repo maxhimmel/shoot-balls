@@ -1,4 +1,5 @@
-﻿using ShootBalls.Utility;
+﻿using ShootBalls.Gameplay.Audio;
+using ShootBalls.Utility;
 using Zenject;
 
 namespace ShootBalls.Installers
@@ -14,12 +15,7 @@ namespace ShootBalls.Installers
 
 			/* --- */
 
-			Container.Bind<InputResolver>()
-				.AsSingle();
-
-			Container.Bind<Rewired.Player>()
-				.FromResolveGetter<InputResolver>( resolver => resolver.GetInput( 0 ) )
-				.AsSingle();
+			BindInput();
 
 			/* --- */
 
@@ -29,6 +25,28 @@ namespace ShootBalls.Installers
 
 			/* --- */
 
+			BindAudio();
+		}
+
+		private void BindInput()
+		{
+			Container.Bind<InputResolver>()
+				.AsSingle();
+
+			Container.Bind<Rewired.Player>()
+				.FromResolveGetter<InputResolver>( resolver => resolver.GetInput( 0 ) )
+				.AsSingle();
+		}
+
+		private void BindAudio()
+		{
+			Container.Bind<AudioVolumeModel>()
+				.AsSingle();
+
+			Container.Bind<IAudioController>()
+				.To<AudioController>()
+				.FromMethod( GetComponentInChildren<AudioController> )
+				.AsSingle();
 		}
 	}
 }
