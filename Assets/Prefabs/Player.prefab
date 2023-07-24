@@ -270,9 +270,9 @@ MonoBehaviour:
     Motor:
       Acceleration: 100
       MaxSpeed: 15
-      UpdateRotation: 1
-      AngleAcceleration: 15
       _metric: 0
+    Rotation:
+      AccelerationAngle: 540
     PrimaryWeaponPrefab: {fileID: 7047002080602353988, guid: 98f654ad9d519fd43956879ee1ad85ee, type: 3}
     SecondaryWeaponPrefab: {fileID: 5398539223224414920, guid: aa437a6343e36114a9f533a6c9937637, type: 3}
     PlayerTarget:

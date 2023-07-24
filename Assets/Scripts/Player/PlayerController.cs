@@ -22,6 +22,7 @@ namespace ShootBalls.Gameplay.Player
 		private readonly Settings _settings;
 		private readonly Rewired.Player _input;
 		private readonly CharacterMotor _motor;
+		private readonly IRotationMotor _rotation;
 		private readonly Gun.Factory _gunFactory;
 		private readonly Rigidbody2D _body;
 
@@ -30,12 +31,14 @@ namespace ShootBalls.Gameplay.Player
 		public PlayerController( Settings settings,
 			Rewired.Player input,
 			CharacterMotor motor,
+			IRotationMotor rotation,
 			Gun.Factory gunFactory,
 			Rigidbody2D body )
 		{
 			_settings = settings;
 			_input = input;
 			_motor = motor;
+			_rotation = rotation;
 			_gunFactory = gunFactory;
 			_body = body;
 		}
@@ -56,7 +59,7 @@ namespace ShootBalls.Gameplay.Player
 			var aimDirection = _input.GetClampedAxis2D( ReConsts.Action.AimHorizontal, ReConsts.Action.AimVertical );
 			if ( aimDirection != Vector2.zero )
 			{
-				_motor.SetDesiredRotation( aimDirection );
+				_rotation.SetDesiredRotation( aimDirection );
 			}
 
 			HandleGunFiring();
@@ -86,6 +89,7 @@ namespace ShootBalls.Gameplay.Player
 		public void FixedTick()
 		{
 			_motor.FixedTick();
+			_rotation.FixedTick();
 		}
 
 		void IPushable.Push( Vector2 velocity )
@@ -108,6 +112,8 @@ namespace ShootBalls.Gameplay.Player
 		{
 			[FoldoutGroup( "Motor" ), HideLabel]
 			public CharacterMotor.Settings Motor;
+			[FoldoutGroup( "Motor" ), HideLabel]
+			public RotationMotor.Settings Rotation;
 
 			[FoldoutGroup( "Weapons" )]
 			public GunInstaller PrimaryWeaponPrefab;

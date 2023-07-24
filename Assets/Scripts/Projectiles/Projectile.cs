@@ -24,6 +24,7 @@ namespace ShootBalls.Gameplay
 
 		private readonly Rigidbody2D _body;
 		private readonly CharacterMotor _motor;
+		private readonly IRotationMotor _rotation;
 		private readonly Collider2D _collider;
 		private readonly AttackController _attackController;
 		private readonly ProjectileCollisionHandler[] _collisionHandlers;
@@ -36,6 +37,7 @@ namespace ShootBalls.Gameplay
 
 		public Projectile( Rigidbody2D body,
 			CharacterMotor motor,
+			IRotationMotor rotation,
 			Collider2D collider,
 			AttackController attackController,
 			ProjectileCollisionHandler[] collisionHandlers,
@@ -45,6 +47,7 @@ namespace ShootBalls.Gameplay
 		{
 			_body = body;
 			_motor = motor;
+			_rotation = rotation;
 			_collider = collider;
 			_attackController = attackController;
 			_collisionHandlers = collisionHandlers;
@@ -112,7 +115,6 @@ namespace ShootBalls.Gameplay
 		{
 			_body.AddForce( velocity, ForceMode2D.Impulse );
 
-			_motor.ToggleRotationUpdate( false );
 			_motor.SetDesiredVelocity( velocity.normalized );
 
 			Lifetimer.Tick( _cancelSource.Token ).Forget();
@@ -126,8 +128,8 @@ namespace ShootBalls.Gameplay
 			{
 				moveDirection = (_ball.Body.position - _body.position).normalized;
 
-				_motor.ToggleRotationUpdate( true );
-				_motor.SetDesiredRotation( moveDirection );
+				_rotation.SetDesiredRotation( moveDirection );
+				_rotation.FixedTick();
 			}
 
 			if ( _collider.enabled )

@@ -17,6 +17,8 @@ namespace ShootBalls.Installers
 		[SerializeField] private OnTriggerExit2DBroadcaster _ballExitDetector;
 		[FoldoutGroup( "Ball Detection/Movement" ), HideLabel]
 		[SerializeField] private CharacterMotor.Settings _movement;
+		[FoldoutGroup( "Ball Detection/Movement" ), HideLabel]
+		[SerializeField] private RotationMotor.Settings _rotation;
 
 		[SerializeReference] private IProjectileDamageData[] _collisionReactions = new IProjectileDamageData[0];
 
@@ -55,6 +57,10 @@ namespace ShootBalls.Installers
 			Container.Bind<CharacterMotor>()
 				.AsSingle()
 				.WithArguments( _movement );
+
+			Container.BindInterfacesTo<RotationMotor>()
+				.AsSingle()
+				.WithArguments( _rotation );
 
 			Container.Bind<AttackController>()
 				.AsSingle();

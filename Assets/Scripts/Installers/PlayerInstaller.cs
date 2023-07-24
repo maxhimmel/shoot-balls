@@ -31,6 +31,12 @@ namespace ShootBalls.Installers
 				.AsSingle()
 				.WithArguments( _settings.Motor );
 
+			Container.BindInterfacesTo<RotationMotor>()
+				.AsSingle()
+				.WithArguments( _settings.Rotation );
+
+			/* --- */
+
 			Container.BindInterfacesAndSelfTo<TargetGroupAttachment>()
 				.AsCached()
 				.WithArguments( _settings.PlayerTarget );

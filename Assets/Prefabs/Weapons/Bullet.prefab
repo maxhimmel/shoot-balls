@@ -340,9 +340,9 @@ MonoBehaviour:
   _movement:
     Acceleration: 35
     MaxSpeed: 20
-    UpdateRotation: 1
-    AngleAcceleration: 30
     _metric: 0
+  _rotation:
+    AccelerationAngle: 1260
   _collisionReactions:
   - rid: 20644901002936320
   - rid: 20644901002936321
