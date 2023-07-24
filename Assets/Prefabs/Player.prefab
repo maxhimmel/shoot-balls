@@ -196,7 +196,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 59372
+  m_InstanceId: 115212
 --- !u!1 &8464669106553265078
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +272,9 @@ MonoBehaviour:
       MaxSpeed: 15
       _metric: 0
     Rotation:
-      AccelerationAngle: 540
+      AccelerationAngle: 900
+      TiltInfluence: 30
+      TiltDeceleration: 50
     PrimaryWeaponPrefab: {fileID: 7047002080602353988, guid: 98f654ad9d519fd43956879ee1ad85ee, type: 3}
     SecondaryWeaponPrefab: {fileID: 5398539223224414920, guid: aa437a6343e36114a9f533a6c9937637, type: 3}
     PlayerTarget:
@@ -320,7 +322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8464669106806249084
 Transform:
   m_ObjectHideFlags: 0

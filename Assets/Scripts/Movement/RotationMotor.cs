@@ -4,8 +4,8 @@ namespace ShootBalls.Gameplay.Movement
 {
 	public class RotationMotor : IRotationMotor
 	{
-		private readonly Settings _settings;
-		private readonly Rigidbody2D _body;
+		protected readonly Settings _settings;
+		protected readonly Rigidbody2D _body;
 
 		private float _desiredAngle;
 		private float _angle;
@@ -17,12 +17,12 @@ namespace ShootBalls.Gameplay.Movement
 			_body = body;
 		}
 
-		public void SetDesiredRotation( Vector2 direction )
+		public virtual void SetDesiredRotation( Vector2 direction )
 		{
 			_desiredAngle = Vector2.SignedAngle( Vector2.up, direction );
 		}
 
-		public void FixedTick()
+		public virtual void FixedTick()
 		{
 			_angle = _body.rotation;
 
@@ -32,7 +32,12 @@ namespace ShootBalls.Gameplay.Movement
 			// This was the original implementation which was overlooked in error ...
 			//_angle = Mathf.LerpAngle( _angle, _desiredAngle, rotationDelta ); 
 
-			_body.MoveRotation( _angle );
+			_body.MoveRotation( GetLookRotation() );
+		}
+
+		protected virtual Quaternion GetLookRotation()
+		{
+			return Quaternion.Euler( 0, 0, _angle );
 		}
 
 		[System.Serializable]

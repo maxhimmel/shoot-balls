@@ -113,7 +113,7 @@ namespace ShootBalls.Gameplay.Player
 			[FoldoutGroup( "Motor" ), HideLabel]
 			public CharacterMotor.Settings Motor;
 			[FoldoutGroup( "Motor" ), HideLabel]
-			public RotationMotor.Settings Rotation;
+			public TiltRotationMotor.Settings Rotation;
 
 			[FoldoutGroup( "Weapons" )]
 			public GunInstaller PrimaryWeaponPrefab;

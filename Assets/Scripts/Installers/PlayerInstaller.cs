@@ -25,13 +25,22 @@ namespace ShootBalls.Installers
 				.FromMethod( GetComponentInChildren<Rigidbody2D> )
 				.AsSingle();
 
+			Container.Bind<SpriteRenderer>()
+				.FromMethod( GetComponentInChildren<SpriteRenderer> )
+				.AsSingle();
+
+			Container.Bind<Transform>()
+				.WithId( "Renderer" )
+				.FromResolveGetter<SpriteRenderer>( renderer => renderer.transform )
+				.AsSingle();
+
 			/* --- */
 
 			Container.Bind<CharacterMotor>()
 				.AsSingle()
 				.WithArguments( _settings.Motor );
 
-			Container.BindInterfacesTo<RotationMotor>()
+			Container.BindInterfacesTo<TiltRotationMotor>()
 				.AsSingle()
 				.WithArguments( _settings.Rotation );
 
