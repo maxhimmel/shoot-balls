@@ -780,7 +780,7 @@ MonoBehaviour:
       StunPoints: 3
       StunDuration: 3
     Damage:
-      LogDamageResult: 0
+      LogDamageResult: 1
       UseDamagedFx: 1
       DamagedFxId: Damaged
       UseDeflectedFx: 0
