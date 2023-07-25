@@ -63,6 +63,7 @@ namespace ShootBalls.Gameplay.LevelPieces
 
 			_brickList.Add( this );
 
+			_body.simulated = true;
 			_body.gameObject.SetActive( true );
 		}
 
@@ -106,6 +107,8 @@ namespace ShootBalls.Gameplay.LevelPieces
 
 		private void OnDead()
 		{
+			_body.simulated = false;
+
 			FireDeathExplosion();
 
 			DelayedDispose().Forget();
