@@ -25,12 +25,11 @@ namespace ShootBalls.Gameplay.LevelPieces
 		private readonly Settings _settings;
 		private readonly Rigidbody2D _body;
 		private readonly StunController _stunController;
+		private readonly DamageHandlerController _damageController;
 		private readonly SignalBus _signalBus;
-		private readonly Dictionary<System.Type, IDamageHandler> _damageHandlers;
 		private readonly CancellationToken _onDestroyedCancelToken;
 
 		private float _health;
-		private IDamageData _recentDamage;
 		private IMemoryPool _pool;
 
 		private static readonly Collider2D[] _explosionBuffer = new Collider2D[50];
@@ -38,14 +37,14 @@ namespace ShootBalls.Gameplay.LevelPieces
 		public Brick( Settings settings,
 			Rigidbody2D body,
 			StunController stunController,
-			IDamageHandler[] damageHandlers,
+			DamageHandlerController damageController,
 			SignalBus signalBus )
 		{
 			_settings = settings;
 			_body = body;
 			_stunController = stunController;
+			_damageController = damageController;
 			_signalBus = signalBus;
-			_damageHandlers = damageHandlers.ToDictionary( handler => handler.GetType() );
 			_onDestroyedCancelToken = _body.GetCancellationTokenOnDestroy();
 
 			_health = settings.Health;
@@ -70,22 +69,7 @@ namespace ShootBalls.Gameplay.LevelPieces
 
 		public bool TakeDamage( IDamageData data )
 		{
-			bool wasDamaged = false;
-
-			if ( _damageHandlers.TryGetValue( data.HandlerType, out var handler ) )
-			{
-				_recentDamage = data;
-				wasDamaged = handler.Handle( this, data );
-			}
-
-			_signalBus.FireId( wasDamaged ? "Damaged" : "Deflected", new FxSignal()
-			{
-				Position = data.HitPosition,
-				Direction = -data.HitNormal,
-				Parent = _body.transform
-			} );
-
-			return false;
+			return _damageController.TakeDamage( this, data );
 		}
 
 		public bool IsStunned()
@@ -120,7 +104,7 @@ namespace ShootBalls.Gameplay.LevelPieces
 			_signalBus.FireId( "Dead", new FxSignal()
 			{
 				Position = _body.position,
-				Direction = -_recentDamage.HitNormal,
+				Direction = -_damageController.RecentDamage.HitNormal,
 				Parent = _body.transform
 			} );
 		}
@@ -189,6 +173,8 @@ namespace ShootBalls.Gameplay.LevelPieces
 			public StunController.Settings Stun;
 			[FoldoutGroup( "Health" ), MinValue( 0 )]
 			public float Health;
+			[FoldoutGroup( "Health" ), HideLabel]
+			public DamageHandlerController.Settings Damage;
 
 			[FoldoutGroup( "Death" ), MinValue( 0 )]
 			public float DeathAnimDuration = 0.375f;

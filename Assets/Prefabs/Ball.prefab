@@ -316,6 +316,11 @@ MonoBehaviour:
     Stun:
       StunPoints: 6
       StunDuration: 2
+    Damage:
+      UseDamagedFx: 1
+      DamagedFxId: Damaged
+      UseDeflectedFx: 1
+      DeflectedFxId: Deflected
     HealDelay: 0.5
     HealRatePerHP: 0.33333334
     InvulnerableDuration: 5

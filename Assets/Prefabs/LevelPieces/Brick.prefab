@@ -838,6 +838,11 @@ MonoBehaviour:
       StunPoints: 1
       StunDuration: 3
     Health: 10
+    Damage:
+      UseDamagedFx: 1
+      DamagedFxId: Damaged
+      UseDeflectedFx: 1
+      DeflectedFxId: Deflected
     DeathAnimDuration: 0.375
     ExplosionLayer:
       serializedVersion: 2

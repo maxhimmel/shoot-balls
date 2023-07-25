@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using ShootBalls.Gameplay.Attacking;
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Movement;
@@ -24,7 +23,7 @@ namespace ShootBalls.Gameplay
 		private readonly CharacterMotor _motor;
 		private readonly StunController _stunController;
 		private readonly AttackController _attackController;
-		private readonly Dictionary<System.Type, IDamageHandler> _damageHandlers;
+		private readonly DamageHandlerController _damageController;
 		private readonly SignalBus _signalBus;
 		private readonly GameModel _gameModel;
 
@@ -37,7 +36,7 @@ namespace ShootBalls.Gameplay
 			CharacterMotor motor,
 			StunController stunController,
 			AttackController attackController,
-			IDamageHandler[] damageHandlers,
+			DamageHandlerController damageController,
 			SignalBus signalBus,
 			GameModel gameModel,
 			OnCollisionEnter2DBroadcaster collisionEnter )
@@ -47,7 +46,7 @@ namespace ShootBalls.Gameplay
 			_motor = motor;
 			_stunController = stunController;
 			_attackController = attackController;
-			_damageHandlers = damageHandlers.ToDictionary( handler => handler.GetType() );
+			_damageController = damageController;
 			_signalBus = signalBus;
 			_gameModel = gameModel;
 
@@ -57,21 +56,7 @@ namespace ShootBalls.Gameplay
 
 		public bool TakeDamage( IDamageData data )
 		{
-			bool wasDamaged = false;
-
-			if ( _damageHandlers.TryGetValue( data.HandlerType, out var handler ) )
-			{
-				wasDamaged = handler.Handle( this, data );
-			}
-
-			_signalBus.FireId( wasDamaged ? "Damaged" : "Deflected", new FxSignal()
-			{
-				Position = data.HitPosition,
-				Direction = -data.HitNormal,
-				Parent = _body.transform
-			} );
-
-			return wasDamaged;
+			return _damageController.TakeDamage( this, data );
 		}
 
 		void IStunnable.OnStunHit( float damage )
@@ -175,6 +160,8 @@ namespace ShootBalls.Gameplay
 		{
 			[FoldoutGroup( "Health" ), HideLabel]
 			public StunController.Settings Stun;
+			[FoldoutGroup( "Health" ), HideLabel]
+			public DamageHandlerController.Settings Damage;
 
 			[FoldoutGroup( "Recovery" ), MinValue( 0 )]
 			public float HealDelay = 0.5f;
