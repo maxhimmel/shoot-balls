@@ -360,7 +360,7 @@ MonoBehaviour:
         LineFxPrefab: {fileID: 4985361285953390168, guid: d9d6bce3cc87d824782ee871841e3ca0, type: 3}
         Mask:
           serializedVersion: 2
-          m_Bits: 129
+          m_Bits: 1
         TravelDistance: 7
         CastRadius: 0.5
         SegmentStepDelay: 0
@@ -704,7 +704,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 116772
+  m_InstanceId: 120548
 --- !u!1 &8464669106553265078
 GameObject:
   m_ObjectHideFlags: 0
