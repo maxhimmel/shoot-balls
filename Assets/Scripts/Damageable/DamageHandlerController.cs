@@ -2,6 +2,7 @@
 using System.Linq;
 using ShootBalls.Gameplay.Fx;
 using Sirenix.OdinInspector;
+using UnityEngine;
 using Zenject;
 
 namespace ShootBalls.Gameplay.Pawn
@@ -32,6 +33,12 @@ namespace ShootBalls.Gameplay.Pawn
 			{
 				RecentDamage = data;
 				wasDamaged = handler.Handle( owner, data );
+			}
+
+			if ( _settings.LogDamageResult )
+			{
+				Debug.Log( $"{owner.Body.name} {(wasDamaged ? "damaged!" : "deflected.")}\n" +
+					$"<b>Instigator:</b> {data.Instigator.Body.name} | <b>Causer:</b> {data.Causer.Body.name}" );
 			}
 
 			if ( wasDamaged )
@@ -65,14 +72,17 @@ namespace ShootBalls.Gameplay.Pawn
 		[System.Serializable]
 		public class Settings
 		{
-			[HorizontalGroup( "Damage", Width = 15 ), ToggleLeft, HideLabel]
+			[FoldoutGroup( "Damage Controller" ), ToggleLeft]
+			public bool LogDamageResult;
+
+			[HorizontalGroup( "Damage Controller/Damage", Width = 15 ), ToggleLeft, HideLabel]
 			public bool UseDamagedFx = true;
-			[HorizontalGroup( "Damage" ), EnableIf( "UseDamagedFx" )]
+			[HorizontalGroup( "Damage Controller/Damage" ), EnableIf( "UseDamagedFx" )]
 			public string DamagedFxId = "Damaged";
 
-			[HorizontalGroup( "Deflect", Width = 15 ), ToggleLeft, HideLabel]
+			[HorizontalGroup( "Damage Controller/Deflect", Width = 15 ), ToggleLeft, HideLabel]
 			public bool UseDeflectedFx = true;
-			[HorizontalGroup( "Deflect" ), EnableIf( "UseDeflectedFx" )]
+			[HorizontalGroup( "Damage Controller/Deflect" ), EnableIf( "UseDeflectedFx" )]
 			public string DeflectedFxId = "Deflected";
 		}
 	}
