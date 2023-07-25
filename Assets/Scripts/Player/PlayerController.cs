@@ -23,6 +23,7 @@ namespace ShootBalls.Gameplay.Player
 		public event System.Action Died;
 
 		public Rigidbody2D Body => _body;
+		private bool IsDead => _health <= 0;
 
 		private readonly Settings _settings;
 		private readonly Rewired.Player _input;
@@ -35,6 +36,7 @@ namespace ShootBalls.Gameplay.Player
 		private readonly Rigidbody2D _body;
 		private readonly SignalBus _signalBus;
 
+		private float _health;
 		private Gun _primaryGun, _secondaryGun;
 
 		public PlayerController( Settings settings,
@@ -74,7 +76,7 @@ namespace ShootBalls.Gameplay.Player
 
 		public void Tick()
 		{
-			if ( _stunController.Tick() )
+			if ( IsDead || _stunController.Tick() )
 			{
 				return;
 			}
@@ -163,10 +165,6 @@ namespace ShootBalls.Gameplay.Player
 		{
 			return _damageController.TakeDamage( this, data );
 		}
-
-		private bool IsDead => _health <= 0;
-
-		private float _health;
 
 		bool IStunnable.IsStunned()
 		{
