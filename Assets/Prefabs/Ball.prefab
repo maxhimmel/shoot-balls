@@ -228,6 +228,8 @@ Transform:
   - {fileID: 6792989831550239557}
   - {fileID: 2448934461515468422}
   - {fileID: 6104523952067676217}
+  - {fileID: 2402992041369788843}
+  - {fileID: 6781802684895033763}
   m_Father: {fileID: 607798524136374827}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -325,6 +327,8 @@ MonoBehaviour:
     HealDelay: 0.5
     HealRatePerHP: 0.33333334
     InvulnerableDuration: 5
+    HomingInfluence: 0.795
+    MinAlignmentAngle: 80
     LaunchAttack:
       UseSuccessFx: 0
       SuccessFxId: Damaged
@@ -805,6 +809,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1626794489887861180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2402992041369788843}
+  - component: {fileID: 2680038590995868725}
+  m_Layer: 6
+  m_Name: FX_Launched_HomingInfluence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2402992041369788843
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626794489887861180}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 607798523943269061}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2680038590995868725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626794489887861180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781720031daeac842bcb0c0293e0b470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fxId: Launched_HomingInfluence
+  _fxSettings:
+  - rid: 20644972858703872
+  references:
+    version: 2
+    RefIds:
+    - rid: 20644972858703872
+      type: {class: TrajectoryVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        LineFxPrefab: {fileID: 4985361285953390168, guid: 2afa0fe8718b7934ba6af969399643e9, type: 3}
+        Mask:
+          serializedVersion: 2
+          m_Bits: 129
+        TravelDistance: 999
+        CastRadius: 0.5
+        SegmentStepDelay: 0.1
+        CanBounce: 0
+        QueryTriggers: 0
 --- !u!1 &1819595071410364887
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,6 +1070,68 @@ MonoBehaviour:
       type: {class: PoolableFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         Prefab: {fileID: 7641523818938490003, guid: b2fc82e924deabb498f990b2d60336b2, type: 3}
+--- !u!1 &6133804098486095078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6781802684895033763}
+  - component: {fileID: 7597672418349958523}
+  m_Layer: 6
+  m_Name: FX_Launched_RawHitDirection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6781802684895033763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6133804098486095078}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 607798523943269061}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7597672418349958523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6133804098486095078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781720031daeac842bcb0c0293e0b470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fxId: Launched_RawHitDirection
+  _fxSettings:
+  - rid: 20644972858703872
+  references:
+    version: 2
+    RefIds:
+    - rid: 20644972858703872
+      type: {class: TrajectoryVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        LineFxPrefab: {fileID: 4985361285953390168, guid: a45a5b1d67651314a94fe839e3b6b11a, type: 3}
+        Mask:
+          serializedVersion: 2
+          m_Bits: 129
+        TravelDistance: 999
+        CastRadius: 0.5
+        SegmentStepDelay: 0.1
+        CanBounce: 0
+        QueryTriggers: 0
 --- !u!1 &7763968536195485283
 GameObject:
   m_ObjectHideFlags: 0

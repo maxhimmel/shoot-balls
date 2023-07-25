@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ShootBalls.Gameplay.Attacking;
 using ShootBalls.Gameplay.Fx;
+using ShootBalls.Gameplay.LevelPieces;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Pawn;
 using ShootBalls.Utility;
@@ -56,7 +57,61 @@ namespace ShootBalls.Gameplay
 
 		public bool TakeDamage( IDamageData data )
 		{
+			InfluenceHitNormal( ref data );
+
 			return _damageController.TakeDamage( this, data );
+		}
+
+		private void InfluenceHitNormal( ref IDamageData data )
+		{
+			if ( _settings.HomingInfluence <= 0 )
+			{
+				return;
+			}
+			if ( !IsStunned() )
+			{
+				return;
+			}
+
+			Brick bestBrick = null;
+			float bestAlignment = Mathf.Infinity;
+			foreach ( var brick in _gameModel.ActiveBricks )
+			{
+				Vector2 selfToBrick = brick.Body.position - _body.position;
+				float distance = selfToBrick.magnitude;
+
+				float dot = Vector2.Dot( selfToBrick / distance, -data.HitNormal );
+				float angle = Mathf.Acos( dot ) * 180f / Mathf.PI;
+
+				if ( angle <= _settings.MinAlignmentAngle )
+				{
+					if ( angle < bestAlignment )
+					{
+						bestAlignment = angle;
+						bestBrick = brick;
+					}
+				}
+			}
+
+			if ( bestBrick != null )
+			{
+				Vector2 influenceVector = (_body.position - bestBrick.Body.position).normalized;
+
+				_signalBus.TryFireId( "Launched_HomingInfluence", new FxSignal()
+				{
+					Position = _body.position,
+					Direction = -influenceVector,
+					Parent = _body.transform
+				} );
+				_signalBus.TryFireId( "Launched_RawHitDirection", new FxSignal()
+				{
+					Position = _body.position,
+					Direction = -data.HitNormal,
+					Parent = _body.transform
+				} );
+
+				data.HitNormal = Vector3.Slerp( data.HitNormal, influenceVector, _settings.HomingInfluence );
+			}
 		}
 
 		void IStunnable.OnStunHit( float damage )
@@ -170,9 +225,14 @@ namespace ShootBalls.Gameplay
 			[FoldoutGroup( "Recovery" ), MinValue( 0 )]
 			public float InvulnerableDuration = 5;
 
-			[FoldoutGroup( "Launch Attack" ), HideLabel]
+			[FoldoutGroup( "Brick Homing" ), Range( 0, 1 )]
+			public float HomingInfluence;
+			[FoldoutGroup( "Brick Homing" ), Range( 0, 180 )]
+			public float MinAlignmentAngle;
+
+			[FoldoutGroup( "Attacks" )]
 			public AttackController.Settings LaunchAttack;
-			[FoldoutGroup( "Seek Attack" ), HideLabel]
+			[FoldoutGroup( "Attacks" )]
 			public AttackController.Settings SeekAttack;
 		}
 	}
