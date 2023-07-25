@@ -10,7 +10,8 @@ using Zenject;
 
 namespace ShootBalls.Gameplay.LevelPieces
 {
-	public class Brick : IPawn,
+	public class Brick : IInitializable,
+		IPawn,
 		IDamageable,
 		IStunnable,
 		ITickable,
@@ -22,6 +23,7 @@ namespace ShootBalls.Gameplay.LevelPieces
 
 		private readonly Settings _settings;
 		private readonly Rigidbody2D _body;
+		private readonly BrickList _brickList;
 		private readonly StunController _stunController;
 		private readonly DamageHandlerController _damageController;
 		private readonly SignalBus _signalBus;
@@ -34,12 +36,14 @@ namespace ShootBalls.Gameplay.LevelPieces
 
 		public Brick( Settings settings,
 			Rigidbody2D body,
+			BrickList brickList,
 			StunController stunController,
 			DamageHandlerController damageController,
 			SignalBus signalBus )
 		{
 			_settings = settings;
 			_body = body;
+			_brickList = brickList;
 			_stunController = stunController;
 			_damageController = damageController;
 			_signalBus = signalBus;
@@ -48,9 +52,16 @@ namespace ShootBalls.Gameplay.LevelPieces
 			_health = settings.Health;
 		}
 
+		public void Initialize()
+		{
+			OnSpawned( _pool ); // Temp calling this here until these are dynamically spawned.
+		}
+
 		public void OnSpawned( IMemoryPool pool )
 		{
 			_pool = pool;
+
+			_brickList.Add( this );
 
 			_body.gameObject.SetActive( true );
 		}
@@ -158,6 +169,8 @@ namespace ShootBalls.Gameplay.LevelPieces
 		public void OnDespawned()
 		{
 			_pool = null;
+
+			_brickList.Remove( this );
 
 			_body.gameObject.SetActive( false );
 		}

@@ -24,6 +24,9 @@ namespace ShootBalls.Installers
 			Container.BindInterfacesAndSelfTo<GameController>()
 				.AsSingle();
 
+			Container.Bind<BrickList>()
+				.AsSingle();
+
 			Container.BindFactory<PlayerController, PlayerController.Factory>()
 				.FromSubContainerResolve()
 				.ByNewContextPrefab( _playerPrefab )
