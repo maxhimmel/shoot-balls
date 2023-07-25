@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine.Assertions;
 
 namespace ShootBalls.Gameplay.Pawn
@@ -24,7 +25,7 @@ namespace ShootBalls.Gameplay.Pawn
 				if ( data.DirectDamage != 0 )
 				{
 					wasHit = true;
-					_knockbackHandler.Handle( owner, data );
+					TryApplyKnockback( owner, data, Settings.KnockbackMode.Direct );
 					stunnable.OnDirectHit( data.DirectDamage );
 				}
 			}
@@ -33,11 +34,20 @@ namespace ShootBalls.Gameplay.Pawn
 				if ( data.StunDamage != 0 )
 				{
 					wasHit = true;
+					TryApplyKnockback( owner, data, Settings.KnockbackMode.Stun );
 					stunnable.OnStunHit( data.StunDamage );
 				}
 			}
 
 			return wasHit;
+		}
+
+		private void TryApplyKnockback( IPawn owner, Settings data, Settings.KnockbackMode mode )
+		{
+			if ( ((int)mode & (int)data.ApplyKnockback) != 0 )
+			{
+				_knockbackHandler.Handle( owner, data );
+			}
 		}
 
 		[System.Serializable]
@@ -47,6 +57,16 @@ namespace ShootBalls.Gameplay.Pawn
 
 			public float StunDamage;
 			public float DirectDamage;
+
+			[EnumToggleButtons]
+			public KnockbackMode ApplyKnockback = KnockbackMode.Direct;
+
+			[Flags]
+			public enum KnockbackMode
+			{
+				Stun	= 1 << 0,
+				Direct	= 1 << 1
+			}
 		}
 	}
 }
