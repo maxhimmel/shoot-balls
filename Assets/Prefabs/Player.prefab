@@ -704,7 +704,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 56680
+  m_InstanceId: 116772
 --- !u!1 &8464669106553265078
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,9 +798,9 @@ MonoBehaviour:
       TiltInfluence: 30
       TiltDeceleration: 50
     Dodge:
-      Cooldown: 0.5
-      MaxDistance: 7
-      Speed: 20
+      Cooldown: 0.75
+      MaxDistance: 11
+      Speed: 31.42857
       TravelCurve:
         serializedVersion: 2
         m_Curve:
