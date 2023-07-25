@@ -316,7 +316,7 @@ MonoBehaviour:
     - rid: 20644949673377806
       type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
       data:
-        Knockback: 5
+        Knockback: 17.5
         StunDamage: 1
         DirectDamage: 1
-        ApplyKnockback: 2
+        ApplyKnockback: 3
