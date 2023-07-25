@@ -776,6 +776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     Health: 1
+    InvincibleDuration: 0.5
     Stun:
       StunPoints: 3
       StunDuration: 3

@@ -37,6 +37,7 @@ namespace ShootBalls.Gameplay.Player
 		private readonly SignalBus _signalBus;
 
 		private float _health;
+		private float _invincibilityEndTime;
 		private Gun _primaryGun, _secondaryGun;
 
 		public PlayerController( Settings settings,
@@ -167,6 +168,11 @@ namespace ShootBalls.Gameplay.Player
 
 		public bool TakeDamage( IDamageData data )
 		{
+			if ( _invincibilityEndTime > Time.timeSinceLevelLoad )
+			{
+				return false;
+			}
+
 			return _damageController.TakeDamage( this, data );
 		}
 
@@ -178,6 +184,7 @@ namespace ShootBalls.Gameplay.Player
 		void IStunnable.OnStunHit( float damage )
 		{
 			_stunController.Hit( damage );
+			_invincibilityEndTime = Time.timeSinceLevelLoad + _settings.InvincibleDuration;
 		}
 
 		private void OnStunned()
@@ -193,6 +200,8 @@ namespace ShootBalls.Gameplay.Player
 			if ( !IsDead )
 			{
 				_health -= damage;
+				_invincibilityEndTime = Time.timeSinceLevelLoad + _settings.InvincibleDuration;
+
 				if ( IsDead )
 				{
 					OnDead();
@@ -231,6 +240,8 @@ namespace ShootBalls.Gameplay.Player
 		{
 			[FoldoutGroup( "Health" ), MinValue( 0 )]
 			public float Health;
+			[FoldoutGroup( "Health" ), MinValue( 0 )]
+			public float InvincibleDuration;
 			[FoldoutGroup( "Health" ), HideLabel]
 			public StunController.Settings Stun;
 			[FoldoutGroup( "Health" ), HideLabel]
