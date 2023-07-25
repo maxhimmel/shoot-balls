@@ -58,6 +58,12 @@ namespace ShootBalls.Gameplay.Player
 		public void Tick()
 		{
 			HandleMovement();
+
+			if ( _dodgeController.IsDodging )
+			{
+				return;
+			}
+
 			HandleRotating();
 
 			HandleGunFiring();
@@ -73,7 +79,11 @@ namespace ShootBalls.Gameplay.Player
 					? moveInput.normalized
 					: _body.transform.up;
 
-				_dodgeController.Dodge( dodgeDirection );
+				if ( _dodgeController.Dodge( dodgeDirection ) )
+				{
+					_primaryGun.StopFiring();
+					_secondaryGun.StopFiring();
+				}
 			}
 
 			if ( _dodgeController.IsDodging )
@@ -97,7 +107,7 @@ namespace ShootBalls.Gameplay.Player
 
 		private void HandleGunFiring()
 		{
-			if ( _input.GetButtonDown( ReConsts.Action.PrimaryFire ) )
+			if ( _input.GetButton( ReConsts.Action.PrimaryFire ) )
 			{
 				_primaryGun.StartFiring();
 			}
@@ -106,7 +116,7 @@ namespace ShootBalls.Gameplay.Player
 				_primaryGun.StopFiring();
 			}
 
-			if ( _input.GetButtonDown( ReConsts.Action.SecondaryFire ) )
+			if ( _input.GetButton( ReConsts.Action.SecondaryFire ) )
 			{
 				_secondaryGun.StartFiring();
 			}

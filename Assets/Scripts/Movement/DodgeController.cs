@@ -32,11 +32,11 @@ namespace ShootBalls.Gameplay.Movement
 			_signalBus = signalBus;
 		}
 
-		public void Dodge( Vector2 direction )
+		public bool Dodge( Vector2 direction )
 		{
 			if ( !CanDodge() )
 			{
-				return;
+				return false;
 			}
 
 			_signalBus.FireId( "Dodge", new FxSignal()
@@ -49,6 +49,8 @@ namespace ShootBalls.Gameplay.Movement
 			_cooldownEndTime = Time.timeSinceLevelLoad + _settings.Cooldown;
 
 			UpdateDodge( direction ).Forget();
+
+			return true;
 		}
 
 		private bool CanDodge()
