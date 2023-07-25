@@ -827,7 +827,7 @@ MonoBehaviour:
         m_RotationOrder: 4
       CollisionLayer:
         serializedVersion: 2
-        m_Bits: 129
+        m_Bits: 1
       CastRadius: 0.45
       DodgeLayerId: Dodge
     PrimaryWeaponPrefab: {fileID: 7047002080602353988, guid: 98f654ad9d519fd43956879ee1ad85ee, type: 3}
