@@ -46,9 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fxId: Dodge
   _fxSettings:
+  - rid: 20644990478188546
   - rid: 20644990478188544
   - rid: 20644990478188545
-  - rid: 20644990478188546
+  - rid: 20644996034068484
   references:
     version: 2
     RefIds:
@@ -111,6 +112,10 @@ MonoBehaviour:
           Color: {r: 0.4, g: 0.4, b: 0.4, a: 0}
           Duration: 0.35
           Operation: 0
+    - rid: 20644996034068484
+      type: {class: PoolableFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        Prefab: {fileID: 7641523818938490003, guid: 903cb307cc105734ca25f0a11ae626d0, type: 3}
 --- !u!1 &8464669104956662747
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +312,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 68738
+  m_InstanceId: 78738
 --- !u!1 &8464669106553265078
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +423,7 @@ MonoBehaviour:
         serializedVersion: 2
         m_Bits: 129
       CastRadius: 0.45
+      DodgeLayerId: Dodge
     PrimaryWeaponPrefab: {fileID: 7047002080602353988, guid: 98f654ad9d519fd43956879ee1ad85ee, type: 3}
     SecondaryWeaponPrefab: {fileID: 5398539223224414920, guid: aa437a6343e36114a9f533a6c9937637, type: 3}
     PlayerTarget:
