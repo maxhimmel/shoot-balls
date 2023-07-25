@@ -210,7 +210,7 @@ MonoBehaviour:
       data:
         BounceSettings:
           Scale: 0.4
-          Duration: 0.1
+          Duration: 0.25
           ResetScale: 1
           Curve:
             serializedVersion: 2
@@ -254,9 +254,9 @@ MonoBehaviour:
       type: {class: SpriteBlinkVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         BlinkSettings:
-          Color: {r: 1, g: 0.29105297, b: 0.1273585, a: 1}
-          Blinks: 1
-          Duration: 0.15
+          Color: {r: 1, g: 0.14102286, b: 0.12549019, a: 1}
+          Blinks: 5
+          Duration: 0.5
     - rid: 20644882241814528
       type: {class: PoolableFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
