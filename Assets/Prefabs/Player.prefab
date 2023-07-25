@@ -393,6 +393,7 @@ MonoBehaviour:
       TiltInfluence: 30
       TiltDeceleration: 50
     Dodge:
+      Cooldown: 0.5
       MaxDistance: 7
       Speed: 20
       TravelCurve:

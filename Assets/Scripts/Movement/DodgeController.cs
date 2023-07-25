@@ -21,6 +21,7 @@ namespace ShootBalls.Gameplay.Movement
 
 		private bool _isDodging;
 		private Vector2 _direction;
+		private float _cooldownEndTime;
 
 		public DodgeController( Settings settings,
 			Rigidbody2D body,
@@ -33,7 +34,7 @@ namespace ShootBalls.Gameplay.Movement
 
 		public void Dodge( Vector2 direction )
 		{
-			if ( _isDodging || _settings.MaxDistance == 0 )
+			if ( !CanDodge() )
 			{
 				return;
 			}
@@ -45,7 +46,16 @@ namespace ShootBalls.Gameplay.Movement
 				Parent = _body.transform.parent
 			} );
 
+			_cooldownEndTime = Time.timeSinceLevelLoad + _settings.Cooldown;
+
 			UpdateDodge( direction ).Forget();
+		}
+
+		private bool CanDodge()
+		{
+			return !_isDodging
+				&& _settings.MaxDistance != 0
+				&& _cooldownEndTime < Time.timeSinceLevelLoad;
 		}
 
 		private async UniTaskVoid UpdateDodge( Vector2 direction )
@@ -116,6 +126,8 @@ namespace ShootBalls.Gameplay.Movement
 			[OnInspectorGUI]
 			[InfoBox( "@GetDodgeDuration()", SdfIconType.ClockHistory )]
 
+			[MinValue( 0 )]
+			public float Cooldown;
 			public float MaxDistance;
 			[MinValue( 0 )]
 			public float Speed;
