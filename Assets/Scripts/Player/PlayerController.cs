@@ -193,6 +193,8 @@ namespace ShootBalls.Gameplay.Player
 
 			_primaryGun.StopFiring();
 			_secondaryGun.StopFiring();
+
+			_body.AddTorque( _settings.StunTorque, ForceMode2D.Impulse );
 		}
 
 		void IStunnable.OnDirectHit( float damage )
@@ -247,8 +249,10 @@ namespace ShootBalls.Gameplay.Player
 			[FoldoutGroup( "Health" ), HideLabel]
 			public DamageHandlerController.Settings Damage;
 
-			[FoldoutGroup( "Death" ), MinValue( 0 )]
+			[FoldoutGroup( "Animation" ), MinValue( 0 )]
 			public float DeathAnimDuration;
+			[FoldoutGroup( "Animation" )]
+			public float StunTorque;
 
 			[FoldoutGroup( "Motor" ), HideLabel]
 			public CharacterMotor.Settings Motor;

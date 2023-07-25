@@ -787,6 +787,7 @@ MonoBehaviour:
       UseDeflectedFx: 0
       DeflectedFxId: Deflected
     DeathAnimDuration: 0.25
+    StunTorque: 7.25
     Motor:
       Acceleration: 100
       MaxSpeed: 15
@@ -853,7 +854,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 0.75
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 147a12b4b9e8c98449bb1afecfce02c5, type: 2}
   m_Interpolate: 0
