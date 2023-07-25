@@ -56,8 +56,8 @@ MonoBehaviour:
       data:
         BlinkSettings:
           Color: {r: 1, g: 0.3371821, b: 0.12549019, a: 1}
-          Blinks: 90
-          Duration: 3
+          Blinks: 30
+          Duration: 1
     - rid: 20645012971978753
       type: {class: HitStopVfxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
@@ -779,7 +779,7 @@ MonoBehaviour:
     InvincibleDuration: 0.5
     Stun:
       StunPoints: 3
-      StunDuration: 3
+      StunDuration: 1
     Damage:
       LogDamageResult: 1
       UseDamagedFx: 1
@@ -787,7 +787,7 @@ MonoBehaviour:
       UseDeflectedFx: 0
       DeflectedFxId: Deflected
     DeathAnimDuration: 0.25
-    StunTorque: 7.25
+    StunTorque: 10
     Motor:
       Acceleration: 100
       MaxSpeed: 15
@@ -854,7 +854,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.75
+  m_AngularDrag: 4.5
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 147a12b4b9e8c98449bb1afecfce02c5, type: 2}
   m_Interpolate: 0
