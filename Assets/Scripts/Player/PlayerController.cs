@@ -152,8 +152,11 @@ namespace ShootBalls.Gameplay.Player
 
 		public void FixedTick()
 		{
-			_motor.FixedTick();
-			_rotation.FixedTick();
+			if ( !IsDead && !IsStunned() )
+			{
+				_motor.FixedTick();
+				_rotation.FixedTick();
+			}
 		}
 
 		void IPushable.Push( Vector2 velocity )
@@ -166,7 +169,7 @@ namespace ShootBalls.Gameplay.Player
 			return _damageController.TakeDamage( this, data );
 		}
 
-		bool IStunnable.IsStunned()
+		public bool IsStunned()
 		{
 			return _stunController.IsStunned;
 		}
@@ -178,6 +181,8 @@ namespace ShootBalls.Gameplay.Player
 
 		private void OnStunned()
 		{
+			_motor.SetDesiredVelocity( Vector2.zero );
+
 			_primaryGun.StopFiring();
 			_secondaryGun.StopFiring();
 		}
