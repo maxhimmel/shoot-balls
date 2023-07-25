@@ -152,9 +152,10 @@ namespace ShootBalls.Gameplay.Player
 
 		public void FixedTick()
 		{
+			_motor.FixedTick();
+
 			if ( !IsDead && !IsStunned() )
 			{
-				_motor.FixedTick();
 				_rotation.FixedTick();
 			}
 		}
