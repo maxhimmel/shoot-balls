@@ -126,16 +126,22 @@ namespace ShootBalls.Gameplay.Movement
 			[OnInspectorGUI]
 			[InfoBox( "@GetDodgeDuration()", SdfIconType.ClockHistory )]
 
-			[MinValue( 0 )]
+			[MinValue( 0 ), LabelText( "Dodge Cooldown" )]
 			public float Cooldown;
+
+			[BoxGroup( "Main", ShowLabel = false )]
+			[HorizontalGroup( "Main/Core" )]
 			public float MaxDistance;
-			[MinValue( 0 )]
+			[HorizontalGroup( "Main/Core" ), MinValue( 0 )]
 			public float Speed;
+			[BoxGroup( "Main" )]
 			public AnimationCurve TravelCurve = AnimationCurve.EaseInOut( 0, 0, 1, 1 );
 
+			[BoxGroup( "Collision", ShowLabel = false )]
 			public LayerMask CollisionLayer;
-			[MinValue( 0 )]
+			[BoxGroup( "Collision" ), MinValue( 0 )]
 			public float CastRadius = 0.65f;
+			[BoxGroup( "Collision" )]
 			public string DodgeLayerId = "Dodge";
 
 			private string GetDodgeDuration()
