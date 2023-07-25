@@ -1,4 +1,5 @@
 using ShootBalls.Gameplay.Player;
+using UnityEngine;
 using Zenject;
 
 namespace ShootBalls.Gameplay
@@ -22,6 +23,13 @@ namespace ShootBalls.Gameplay
 		{
 			_gameModel.Player = _playerFactory.Create();
 			_gameModel.Ball = _ballFactory.Create();
+
+			_gameModel.Player.Died += OnPlayerDied;
+		}
+
+		private void OnPlayerDied()
+		{
+			Debug.Log( "<color=red>Gameover</color>" );
 		}
 	}
 }

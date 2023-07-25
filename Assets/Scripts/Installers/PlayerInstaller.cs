@@ -1,5 +1,6 @@
 using ShootBalls.Gameplay.Cameras;
 using ShootBalls.Gameplay.Movement;
+using ShootBalls.Gameplay.Pawn;
 using ShootBalls.Gameplay.Player;
 using ShootBalls.Gameplay.Weapons;
 using Sirenix.OdinInspector;
@@ -62,6 +63,19 @@ namespace ShootBalls.Installers
 
 			Container.BindFactory<GunInstaller, Gun, Gun.Factory>()
 				.FromFactory<Gun.CustomFactory>();
+
+			/* --- */
+
+			Container.Bind<StunController>()
+				.AsSingle()
+				.WithArguments( _settings.Stun );
+
+			Container.BindInterfacesTo<StunDamageHandler>()
+				.AsSingle();
+
+			Container.Bind<DamageHandlerController>()
+				.AsSingle()
+				.WithArguments( _settings.Damage );
 		}
 	}
 }

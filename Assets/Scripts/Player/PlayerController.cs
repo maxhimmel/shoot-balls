@@ -1,4 +1,6 @@
+using Cysharp.Threading.Tasks;
 using ShootBalls.Gameplay.Cameras;
+using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Pawn;
 using ShootBalls.Gameplay.Weapons;
@@ -15,8 +17,11 @@ namespace ShootBalls.Gameplay.Player
 		ITickable,
 		IFixedTickable,
 		IPushable,
-		IDamageable
+		IDamageable,
+		IStunnable
 	{
+		public event System.Action Died;
+
 		public Rigidbody2D Body => _body;
 
 		private readonly Settings _settings;
@@ -24,8 +29,11 @@ namespace ShootBalls.Gameplay.Player
 		private readonly CharacterMotor _motor;
 		private readonly IRotationMotor _rotation;
 		private readonly DodgeController _dodgeController;
+		private readonly DamageHandlerController _damageController;
+		private readonly StunController _stunController;
 		private readonly Gun.Factory _gunFactory;
 		private readonly Rigidbody2D _body;
+		private readonly SignalBus _signalBus;
 
 		private Gun _primaryGun, _secondaryGun;
 
@@ -34,16 +42,22 @@ namespace ShootBalls.Gameplay.Player
 			CharacterMotor motor,
 			IRotationMotor rotation,
 			DodgeController dodgeController,
+			DamageHandlerController damageController,
+			StunController stunController,
 			Gun.Factory gunFactory,
-			Rigidbody2D body )
+			Rigidbody2D body,
+			SignalBus signalBus )
 		{
 			_settings = settings;
 			_input = input;
 			_motor = motor;
 			_rotation = rotation;
 			_dodgeController = dodgeController;
+			_damageController = damageController;
+			_stunController = stunController;
 			_gunFactory = gunFactory;
 			_body = body;
+			_signalBus = signalBus;
 		}
 
 		public void Initialize()
@@ -53,10 +67,18 @@ namespace ShootBalls.Gameplay.Player
 
 			_primaryGun.SetOwner( this );
 			_secondaryGun.SetOwner( this );
+
+			_health = _settings.Health;
+			_stunController.Stunned += OnStunned;
 		}
 
 		public void Tick()
 		{
+			if ( _stunController.Tick() )
+			{
+				return;
+			}
+
 			HandleMovement();
 
 			if ( _dodgeController.IsDodging )
@@ -139,10 +161,63 @@ namespace ShootBalls.Gameplay.Player
 
 		public bool TakeDamage( IDamageData data )
 		{
-			Debug.Log( $"Player damaged!\n" +
-				$"<b>Instigator:</b> {data.Instigator.Body.name} | <b>Causer:</b> {data.Causer.Body.name}" );
+			return _damageController.TakeDamage( this, data );
+		}
 
-			return false;
+		private bool IsDead => _health <= 0;
+
+		private float _health;
+
+		bool IStunnable.IsStunned()
+		{
+			return _stunController.IsStunned;
+		}
+
+		void IStunnable.OnStunHit( float damage )
+		{
+			_stunController.Hit( damage );
+		}
+
+		private void OnStunned()
+		{
+			_primaryGun.StopFiring();
+			_secondaryGun.StopFiring();
+		}
+
+		void IStunnable.OnDirectHit( float damage )
+		{
+			if ( !IsDead )
+			{
+				_health -= damage;
+				if ( IsDead )
+				{
+					OnDead();
+				}
+			}
+		}
+
+		private void OnDead()
+		{
+			_health = 0;
+
+			_signalBus.FireId( "Dead", new FxSignal()
+			{
+				Position = _body.position,
+				Direction = -_damageController.RecentDamage.HitNormal,
+				Parent = _body.transform
+			} );
+
+			Died?.Invoke();
+
+			DelayedCleanup().Forget();
+		}
+
+		private async UniTaskVoid DelayedCleanup()
+		{
+			var cancelToken = _body.GetCancellationTokenOnDestroy();
+			await TaskHelpers.DelaySeconds( _settings.DeathAnimDuration, cancelToken );
+
+			_body.gameObject.SetActive( false );
 		}
 
 		public class Factory : PlaceholderFactory<PlayerController> { }
@@ -150,6 +225,16 @@ namespace ShootBalls.Gameplay.Player
 		[System.Serializable]
 		public class Settings
 		{
+			[FoldoutGroup( "Health" ), MinValue( 0 )]
+			public float Health;
+			[FoldoutGroup( "Health" ), HideLabel]
+			public StunController.Settings Stun;
+			[FoldoutGroup( "Health" ), HideLabel]
+			public DamageHandlerController.Settings Damage;
+
+			[FoldoutGroup( "Death" ), MinValue( 0 )]
+			public float DeathAnimDuration;
+
 			[FoldoutGroup( "Motor" ), HideLabel]
 			public CharacterMotor.Settings Motor;
 			[TitleGroup( "Rotation", GroupID = "Motor/Rotation" ), HideLabel]
