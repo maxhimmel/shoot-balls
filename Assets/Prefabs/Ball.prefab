@@ -317,6 +317,7 @@ MonoBehaviour:
       StunPoints: 6
       StunDuration: 2
     Damage:
+      LogDamageResult: 0
       UseDamagedFx: 1
       DamagedFxId: Damaged
       UseDeflectedFx: 1
@@ -367,7 +368,7 @@ MonoBehaviour:
       type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
       data:
         Knockback: 10
-        StunDamage: 0
+        StunDamage: 999
         DirectDamage: 1
 --- !u!50 &607798524136374830
 Rigidbody2D:

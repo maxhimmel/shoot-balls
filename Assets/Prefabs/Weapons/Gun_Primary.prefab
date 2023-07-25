@@ -315,5 +315,5 @@ MonoBehaviour:
       type: {class: StunDamageHandler/Settings, ns: ShootBalls.Gameplay.Pawn, asm: Sandbox}
       data:
         Knockback: 5
-        StunDamage: 0
+        StunDamage: 1
         DirectDamage: 1
