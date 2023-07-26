@@ -79,6 +79,7 @@ MonoBehaviour:
   _fxSettings:
   - rid: 20644856882528263
   - rid: 20644856882528265
+  - rid: 20645024845529089
   references:
     version: 2
     RefIds:
@@ -133,6 +134,11 @@ MonoBehaviour:
           Color: {r: 0.018045438, g: 0.397, b: 0, a: 0}
           Duration: 0.1
           Operation: 0
+    - rid: 20645024845529089
+      type: {class: GlobalFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        Force: -15
+        Deceleration: 50
 --- !u!1 &6194766167086637765
 GameObject:
   m_ObjectHideFlags: 0
