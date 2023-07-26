@@ -839,6 +839,7 @@ MonoBehaviour:
       StunDuration: 3
     Health: 10
     Damage:
+      LogDamageResult: 0
       UseDamagedFx: 1
       DamagedFxId: Damaged
       UseDeflectedFx: 1
@@ -846,7 +847,7 @@ MonoBehaviour:
     DeathAnimDuration: 0.375
     ExplosionLayer:
       serializedVersion: 2
-      m_Bits: 72
+      m_Bits: 328
     ExplosionRadius: 10
     ExplosionForce: 40
 --- !u!50 &7808108306673341602
