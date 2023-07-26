@@ -2,19 +2,22 @@ using ShootBalls.Gameplay;
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.LevelPieces;
 using ShootBalls.Gameplay.Player;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
 namespace ShootBalls.Installers
 {
 	public class GameplayInstaller : MonoInstaller
-    {
+	{
+		[Title( "Core" )]
 		[SerializeField] private PlayerInstaller _playerPrefab;
 		[SerializeField] private BallInstaller _ballPrefab;
 		[SerializeField] private BrickInstaller _brickPrefab;
 
-		[Space]
+		[Title( "FX" )]
 		[SerializeField] private ScreenColorShifter.Settings _screenColor;
+		[SerializeField] private GlobalFxScroller.Settings _globalFxScroll;
 
 		public override void InstallBindings()
 		{
@@ -52,6 +55,9 @@ namespace ShootBalls.Installers
 
 		private void BindFx()
 		{
+			Container.BindInterfacesAndSelfTo<GlobalFxValue>()
+				.AsSingle();
+
 			Container.Bind<FxFactoryBus>()
 				.AsSingle();
 
@@ -61,6 +67,10 @@ namespace ShootBalls.Installers
 			Container.BindInterfacesAndSelfTo<ScreenColorShifter>()
 				.AsSingle()
 				.WithArguments( _screenColor );
+
+			Container.BindInterfacesAndSelfTo<GlobalFxScroller>()
+				.AsSingle()
+				.WithArguments( _globalFxScroll );
 		}
 	}
 }
