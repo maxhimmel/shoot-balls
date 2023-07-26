@@ -59,6 +59,10 @@ namespace ShootBalls.Installers
 			Container.Bind<DamageHandlerController>()
 				.AsSingle()
 				.WithArguments( _settings.Damage );
+
+			Container.Bind<BrickHomingAdjuster>()
+				.AsSingle()
+				.WithArguments( _settings.BrickHoming );
 		}
 	}
 }

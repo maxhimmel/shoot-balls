@@ -327,6 +327,13 @@ MonoBehaviour:
     HealDelay: 0.5
     HealRatePerHP: 0.33333334
     InvulnerableDuration: 5
+    BrickHoming:
+      HomingInfluence: 0.8
+      MinAlignmentAngle: 80
+      UseInfluenceFx: 1
+      HomingInfluenceFxId: Launched_HomingInfluence
+      UseRawHitFx: 1
+      RawHitFxId: Launched_RawHitDirection
     HomingInfluence: 0.795
     MinAlignmentAngle: 80
     LaunchAttack:
