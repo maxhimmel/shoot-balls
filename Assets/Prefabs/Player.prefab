@@ -48,6 +48,7 @@ MonoBehaviour:
   _fxSettings:
   - rid: 20645012971978752
   - rid: 20645012971978753
+  - rid: 20645024845529090
   references:
     version: 2
     RefIds:
@@ -63,6 +64,11 @@ MonoBehaviour:
       data:
         Duration: 1
         TimeScale: 0.15
+    - rid: 20645024845529090
+      type: {class: GlobalFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        Force: -60
+        Deceleration: 40
 --- !u!1 &1237209062722386098
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,6 +317,7 @@ MonoBehaviour:
   - rid: 20644990478188544
   - rid: 20644990478188545
   - rid: 20644996034068484
+  - rid: 20645033240690688
   references:
     version: 2
     RefIds:
@@ -377,6 +384,11 @@ MonoBehaviour:
       type: {class: PoolableFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         Prefab: {fileID: 7641523818938490003, guid: 903cb307cc105734ca25f0a11ae626d0, type: 3}
+    - rid: 20645033240690688
+      type: {class: GlobalFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        Force: -35
+        Deceleration: 100
 --- !u!1 &7803492772370540090
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,6 +800,7 @@ MonoBehaviour:
       DeflectedFxId: Deflected
     DeathAnimDuration: 0.25
     StunTorque: 10
+    MoveSpeedFxInfluence: 5
     Motor:
       Acceleration: 100
       MaxSpeed: 15
