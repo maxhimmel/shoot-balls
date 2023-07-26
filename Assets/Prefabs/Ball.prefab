@@ -334,8 +334,6 @@ MonoBehaviour:
       HomingInfluenceFxId: Launched_HomingInfluence
       UseRawHitFx: 1
       RawHitFxId: Launched_RawHitDirection
-    HomingInfluence: 0.795
-    MinAlignmentAngle: 80
     LaunchAttack:
       UseSuccessFx: 0
       SuccessFxId: Damaged
