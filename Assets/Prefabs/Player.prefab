@@ -261,8 +261,8 @@ MonoBehaviour:
       data:
         BlinkSettings:
           Color: {r: 1, g: 0.14102286, b: 0.12549019, a: 1}
-          Blinks: 5
-          Duration: 0.5
+          Blinks: 3
+          Duration: 0.25
     - rid: 20644882241814528
       type: {class: PoolableFxAnimator/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
@@ -788,7 +788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     Health: 1
-    InvincibleDuration: 0.5
+    InvincibleDuration: 0.25
     Stun:
       StunPoints: 3
       StunDuration: 1
