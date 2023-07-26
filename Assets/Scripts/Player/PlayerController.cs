@@ -34,6 +34,7 @@ namespace ShootBalls.Gameplay.Player
 		private readonly StunController _stunController;
 		private readonly Gun.Factory _gunFactory;
 		private readonly Rigidbody2D _body;
+		private readonly GlobalFxValue _globalFx;
 		private readonly SignalBus _signalBus;
 
 		private float _health;
@@ -49,6 +50,7 @@ namespace ShootBalls.Gameplay.Player
 			StunController stunController,
 			Gun.Factory gunFactory,
 			Rigidbody2D body,
+			GlobalFxValue globalFx,
 			SignalBus signalBus )
 		{
 			_settings = settings;
@@ -60,6 +62,7 @@ namespace ShootBalls.Gameplay.Player
 			_stunController = stunController;
 			_gunFactory = gunFactory;
 			_body = body;
+			_globalFx = globalFx;
 			_signalBus = signalBus;
 		}
 
@@ -118,6 +121,7 @@ namespace ShootBalls.Gameplay.Player
 			else
 			{
 				_motor.SetDesiredVelocity( moveInput );
+				_globalFx.Add( _motor.NormalizedSpeed * _settings.MoveSpeedFxInfluence );
 			}
 		}
 
@@ -253,6 +257,8 @@ namespace ShootBalls.Gameplay.Player
 			public float DeathAnimDuration;
 			[FoldoutGroup( "Animation" )]
 			public float StunTorque;
+			[FoldoutGroup( "Animation" )]
+			public float MoveSpeedFxInfluence;
 
 			[FoldoutGroup( "Motor" ), HideLabel]
 			public CharacterMotor.Settings Motor;

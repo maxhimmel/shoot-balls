@@ -9,6 +9,9 @@ namespace ShootBalls.Gameplay.Movement
 {
 	public class CharacterMotor
 	{
+		public float NormalizedSpeed => _settings.MaxSpeed != 0 ? Mathf.Abs( Speed / _settings.MaxSpeed ) : 0;
+		public float Speed => _body.velocity.magnitude;
+
 		private readonly Settings _settings;
 		private readonly Rigidbody2D _body;
 
