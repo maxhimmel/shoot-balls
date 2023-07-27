@@ -69,13 +69,13 @@ MonoBehaviour:
       type: {class: ChromaticAberrationFxProcessor/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         Profile: {fileID: 11400000, guid: 14145a494fc112b469c08a6dcbbfb4e8, type: 2}
-        Influence: 0.75
+        Influence: 0.15
         SmoothDamp: 0.015
         IntensityRange: {x: 0.166, y: 0.65}
     - rid: 20645059610017797
       type: {class: PaniniProjectionFxProcessor/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
       data:
         Profile: {fileID: 11400000, guid: 14145a494fc112b469c08a6dcbbfb4e8, type: 2}
-        Influence: 0.5
-        SmoothDamp: 0.0175
+        Influence: 0.1
+        SmoothDamp: 0.1
         DistanceRange: {x: 0.197, y: 1}
