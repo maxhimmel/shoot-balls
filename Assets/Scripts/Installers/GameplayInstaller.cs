@@ -18,6 +18,7 @@ namespace ShootBalls.Installers
 		[Title( "FX" )]
 		[SerializeField] private ScreenColorShifter.Settings _screenColor;
 		[SerializeField] private GlobalFxScroller.Settings _globalFxScroll;
+		[SerializeField] private PostProcessFxController.Settings _postProcessing;
 
 		public override void InstallBindings()
 		{
@@ -74,6 +75,10 @@ namespace ShootBalls.Installers
 
 			Container.BindInterfacesAndSelfTo<TimeScaleFxQueue>()
 				.AsSingle();
+
+			Container.BindInterfacesAndSelfTo<PostProcessFxController>()
+				.AsSingle()
+				.WithArguments( _postProcessing );
 		}
 	}
 }
