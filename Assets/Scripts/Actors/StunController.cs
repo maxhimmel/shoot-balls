@@ -84,8 +84,7 @@ namespace ShootBalls.Gameplay.Pawn
 
 		private void OnRecovered()
 		{
-			_stunTimer = 0;
-			_stunPoints = _settings.StunPoints;
+			Restore();
 
 			_signalBus.FireId( "Recovered", new FxSignal()
 			{
@@ -95,6 +94,12 @@ namespace ShootBalls.Gameplay.Pawn
 			} );
 
 			Recovered?.Invoke();
+		}
+
+		public void Restore()
+		{
+			_stunTimer = 0;
+			_stunPoints = _settings.StunPoints;
 		}
 
 		[System.Serializable]
