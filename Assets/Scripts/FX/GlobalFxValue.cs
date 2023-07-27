@@ -7,10 +7,13 @@ namespace ShootBalls.Gameplay.Fx
 	public class GlobalFxValue : ILateTickable
     {
 		public float Value => _velocity;
+		public float AbsDelta => Mathf.Abs( Delta );
+		public float Delta => _velocity - _prevVelocity;
 
 		private readonly List<Request> _forceRequests = new List<Request>( 50 );
 
 		private float _velocity;
+		private float _prevVelocity;
 
 		public void Add( Request request )
 		{
@@ -19,6 +22,8 @@ namespace ShootBalls.Gameplay.Fx
 
 		public void LateTick()
 		{
+			_prevVelocity = _velocity;
+
 			for ( int idx = _forceRequests.Count - 1; idx >= 0; --idx )
 			{
 				var request = _forceRequests[idx];
