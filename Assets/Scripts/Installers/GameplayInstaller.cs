@@ -71,6 +71,9 @@ namespace ShootBalls.Installers
 			Container.BindInterfacesAndSelfTo<GlobalFxScroller>()
 				.AsSingle()
 				.WithArguments( _globalFxScroll );
+
+			Container.BindInterfacesAndSelfTo<TimeScaleFxQueue>()
+				.AsSingle();
 		}
 	}
 }

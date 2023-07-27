@@ -1,10 +1,8 @@
-using System;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace ShootBalls.Utility
 {
-    public class TimeController
+	public class TimeController
     {
         public float Scale => Time.timeScale;
 
@@ -13,26 +11,6 @@ namespace ShootBalls.Utility
         public TimeController()
 		{
             _fixedDeltaTime = Time.fixedDeltaTime;
-		}
-
-        public async UniTask AdjustForSeconds( float seconds, float tempTimeScale )
-		{
-            if ( seconds <= 0 )
-			{
-                return;
-			}
-
-            float prevScale = Time.timeScale;
-            SetTimeScale( tempTimeScale );
-
-            await UniTask.Delay(
-                TimeSpan.FromSeconds( seconds ),
-                ignoreTimeScale: true,
-                PlayerLoopTiming.Update//,
-                //AppHelper.AppQuittingToken
-            );
-
-            SetTimeScale( prevScale );
 		}
 
         public void SetTimeScale( float scale )

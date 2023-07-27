@@ -1,6 +1,4 @@
 using System;
-using Cysharp.Threading.Tasks;
-using ShootBalls.Utility;
 using Sirenix.OdinInspector;
 
 namespace ShootBalls.Gameplay.Fx
@@ -8,19 +6,21 @@ namespace ShootBalls.Gameplay.Fx
 	public class HitStopVfxAnimator : IFxAnimator
 	{
 		private readonly Settings _settings;
-		private readonly TimeController _timeController;
+		private readonly TimeScaleFxQueue _timeScaleFxQueue;
 
 		public HitStopVfxAnimator( Settings settings,
-			TimeController timeController )
+			TimeScaleFxQueue timeScaleFxQueue )
 		{
 			_settings = settings;
-			_timeController = timeController;
+			_timeScaleFxQueue = timeScaleFxQueue;
 		}
 
 		public void Play( IFxSignal signal )
 		{
-			_timeController.AdjustForSeconds( _settings.Duration, _settings.TimeScale )
-				.Forget();
+			_timeScaleFxQueue.AdjustForSeconds( new TimeScaleFxQueue.Request(
+				_settings.Duration,
+				_settings.TimeScale
+			) );
 		}
 
 		[System.Serializable]
