@@ -845,6 +845,12 @@ MonoBehaviour:
       UseDeflectedFx: 1
       DeflectedFxId: Deflected
     DeathAnimDuration: 0.375
+    Explosion:
+      Layer:
+        serializedVersion: 2
+        m_Bits: 328
+      Radius: 10
+      Force: 40
     ExplosionLayer:
       serializedVersion: 2
       m_Bits: 328

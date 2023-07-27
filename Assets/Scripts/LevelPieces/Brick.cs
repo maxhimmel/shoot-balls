@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using ShootBalls.Gameplay.Attacking;
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Pawn;
-using ShootBalls.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -31,8 +31,6 @@ namespace ShootBalls.Gameplay.LevelPieces
 
 		private float _health;
 		private IMemoryPool _pool;
-
-		private static readonly Collider2D[] _explosionBuffer = new Collider2D[50];
 
 		public Brick( Settings settings,
 			Rigidbody2D body,
@@ -109,7 +107,11 @@ namespace ShootBalls.Gameplay.LevelPieces
 		{
 			_body.simulated = false;
 
-			FireDeathExplosion();
+			ExplosionController.Explode( new ExplosionController.Request()
+			{
+				Source = this,
+				Settings = _settings.Explosion
+			} );
 
 			DelayedDispose().Forget();
 
@@ -119,29 +121,6 @@ namespace ShootBalls.Gameplay.LevelPieces
 				Direction = -_damageController.RecentDamage.HitNormal,
 				Parent = _body.transform
 			} );
-		}
-
-		private void FireDeathExplosion()
-		{
-			int overlapCount = Physics2D.OverlapCircleNonAlloc(
-				_body.position, _settings.ExplosionRadius, _explosionBuffer, _settings.ExplosionLayer
-			);
-
-			for ( int idx = 0; idx < overlapCount; ++idx )
-			{
-				var explosion = _explosionBuffer[idx];
-				if ( explosion.attachedRigidbody == null )
-				{
-					continue;
-				}
-
-				explosion.attachedRigidbody.AddExplosionForce(
-					_settings.ExplosionForce,
-					_body.position,
-					_settings.ExplosionRadius,
-					ForceMode2D.Impulse
-				);
-			}
 		}
 
 		private async UniTaskVoid DelayedDispose()
@@ -192,14 +171,8 @@ namespace ShootBalls.Gameplay.LevelPieces
 
 			[FoldoutGroup( "Death" ), MinValue( 0 )]
 			public float DeathAnimDuration = 0.375f;
-
-			[Space]
-			[FoldoutGroup( "Death" )]
-			public LayerMask ExplosionLayer;
-			[FoldoutGroup( "Death" )]
-			public float ExplosionRadius;
-			[FoldoutGroup( "Death" )]
-			public float ExplosionForce;
+			[BoxGroup( "Death/Explosion" ), HideLabel]
+			public ExplosionController.Settings Explosion;
 		}
 	}
 }
