@@ -170,7 +170,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.25
+  m_Time: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.6
@@ -406,7 +406,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 74116
+  m_InstanceId: 53034
 --- !u!1 &4090080309041504020
 GameObject:
   m_ObjectHideFlags: 0
