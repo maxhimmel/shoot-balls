@@ -8,6 +8,7 @@
         "Zenject",
         "UniTask",
         "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime",
         "ShapesRuntime"
     ],
     "includePlatforms": [],
