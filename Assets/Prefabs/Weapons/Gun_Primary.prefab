@@ -253,6 +253,7 @@ MonoBehaviour:
   _gun:
     ShotSpot: {fileID: 6111912909969011069}
     ProjectilePoolId: Pool_Projectiles
+    ProjectilePoolSize: 50
     ProjectilePrefab: {fileID: 4090080309041504020, guid: 3336b4b4c7145d54dab9cc064f22164c, type: 3}
     ProjectileSpeed: 20
     ProjectileSettings:

@@ -1,3 +1,4 @@
+using ModestTree;
 using ShootBalls.Gameplay;
 using ShootBalls.Gameplay.Weapons;
 using Sirenix.OdinInspector;
@@ -31,7 +32,8 @@ namespace ShootBalls.Installers
 		private void BindProjectile( DiContainer subContainer )
 		{
 			subContainer.BindFactory<Projectile.Settings, Projectile, Projectile.Factory>()
-				.FromPoolableMemoryPool( pool => pool
+				.FromMonoPoolableMemoryPool( pool => pool
+					.WithInitialSize( _gun.ProjectilePoolSize )
 					.FromSubContainerResolve()
 					.ByNewContextPrefab( _gun.ProjectilePrefab )
 					.WithGameObjectName( _gun.ProjectilePrefab.name )

@@ -25,6 +25,7 @@ namespace ShootBalls.Installers
 		public override void InstallBindings()
 		{
 			Container.BindInterfacesAndSelfTo<Projectile>()
+				.FromNewComponentOnRoot()
 				.AsSingle();
 
 			Container.Bind<Rigidbody2D>()

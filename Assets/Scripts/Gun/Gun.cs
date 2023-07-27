@@ -233,6 +233,8 @@ namespace ShootBalls.Gameplay.Weapons
 
 			[BoxGroup( "Gameplay/Projectile", ShowLabel = false )]
 			public string ProjectilePoolId;
+			[BoxGroup( "Gameplay/Projectile", ShowLabel = false ), MinValue( 1 )]
+			public int ProjectilePoolSize = 1;
 			[BoxGroup( "Gameplay/Projectile", ShowLabel = false )]
 			public GameObject ProjectilePrefab;
 			[BoxGroup( "Gameplay/Projectile", ShowLabel = false )]

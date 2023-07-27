@@ -12,36 +12,38 @@ using Zenject;
 
 namespace ShootBalls.Gameplay
 {
-	public class Projectile : IPawn,
-		IFixedTickable,
+	public class Projectile : MonoBehaviour,
+		IPawn,
 		IPoolable<Projectile.Settings, IMemoryPool>,
 		IDisposable
 	{
 		public event System.Action<Projectile> Disposed;
 
 		public Rigidbody2D Body => _body;
-		public Expiry Lifetimer { get; }
+		public Expiry Lifetimer { get; private set; }
 
-		private readonly Rigidbody2D _body;
-		private readonly CharacterMotor _motor;
-		private readonly IRotationMotor _rotation;
-		private readonly Collider2D _collider;
-		private readonly AttackController _attackController;
-		private readonly ProjectileCollisionHandler[] _collisionHandlers;
-		private readonly IDamageData _collisionData;
+		private Rigidbody2D _body;
+		private CharacterMotor _motor;
+		private IRotationMotor _rotation;
+		private Collider2D _collider;
+		private AttackController _attackController;
+		private ProjectileCollisionHandler[] _collisionHandlers;
+		private OnTriggerEnter2DBroadcaster _ballEnterDetector;
+		private OnTriggerExit2DBroadcaster _ballExitDetector;
+		private IDamageData _collisionData;
 
 		private Settings _settings;
 		private IMemoryPool _pool;
 		private CancellationTokenSource _cancelSource;
 		private Ball _ball;
 
-		public Projectile( Rigidbody2D body,
+		[Inject]
+		public void Construct( Rigidbody2D body,
 			CharacterMotor motor,
 			IRotationMotor rotation,
 			Collider2D collider,
 			AttackController attackController,
 			ProjectileCollisionHandler[] collisionHandlers,
-			OnCollisionEnter2DBroadcaster collisionEnter,
 			OnTriggerEnter2DBroadcaster ballEnterDetector,
 			OnTriggerExit2DBroadcaster ballExitDetector )
 		{
@@ -51,16 +53,29 @@ namespace ShootBalls.Gameplay
 			_collider = collider;
 			_attackController = attackController;
 			_collisionHandlers = collisionHandlers;
-
+			_ballEnterDetector = ballEnterDetector;
+			_ballExitDetector = ballExitDetector;
 			Lifetimer = new Expiry( 0, this );
 			_collisionData = new UnhandledDamageData() { Causer = this };
-
-			collisionEnter.Entered += OnCollisionEnter;
-			ballEnterDetector.Entered += OnBallFound;
-			ballExitDetector.Exited += OnBallLost;
 		}
 
-		private void OnCollisionEnter( Collision2D collision )
+		public void OnSpawned( Settings settings, IMemoryPool pool )
+		{
+			_settings = settings;
+			_pool = pool;
+
+			Lifetimer.SetLifetime( settings.Lifetime );
+
+			if ( _cancelSource == null )
+			{
+				_cancelSource = CancellationTokenSource.CreateLinkedTokenSource( _body.GetCancellationTokenOnDestroy() );
+			}
+
+			_ballEnterDetector.Entered += OnBallFound;
+			_ballExitDetector.Exited += OnBallLost;
+		}
+
+		private void OnCollisionEnter2D( Collision2D collision )
 		{
 			_attackController.DealDamage( new AttackController.Request()
 			{
@@ -96,45 +111,42 @@ namespace ShootBalls.Gameplay
 			}
 		}
 
-		public void OnSpawned( Settings settings, IMemoryPool pool )
-		{
-			_settings = settings;
-			_pool = pool;
-
-			_body.gameObject.SetActive( true );
-
-			Lifetimer.SetLifetime( settings.Lifetime );
-
-			if ( _cancelSource == null )
-			{
-				_cancelSource = CancellationTokenSource.CreateLinkedTokenSource( _body.GetCancellationTokenOnDestroy() );
-			}
-		}
-
 		public void Launch( Vector2 velocity )
 		{
 			_body.AddForce( velocity, ForceMode2D.Impulse );
 
 			_motor.SetDesiredVelocity( velocity.normalized );
-
-			Lifetimer.Tick( _cancelSource.Token ).Forget();
 		}
 
-		public void FixedTick()
+		private void Update()
 		{
-			Vector2 moveDirection = _body.transform.up;
+			if ( Lifetimer.Tick() )
+			{
+				Vector2 moveDirection = _body.transform.up;
 
+				if ( _ball != null )
+				{
+					moveDirection = (_ball.Body.position - _body.position).normalized;
+
+					_rotation.SetDesiredRotation( moveDirection );
+				}
+
+				if ( _collider.enabled )
+				{
+					_motor.SetDesiredVelocity( moveDirection );
+				}
+			}
+		}
+
+		private void FixedUpdate()
+		{
 			if ( _ball != null )
 			{
-				moveDirection = (_ball.Body.position - _body.position).normalized;
-
-				_rotation.SetDesiredRotation( moveDirection );
 				_rotation.FixedTick();
 			}
 
 			if ( _collider.enabled )
 			{
-				_motor.SetDesiredVelocity( moveDirection );
 				_motor.FixedTick();
 			}
 		}
@@ -156,7 +168,8 @@ namespace ShootBalls.Gameplay
 
 			_ball = null;
 
-			_body.gameObject.SetActive( false );
+			_ballEnterDetector.Entered -= OnBallFound;
+			_ballExitDetector.Exited -= OnBallLost;
 		}
 
 		public void SetCollisionActive( bool isActive )
