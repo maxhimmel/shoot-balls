@@ -358,7 +358,7 @@ MonoBehaviour:
           rid: 20644949673377805
   _motor:
     Acceleration: 50
-    MaxSpeed: 25
+    MaxSpeed: 20
     _metric: 0
   _cameraTarget:
     Focus: {fileID: 607798524136374827}
