@@ -1,11 +1,11 @@
 using ShootBalls.Gameplay.Player;
+using ShootBalls.Utility;
 using UnityEngine;
 using Zenject;
 
 namespace ShootBalls.Gameplay
 {
-	public class GameController : IInitializable,
-		ITickable
+	public class GameController : IInitializable
 	{
 		private readonly GameModel _gameModel;
 		private readonly PlayerController.Factory _playerFactory;
@@ -31,17 +31,17 @@ namespace ShootBalls.Gameplay
 			_gameModel.Player.Died += OnPlayerDied;
 		}
 
-		public void Tick()
-		{
-			if ( _playerInput.GetButtonDown( ReConsts.Action.Confirm ) )
-			{
-				_gameModel.Player.Respawn();
-			}
-		}
-
 		private void OnPlayerDied()
 		{
 			Debug.Log( "<color=red>Gameover</color>" );
+			_playerInput.AddButtonPressedDelegate( OnRespawnRequested, ReConsts.Action.Confirm );
+		}
+
+		private void OnRespawnRequested( Rewired.InputActionEventData data )
+		{
+			_playerInput.RemoveInputEventDelegate( OnRespawnRequested );
+
+			_gameModel.Player.Respawn();
 		}
 	}
 }
