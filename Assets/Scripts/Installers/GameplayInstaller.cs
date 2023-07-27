@@ -17,6 +17,9 @@ namespace ShootBalls.Installers
 
 		[Title( "FX" )]
 		[SerializeField] private ScreenColorShifter.Settings _screenColor;
+
+		[FoldoutGroup( "Global FX" )]
+		[InfoBox( "Right-click an element to change its type.", Icon = SdfIconType.Magic )]
 		[ListDrawerSettings( ListElementLabelName = "GetDisplayLabel" ), HideReferenceObjectPicker]
 		[SerializeReference] private IGlobalFxProcessor.ISettings[] _globalFxSettings;
 
