@@ -15,10 +15,11 @@ namespace ShootBalls.Installers
 		[SerializeField] private BallInstaller _ballPrefab;
 		[SerializeField] private BrickInstaller _brickPrefab;
 
-		[Title( "FX" )]
+		[TitleGroup( "FX" )]
+		[FoldoutGroup( "FX/Screen Color" ), HideLabel]
 		[SerializeField] private ScreenColorShifter.Settings _screenColor;
 
-		[FoldoutGroup( "Global FX" )]
+		[FoldoutGroup( "FX/Global FX" )]
 		[InfoBox( "Right-click an element to change its type.", Icon = SdfIconType.Magic )]
 		[ListDrawerSettings( ListElementLabelName = "GetDisplayLabel" ), HideReferenceObjectPicker]
 		[SerializeReference] private IGlobalFxProcessor.ISettings[] _globalFxSettings;
