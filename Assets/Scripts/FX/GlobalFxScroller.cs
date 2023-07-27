@@ -1,28 +1,28 @@
-using Zenject;
-
 namespace ShootBalls.Gameplay.Fx
 {
-	public class GlobalFxScroller : ITickable
+	public class GlobalFxScroller : IGlobalFxProcessor
 	{
 		private readonly Settings _settings;
-		private readonly GlobalFxValue _globalFx;
 
-		public GlobalFxScroller( Settings settings,
-			GlobalFxValue globalFx )
+		public GlobalFxScroller( Settings settings )
 		{
 			_settings = settings;
-			_globalFx = globalFx;
 		}
 
-		public void Tick()
+		public void Tick( GlobalFxValue globalFx )
 		{
-			_globalFx.Add( _settings.ScrollSpeed );
+			globalFx.Add( _settings.ScrollSpeed );
 		}
 
 		[System.Serializable]
-		public class Settings
+		public class Settings : IGlobalFxProcessor.Settings<GlobalFxScroller>
 		{
 			public float ScrollSpeed;
+
+			protected override object GetBindingArgs()
+			{
+				return this;
+			}
 		}
 	}
 }

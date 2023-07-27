@@ -17,8 +17,8 @@ namespace ShootBalls.Installers
 
 		[Title( "FX" )]
 		[SerializeField] private ScreenColorShifter.Settings _screenColor;
-		[SerializeField] private GlobalFxScroller.Settings _globalFxScroll;
-		[SerializeField] private PostProcessFxController.Settings _postProcessing;
+		[ListDrawerSettings( ListElementLabelName = "GetDisplayLabel" ), HideReferenceObjectPicker]
+		[SerializeReference] private IGlobalFxProcessor.ISettings[] _globalFxSettings;
 
 		public override void InstallBindings()
 		{
@@ -56,9 +56,6 @@ namespace ShootBalls.Installers
 
 		private void BindFx()
 		{
-			Container.BindInterfacesAndSelfTo<GlobalFxValue>()
-				.AsSingle();
-
 			Container.Bind<FxFactoryBus>()
 				.AsSingle();
 
@@ -69,16 +66,28 @@ namespace ShootBalls.Installers
 				.AsSingle()
 				.WithArguments( _screenColor );
 
-			Container.BindInterfacesAndSelfTo<GlobalFxScroller>()
-				.AsSingle()
-				.WithArguments( _globalFxScroll );
-
 			Container.BindInterfacesAndSelfTo<TimeScaleFxQueue>()
 				.AsSingle();
 
-			Container.BindInterfacesAndSelfTo<PostProcessFxController>()
-				.AsSingle()
-				.WithArguments( _postProcessing );
+			/* --- */
+
+			Container.BindInterfacesAndSelfTo<GlobalFxValue>()
+				.AsSingle();
+
+			Container.BindInterfacesAndSelfTo<GlobalFxProcessorController>()
+				.FromSubContainerResolve()
+				.ByMethod( subContainer =>
+				{
+					subContainer.Bind<GlobalFxProcessorController>().
+						AsSingle();
+
+					foreach ( var globalFx in _globalFxSettings )
+					{
+						subContainer.Inject( globalFx );
+						globalFx.InstallBindings();
+					}
+				} )
+				.AsSingle();
 		}
 	}
 }
