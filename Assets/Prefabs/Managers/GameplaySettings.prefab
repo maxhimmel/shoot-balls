@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8567279884863761579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8567279884863761577}
+  - component: {fileID: 8567279884863761576}
+  m_Layer: 0
+  m_Name: GameplaySettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8567279884863761577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567279884863761579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8567279884863761576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567279884863761579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cadb7186778a4a4f8290569c77ea9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerPrefab: {fileID: 8464669106553265081, guid: 5b5b0f0ff1bbe0d46abe23f5ced4d337, type: 3}
+  _ballPrefab: {fileID: 607798524136374826, guid: f7e0b27d8471ec147b35e682c0dc6699, type: 3}
+  _brickPrefab: {fileID: 3016172196764993469, guid: 026e9c67030fc5b458e4ccfa5c48ed8e, type: 3}
+  _screenColor:
+    DurationPerColor: 1
+    Range:
+      Hue: {x: 0, y: 1}
+      Saturation: {x: 0.8078183, y: 1}
+      Value: {x: 0.23237133, y: 0.41684023}
+      Alpha: {x: 1, y: 1}
+  _globalFxSettings:
+  - rid: 20645059610017792
+  - rid: 20645059610017796
+  - rid: 20645059610017797
+  references:
+    version: 2
+    RefIds:
+    - rid: 20645059610017792
+      type: {class: GlobalFxScroller/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        ScrollSpeed: 0.25
+    - rid: 20645059610017796
+      type: {class: ChromaticAberrationFxProcessor/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        Profile: {fileID: 11400000, guid: 14145a494fc112b469c08a6dcbbfb4e8, type: 2}
+        Influence: 0.5
+        SmoothDamp: 0.015
+        IntensityRange: {x: 0.166, y: 0.65}
+    - rid: 20645059610017797
+      type: {class: PaniniProjectionFxProcessor/Settings, ns: ShootBalls.Gameplay.Fx, asm: Sandbox}
+      data:
+        Profile: {fileID: 11400000, guid: 14145a494fc112b469c08a6dcbbfb4e8, type: 2}
+        Influence: 0.5
+        SmoothDamp: 0.0175
+        DistanceRange: {x: 0.197, y: 1}
