@@ -788,7 +788,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     Health: 1
-    InvincibleDuration: 0.25
     Stun:
       StunPoints: 3
       StunDuration: 1
@@ -798,6 +797,18 @@ MonoBehaviour:
       DamagedFxId: Damaged
       UseDeflectedFx: 0
       DeflectedFxId: Deflected
+    InvincibleDuration: 0.25
+    Explosion:
+      Layer:
+        serializedVersion: 2
+        m_Bits: 320
+      Radius: 6
+      Force: 500
+    RespawnExplosionLayer:
+      serializedVersion: 2
+      m_Bits: 320
+    RespawnExplosionRadius: 6
+    RespawnExplosionForce: 500
     DeathAnimDuration: 0.25
     StunTorque: 10
     MoveSpeedFxInfluence: 5

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using ShootBalls.Gameplay.Attacking;
 using ShootBalls.Gameplay.Cameras;
 using ShootBalls.Gameplay.Fx;
 using ShootBalls.Gameplay.Movement;
@@ -219,6 +220,9 @@ namespace ShootBalls.Gameplay.Player
 		{
 			_health = 0;
 
+			_primaryGun.StopFiring();
+			_secondaryGun.StopFiring();
+
 			_signalBus.FireId( "Dead", new FxSignal()
 			{
 				Position = _body.position,
@@ -239,6 +243,33 @@ namespace ShootBalls.Gameplay.Player
 			_body.gameObject.SetActive( false );
 		}
 
+		public void Respawn()
+		{
+			if ( !IsDead || _body.gameObject.activeInHierarchy )
+			{
+				return;
+			}
+
+			_health = _settings.Health;
+			_stunController.Restore();
+			_invincibilityEndTime = Time.timeSinceLevelLoad + _settings.InvincibleDuration;
+
+			_body.gameObject.SetActive( true );
+
+			_signalBus.FireId( "Recovered", new FxSignal()
+			{
+				Position = _body.position,
+				Direction = _body.transform.up,
+				Parent = _body.transform
+			} );
+
+			ExplosionController.Explode( new ExplosionController.Request()
+			{
+				Source = this,
+				Settings = _settings.Explosion
+			} );
+		}
+
 		public class Factory : PlaceholderFactory<PlayerController> { }
 
 		[System.Serializable]
@@ -246,12 +277,15 @@ namespace ShootBalls.Gameplay.Player
 		{
 			[FoldoutGroup( "Health" ), MinValue( 0 )]
 			public float Health;
-			[FoldoutGroup( "Health" ), MinValue( 0 )]
-			public float InvincibleDuration;
 			[FoldoutGroup( "Health" ), HideLabel]
 			public StunController.Settings Stun;
 			[FoldoutGroup( "Health" ), HideLabel]
 			public DamageHandlerController.Settings Damage;
+
+			[FoldoutGroup( "Recovery" ), MinValue( 0 )]
+			public float InvincibleDuration;
+			[BoxGroup( "Recovery/Explosion" ), HideLabel]
+			public ExplosionController.Settings Explosion;
 
 			[FoldoutGroup( "Animation" ), MinValue( 0 )]
 			public float DeathAnimDuration;
