@@ -843,7 +843,7 @@ MonoBehaviour:
     Stun:
       StunPoints: 1
       StunDuration: 3
-    Health: 10
+    Health: 5
     Damage:
       LogDamageResult: 0
       UseDamagedFx: 1
