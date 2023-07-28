@@ -9,6 +9,8 @@ namespace ShootBalls.Gameplay.Fx
 	{
 		private readonly Settings _settings;
 
+		private float _initialIntensity;
+
 		public ChromaticAberrationFxProcessor( Settings settings )
 		{
 			_settings = settings;
@@ -26,6 +28,16 @@ namespace ShootBalls.Gameplay.Fx
 				_settings.IntensityRange.x,
 				_settings.IntensityRange.y
 			);
+		}
+
+		protected override void CachePostProcessProfileDefaults( ChromaticAberration component )
+		{
+			_initialIntensity = component.intensity.value;
+		}
+
+		protected override void RestorePostProcessProfileFields( ChromaticAberration component )
+		{
+			component.intensity.value = _initialIntensity;
 		}
 
 		[System.Serializable]

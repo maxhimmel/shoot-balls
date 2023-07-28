@@ -9,6 +9,8 @@ namespace ShootBalls.Gameplay.Fx
 	{
 		private readonly Settings _settings;
 
+		private float _initialDistance;
+
 		public PaniniProjectionFxProcessor( Settings settings )
 		{
 			_settings = settings;
@@ -26,6 +28,16 @@ namespace ShootBalls.Gameplay.Fx
 				_settings.DistanceRange.x,
 				_settings.DistanceRange.y
 			);
+		}
+
+		protected override void CachePostProcessProfileDefaults( PaniniProjection component )
+		{
+			_initialDistance = component.distance.value;
+		}
+
+		protected override void RestorePostProcessProfileFields( PaniniProjection component )
+		{
+			component.distance.value = _initialDistance;
 		}
 
 		[System.Serializable]

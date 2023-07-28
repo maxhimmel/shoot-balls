@@ -1,15 +1,30 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
+using Zenject;
 
 namespace ShootBalls.Gameplay.Fx
 {
-	public abstract class PostProcessFxProcessor<TVolumeComponent> : IGlobalFxProcessor
+	public abstract class PostProcessFxProcessor<TVolumeComponent> : IGlobalFxProcessor,
+		IInitializable,
+		IDisposable
 		where TVolumeComponent : VolumeComponent
 	{
 		protected float _velocity;
 		protected float _damping;
+
+		public void Initialize()
+		{
+			var settings = GetSettings();
+			if ( settings.Profile.TryGet<TVolumeComponent>( out var component ) )
+			{
+				CachePostProcessProfileDefaults( component);
+			}
+		}
+
+		protected abstract void CachePostProcessProfileDefaults( TVolumeComponent component );
 
 		public void Tick( GlobalFxValue globalFx )
 		{
@@ -31,6 +46,17 @@ namespace ShootBalls.Gameplay.Fx
 		protected abstract Settings GetSettings();
 
 		protected abstract void ProcessFx( TVolumeComponent component, float fx );
+
+		public void Dispose()
+		{
+			var settings = GetSettings();
+			if ( settings.Profile.TryGet<TVolumeComponent>( out var component ) )
+			{
+				RestorePostProcessProfileFields( component );
+			}
+		}
+
+		protected abstract void RestorePostProcessProfileFields( TVolumeComponent component );
 
 		public class Settings : IGlobalFxProcessor.Settings<PostProcessFxProcessor<TVolumeComponent>>
 		{
