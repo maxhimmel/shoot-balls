@@ -66,9 +66,7 @@ namespace ShootBalls.Installers
 
 			/* --- */
 
-			Container.Bind<StunController>()
-				.AsSingle()
-				.WithArguments( _settings.Stun );
+			StunInstaller.Install( Container, _settings.Stun, null );
 
 			Container.BindInterfacesTo<StunDamageHandler>()
 				.AsSingle();

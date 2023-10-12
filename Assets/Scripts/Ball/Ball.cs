@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using ShootBalls.Gameplay.Attacking;
 using ShootBalls.Gameplay.Fx;
-using ShootBalls.Gameplay.LevelPieces;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Pawn;
 using ShootBalls.Utility;

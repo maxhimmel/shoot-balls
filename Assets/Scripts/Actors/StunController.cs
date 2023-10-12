@@ -11,37 +11,36 @@ namespace ShootBalls.Gameplay.Pawn
 		public event System.Action Recovered;
 
 		public bool IsStunned => _stunTimer > 0;
-		public bool IsDamaged => _stunPoints != _settings.StunPoints;
+		public bool IsDamaged => _stunModel.StunPoints != _settings.StunPoints;
 
+		private readonly StunModel _stunModel;
 		private readonly Settings _settings;
 		private readonly Rigidbody2D _body;
 		private readonly SignalBus _signalBus;
 
-		private float _stunPoints;
 		private float _stunTimer;
 
-		public StunController( Settings settings,
+		public StunController( StunModel stunModel,
+			Settings settings,
 			Rigidbody2D body,
 			SignalBus signalBus )
 		{
+			_stunModel = stunModel;
 			_settings = settings;
 			_body = body;
 			_signalBus = signalBus;
-			_stunPoints = settings.StunPoints;
-		}
 
-		public void AddStunPoints( float points )
-		{
-			_stunPoints = Mathf.Min( _stunPoints + points, _settings.StunPoints );
+			stunModel.SetMaxStunPoints( settings.StunPoints );
+			stunModel.SetStunPoints( settings.StunPoints );
 		}
 
 		/// <returns>True if the <see cref="StunController"/> was stunned on this hit.</returns>
 		public bool Hit( float damage )
 		{
-			if ( _stunPoints > 0 )
+			if ( _stunModel.StunPoints > 0 )
 			{
-				_stunPoints -= damage;
-				if ( _stunPoints <= 0 )
+				AddStunPoints( -damage );
+				if ( _stunModel.StunPoints <= 0 )
 				{
 					OnStunned();
 					return true;
@@ -51,9 +50,15 @@ namespace ShootBalls.Gameplay.Pawn
 			return false;
 		}
 
+		public void AddStunPoints( float points )
+		{
+			float clampedPoints = Mathf.Clamp( _stunModel.StunPoints + points, 0, _settings.StunPoints );
+			_stunModel.SetStunPoints( clampedPoints );
+		}
+
 		private void OnStunned()
 		{
-			_stunPoints = 0;
+			_stunModel.SetStunPoints( 0 );
 			_stunTimer = _settings.StunDuration;
 
 			_signalBus.FireId( "Stunned", new FxSignal()
@@ -72,7 +77,7 @@ namespace ShootBalls.Gameplay.Pawn
 			_stunTimer -= Time.deltaTime;
 			if ( !IsStunned )
 			{
-				if ( _stunPoints <= 0 )
+				if ( _stunModel.StunPoints <= 0 )
 				{
 					OnRecovered();
 				}
@@ -99,7 +104,7 @@ namespace ShootBalls.Gameplay.Pawn
 		public void Restore()
 		{
 			_stunTimer = 0;
-			_stunPoints = _settings.StunPoints;
+			_stunModel.SetStunPoints( _stunModel.MaxStunPoints );
 		}
 
 		[System.Serializable]

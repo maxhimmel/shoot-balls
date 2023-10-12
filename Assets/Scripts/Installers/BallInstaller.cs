@@ -3,6 +3,7 @@ using ShootBalls.Gameplay.Attacking;
 using ShootBalls.Gameplay.Cameras;
 using ShootBalls.Gameplay.Movement;
 using ShootBalls.Gameplay.Pawn;
+using ShootBalls.Gameplay.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -18,6 +19,9 @@ namespace ShootBalls.Installers
 		[SerializeField] private CharacterMotor.Settings _motor;
 
 		[SerializeField] private TargetGroupAttachment.Settings _cameraTarget = new TargetGroupAttachment.Settings( "Cam Target" );
+
+		[FoldoutGroup( "UI" )]
+		[SerializeField] private StunWidget _stunWidgetPrefab;
 
 		public override void InstallBindings()
 		{
@@ -52,9 +56,7 @@ namespace ShootBalls.Installers
 			Container.Bind<AttackController>()
 				.AsSingle();
 
-			Container.Bind<StunController>()
-				.AsSingle()
-				.WithArguments( _settings.Stun );
+			StunInstaller.Install( Container, _settings.Stun, _stunWidgetPrefab );
 
 			Container.Bind<DamageHandlerController>()
 				.AsSingle()
