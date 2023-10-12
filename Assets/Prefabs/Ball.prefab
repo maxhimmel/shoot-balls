@@ -364,6 +364,7 @@ MonoBehaviour:
     Focus: {fileID: 607798524136374827}
     Weight: 20
     Radius: 0
+  _stunWidgetPrefab: {fileID: 5939528738297226500, guid: bbf8e998f26efd54fb69259dd45ab673, type: 3}
   references:
     version: 2
     RefIds:
