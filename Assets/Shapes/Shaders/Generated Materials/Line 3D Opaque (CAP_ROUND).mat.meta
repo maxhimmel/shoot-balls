@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0fab23ae3dcbd48ccb81eb5645fda159
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Line 3D Opaque (CAP_ROUND).mat
+  uploadId: 753328

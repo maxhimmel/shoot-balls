@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f0dd53292380f41a9908f47ec305a041
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Disc Subtractive (INNER_RADIUS).mat
+  uploadId: 753328

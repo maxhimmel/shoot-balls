@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d961900e634d34f879ad3c2d9794706a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Disc Opaque (INNER_RADIUS)(SECTOR).mat
+  uploadId: 753328

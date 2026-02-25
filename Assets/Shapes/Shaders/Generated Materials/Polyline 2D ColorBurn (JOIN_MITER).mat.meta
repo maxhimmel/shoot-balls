@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 94f51cb2e4d5e4c0f84df013dafebcae
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Polyline 2D ColorBurn (JOIN_MITER).mat
+  uploadId: 753328

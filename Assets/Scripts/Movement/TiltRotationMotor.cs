@@ -25,7 +25,7 @@ namespace ShootBalls.Gameplay.Movement
 
 			var settings = _settings as Settings;
 
-			Vector2 velocity = _body.velocity;
+			Vector2 velocity = _body.linearVelocity;
 			Vector2 velocityDelta = velocity - _prevVelocity;
 
 			_prevVelocity = velocity;

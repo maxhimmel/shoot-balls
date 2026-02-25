@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 038f9c9e006fc49148a3f680bcf781ca
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Line 2D Darken (CAP_ROUND).mat
+  uploadId: 753328

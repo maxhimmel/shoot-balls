@@ -112,7 +112,7 @@ namespace ShootBalls.Gameplay.Movement
 				}
 			}
 
-			_body.velocity = direction * _settings.Speed;
+			_body.linearVelocity = direction * _settings.Speed;
 			_body.position = destination;
 			for ( int idx = 0; idx < colliderCount; ++idx )
 			{

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 35eb4a0c7506f4c2db5c03f07e837747
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Polyline 2D Opaque (IS_JOIN_MESH)(JOIN_MITER).mat
+  uploadId: 753328

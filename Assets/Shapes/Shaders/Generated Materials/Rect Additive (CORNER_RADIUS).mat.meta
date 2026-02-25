@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9e0de604fd44746dea1b7b41e171d18b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Rect Additive (CORNER_RADIUS).mat
+  uploadId: 753328

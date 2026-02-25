@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 68c6bc80df4a2467b94e1b3c270356fd
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Disc Screen (INNER_RADIUS)(SECTOR).mat
+  uploadId: 753328

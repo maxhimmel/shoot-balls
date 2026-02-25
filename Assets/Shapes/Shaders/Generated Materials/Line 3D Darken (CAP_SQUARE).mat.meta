@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 44832c4cfc4864abfaddb7554bdfe8a6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Line 3D Darken (CAP_SQUARE).mat
+  uploadId: 753328

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 1134d8493d055418099060fdbff3eb38
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Polyline 2D Multiplicative
+    (IS_JOIN_MESH)(JOIN_ROUND).mat
+  uploadId: 753328

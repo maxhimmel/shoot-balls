@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e927c812a12a04fa2923c64bc344024c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Polyline 2D Lighten (JOIN_MITER).mat
+  uploadId: 753328

@@ -84,27 +84,27 @@ namespace Shapes {
 			[MethodImpl( INLINE )] get => style.renderState.colorMask;
 			[MethodImpl( INLINE )] set => style.renderState.colorMask = value;
 		}
-		/// <inheritdoc cref="RenderState.colorMask"/>
+		/// <inheritdoc cref="RenderState.stencilComp"/>
 		public static CompareFunction StencilComp {
 			[MethodImpl( INLINE )] get => style.renderState.stencilComp;
 			[MethodImpl( INLINE )] set => style.renderState.stencilComp = value;
 		}
-		/// <inheritdoc cref="RenderState.stencilComp"/>
+		/// <inheritdoc cref="RenderState.stencilOpPass"/>
 		public static StencilOp StencilOpPass {
 			[MethodImpl( INLINE )] get => style.renderState.stencilOpPass;
 			[MethodImpl( INLINE )] set => style.renderState.stencilOpPass = value;
 		}
-		/// <inheritdoc cref="RenderState.stencilOpPass"/>
+		/// <inheritdoc cref="RenderState.stencilRefID"/>
 		public static byte StencilRefID {
 			[MethodImpl( INLINE )] get => style.renderState.stencilRefID;
 			[MethodImpl( INLINE )] set => style.renderState.stencilRefID = value;
 		}
-		/// <inheritdoc cref="RenderState.stencilRefID"/>
+		/// <inheritdoc cref="RenderState.stencilReadMask"/>
 		public static byte StencilReadMask {
 			[MethodImpl( INLINE )] get => style.renderState.stencilReadMask;
 			[MethodImpl( INLINE )] set => style.renderState.stencilReadMask = value;
 		}
-		/// <inheritdoc cref="RenderState.stencilReadMask"/>
+		/// <inheritdoc cref="RenderState.stencilWriteMask"/>
 		public static byte StencilWriteMask {
 			[MethodImpl( INLINE )] get => style.renderState.stencilWriteMask;
 			[MethodImpl( INLINE )] set => style.renderState.stencilWriteMask = value;
@@ -423,7 +423,7 @@ namespace Shapes {
 		}
 
 		/// <inheritdoc cref="Shapes.TextStyle.wrap"/>
-		public static bool TextWrap {
+		public static TextWrappingModes TextWrap {
 			[MethodImpl( INLINE )] get => style.textStyle.wrap;
 			[MethodImpl( INLINE )] set => style.textStyle.wrap = value;
 		}
@@ -432,6 +432,18 @@ namespace Shapes {
 		public static TextOverflowModes TextOverflow {
 			[MethodImpl( INLINE )] get => style.textStyle.overflow;
 			[MethodImpl( INLINE )] set => style.textStyle.overflow = value;
+		}
+
+		/// <inheritdoc cref="Shapes.TextStyle.curvature"/>
+		public static float TextCurvature {
+			[MethodImpl( INLINE )] get => style.textStyle.curvature;
+			[MethodImpl( INLINE )] set => style.textStyle.curvature = value;
+		}
+		
+		/// <inheritdoc cref="Shapes.TextStyle.curvaturePivot"/>
+		public static Vector2 TextCurvaturePivot {
+			[MethodImpl( INLINE )] get => style.textStyle.curvaturePivot;
+			[MethodImpl( INLINE )] set => style.textStyle.curvaturePivot = value;
 		}
 
 		#endregion

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 919b6d595424e43be9836d0892c78465
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Disc Lighten (INNER_RADIUS)(SECTOR).mat
+  uploadId: 753328

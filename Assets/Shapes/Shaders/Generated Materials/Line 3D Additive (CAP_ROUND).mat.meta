@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dcefe5595a5a94af797e8ada732823d4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Line 3D Additive (CAP_ROUND).mat
+  uploadId: 753328

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 28e9481702df54b93a204941d602ea8b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Disc Transparent (INNER_RADIUS).mat
+  uploadId: 753328

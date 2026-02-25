@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fec61ed1f491441ae999d0496147c2b2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Rect Darken (CORNER_RADIUS)(BORDERED).mat
+  uploadId: 753328

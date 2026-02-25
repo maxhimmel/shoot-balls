@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d604f051256c840f7b90fc3619e65b6b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Disc Additive (SECTOR).mat
+  uploadId: 753328

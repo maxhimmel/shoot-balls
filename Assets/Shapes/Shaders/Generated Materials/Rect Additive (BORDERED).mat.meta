@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9d3985aaa0ca74cf68c67018615f015d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Rect Additive (BORDERED).mat
+  uploadId: 753328

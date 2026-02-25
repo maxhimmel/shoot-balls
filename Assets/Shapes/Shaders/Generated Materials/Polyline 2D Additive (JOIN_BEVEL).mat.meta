@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1a7d82e6d471e4a48b65700662677f5d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Polyline 2D Additive (JOIN_BEVEL).mat
+  uploadId: 753328

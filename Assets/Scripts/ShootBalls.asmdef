@@ -2,13 +2,14 @@
     "name": "Sandbox",
     "rootNamespace": "ShootBalls",
     "references": [
-        "Cinemachine",
+        "Unity.Cinemachine",
         "Rewired",
         "Unity.TextMeshPro",
         "Zenject",
         "UniTask",
-        "Unity.RenderPipelines.Universal.Runtime",
         "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Universal.2D.Runtime",
         "ShapesRuntime"
     ],
     "includePlatforms": [],

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d8e9877f1936447309bc879efd3b414d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Disc Darken (SECTOR).mat
+  uploadId: 753328

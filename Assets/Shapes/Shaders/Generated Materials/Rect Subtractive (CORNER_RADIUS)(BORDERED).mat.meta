@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bad33b658c7c1433395a29c11cba6ba3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Rect Subtractive (CORNER_RADIUS)(BORDERED).mat
+  uploadId: 753328

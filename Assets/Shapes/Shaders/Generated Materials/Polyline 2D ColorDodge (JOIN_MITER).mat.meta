@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6e7e2d67e8f8247dfb49fc6ac9836397
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Polyline 2D ColorDodge (JOIN_MITER).mat
+  uploadId: 753328

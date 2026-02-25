@@ -27,8 +27,8 @@ namespace ShootBalls.Gameplay.Weapons
 			}
 			else
 			{
-				float speed = _body.velocity.magnitude * _settings.Bounciness;
-				_body.velocity = -data.HitNormal * speed;
+				float speed = _body.linearVelocity.magnitude * _settings.Bounciness;
+				_body.linearVelocity = -data.HitNormal * speed;
 				_body.SetRotation( data.HitNormal.ToLookRotation() );
 			}
 

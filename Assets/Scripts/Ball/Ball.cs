@@ -81,7 +81,7 @@ namespace ShootBalls.Gameplay
 			_signalBus.FireId( "Launched", new FxSignal()
 			{
 				Position = _body.position,
-				Direction = _body.velocity.normalized,
+				Direction = _body.linearVelocity.normalized,
 				Parent = _body.transform
 			} );
 		}

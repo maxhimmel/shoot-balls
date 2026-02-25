@@ -2,7 +2,8 @@
     "name": "Rewired",
     "rootNamespace": "",
     "references": [
-        "Rewired_Windows_Functions"
+        "Rewired_Windows_Functions",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

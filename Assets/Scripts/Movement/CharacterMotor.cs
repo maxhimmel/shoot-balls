@@ -10,7 +10,7 @@ namespace ShootBalls.Gameplay.Movement
 	public class CharacterMotor
 	{
 		public float NormalizedSpeed => _settings.MaxSpeed != 0 ? Mathf.Abs( Speed / _settings.MaxSpeed ) : 0;
-		public float Speed => _body.velocity.magnitude;
+		public float Speed => _body.linearVelocity.magnitude;
 
 		private readonly Settings _settings;
 		private readonly Rigidbody2D _body;
@@ -37,12 +37,12 @@ namespace ShootBalls.Gameplay.Movement
 
 		private void HandleMovement()
 		{
-			_velocity = _body.velocity;
+			_velocity = _body.linearVelocity;
 
 			float accelerationDelta = Time.fixedDeltaTime * _settings.Acceleration;
 			_velocity = Vector2.MoveTowards( _velocity, _desiredVelocity, accelerationDelta );
 
-			_body.velocity = _velocity;
+			_body.linearVelocity = _velocity;
 		}
 
 		[System.Serializable]

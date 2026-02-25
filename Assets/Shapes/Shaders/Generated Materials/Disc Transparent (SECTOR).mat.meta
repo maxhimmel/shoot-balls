@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cddd3d6dddca442f9afdcdb72ca1fc0e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Disc Transparent (SECTOR).mat
+  uploadId: 753328

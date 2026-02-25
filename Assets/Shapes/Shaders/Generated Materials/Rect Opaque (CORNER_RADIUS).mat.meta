@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 02cfc26b3c01a4bd4ab69bf8d99a8041
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173167
+  packageName: Shapes
+  packageVersion: 4.5.1
+  assetPath: Assets/Shapes/Shaders/Generated Materials/Rect Opaque (CORNER_RADIUS).mat
+  uploadId: 753328
